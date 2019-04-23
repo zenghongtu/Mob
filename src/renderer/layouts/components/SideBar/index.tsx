@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-
 import { Menu, Icon } from 'antd';
-
+import { FormattedMessage } from 'umi-plugin-locale';
+import styles from './index.css';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-
-import styles from './index.css';
 
 export default function({
   children,
@@ -28,17 +26,29 @@ export default function({
           title={
             <span>
               <Icon type='mail' />
-              <span>{name}</span>
+              <span>
+                <FormattedMessage id={name} />
+              </span>
             </span>
           }
         >
           {subRoutes.map(({ name: subName }) => {
-            return <Menu.Item key={`${name}/${subName}`}>{subName}</Menu.Item>;
+            if (subName) {
+              return (
+                <Menu.Item key={`${name}/${subName}`}>
+                  <FormattedMessage id={subName} />
+                </Menu.Item>
+              );
+            }
           })}
         </SubMenu>
       );
     } else if (name) {
-      return <Menu.Item key={name}>{name}</Menu.Item>;
+      return (
+        <Menu.Item key={name}>
+          <FormattedMessage id={name} />
+        </Menu.Item>
+      );
     }
   });
 
@@ -46,7 +56,7 @@ export default function({
     <div className={styles.normal}>
       <Menu
         onSelect={handleClick}
-        style={{ width: 256 }}
+        style={{}}
         defaultSelectedKeys={defaultSelectedKeys}
         defaultOpenKeys={defaultOpenKeys}
         mode='inline'

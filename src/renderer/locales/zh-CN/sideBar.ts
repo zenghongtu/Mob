@@ -1,0 +1,15 @@
+export default {
+  find: '发现',
+  my: '我的',
+  recommend: '推荐',
+  rank: '排行',
+  category: '分类',
+  subscribed: '订阅',
+  heard: '听过',
+  bought: '已购',
+  like: '喜欢',
+  local: '本地',
+  download: '下载',
+  history: '播放历史',
+  setting: '设置',
+};

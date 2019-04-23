@@ -13981,7 +13981,7 @@ umi-plugin-hd@1.4.0:
     postcss-plugin-px2rem "0.8.1"
     umi-hd "5.0.1"
 
-umi-plugin-locale@2.6.2:
+umi-plugin-locale@2.6.2, umi-plugin-locale@^2.6.2:
   version "2.6.2"
   resolved "http://registry.npm.taobao.org/umi-plugin-locale/download/umi-plugin-locale-2.6.2.tgz#3003814d7402fee5412bb01fbd4f89be01da1f65"
   integrity sha1-MAOBTXQC/uVBK7AfvU+JvgHaH2U=

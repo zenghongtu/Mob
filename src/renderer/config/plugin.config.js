@@ -11,6 +11,11 @@ export default [
       routes: {
         exclude: [/components\//],
       },
+      locale: {
+        default: "zh-CN",
+        baseNavigator: false,
+        antd: true,
+      },
     },
   ],
 ];
