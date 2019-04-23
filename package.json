@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "antd": "^3.16.5",
+    "axios": "^0.18.0",
     "http-proxy": "^1.17.0",
     "normalize.css": "^8.0.1"
   },
