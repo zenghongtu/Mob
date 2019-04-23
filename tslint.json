@@ -2,9 +2,7 @@
   "extends": "tslint:recommended",
   "rules": {
     "max-line-length": {
-      "options": [
-        120
-      ]
+      "options": [120]
     },
     "new-parens": true,
     "no-arg": true,
@@ -16,9 +14,9 @@
   },
   "jsRules": {
     "max-line-length": {
-      "options": [
-        120
-      ]
-    }
-  }
+      "options": [120]
+    },
+    "object-literal-sort-keys": false
+  },
+  "rulesDirectory": ["src"]
 }

@@ -20,16 +20,16 @@
     "asar": false
   },
   "scripts": {
-    "start": "npm run build-main-dev && electron ./dist/main/main.js",
+    "start": "yarn run build-main-dev && electron ./dist/main/main.js",
     "start:main": "electron-webpack dev",
-    "start:renderer": "APP_ROOT=src/renderer umi dev",
+    "start:renderer": "APP_ROOT=src/renderer PORT=6008 BROWSER=none umi dev",
     "build-main-prod": "NODE_ENV=production webpack --config ./build/webpack.main.prod.config.js",
     "build-main-dev": "NODE_ENV=development webpack --config ./build/webpack.main.config.js",
     "build:renderer": "APP_ROOT=src/renderer umi build",
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "debug:main": "electron --inspect=5858 -w ./dist/main/main.js",
-    "pack": "npm run build:renderer && npm run build-main-prod && electron-builder --dir",
+    "pack": "yarn run build:renderer && yarn run build-main-prod && electron-builder --dir",
     "dist": "electron-builder",
     "prettier": "prettier --list-different \"./**/*.{ts,tsx,js,jsx,less}\""
   },
@@ -54,6 +54,8 @@
     "electron-debug": "^2.0.0",
     "electron-webpack": "^2.6.2",
     "electron-webpack-ts": "^3.1.1",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
     "prettier": "1.16.4",
     "ts-loader": "^5.3.3",
     "tslint": "^5.10.0",
@@ -66,7 +68,9 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "http-proxy": "^1.17.0"
+    "antd": "^3.16.5",
+    "http-proxy": "^1.17.0",
+    "normalize.css": "^8.0.1"
   },
   "electronWebpack": {
     "main": {
@@ -75,5 +79,16 @@
     "renderer": {
       "sourceDirectory": null
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "tslint --fix",
+      "git add -f"
+    ],
+    "*.{css,less,json}": [
+      "prettier --write",
+      "git add -f"
+    ]
   }
 }
