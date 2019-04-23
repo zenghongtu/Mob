@@ -1,0 +1,7 @@
+dist/
+release/
+.DS_Store
+.idea/
+yarn-error.log
+npm-debug.log
+src/renderer/pages/.umi/
