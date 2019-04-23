@@ -7,18 +7,18 @@ import styles from './BasicLayout.css';
 
 const { Header, Footer, Sider, Content } = Layout;
 
-export default function({ children }) {
+export default function(props) {
   return (
     <>
       <Layout>
         <Sider>
-          <SideBar />
+          <SideBar {...props} />
         </Sider>
         <Layout>
           <nav>
             <NavBar />
           </nav>
-          <Content>{children}</Content>
+          <Content>{props.children}</Content>
         </Layout>
       </Layout>
       <Footer>
