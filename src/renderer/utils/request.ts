@@ -13,11 +13,16 @@ const errorHandler = (error) => {
     message: `请求错误: ${error.message}`,
     // description: error.message,
   });
+  // todo handle
   return Promise.reject(error);
 };
 
+const NEED_COOKIES_PATHNAME = '/my';
+
 request.interceptors.request.use((config) => {
-  // todo with cookies
+  if (config.url.startsWith(NEED_COOKIES_PATHNAME)) {
+    config.withCredentials = true;
+  }
   return config;
 }, errorHandler);
 
