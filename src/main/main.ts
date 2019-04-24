@@ -6,8 +6,8 @@ let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    height: 700,
+    width: 1100,
   });
 
   if (process.env.NODE_ENV === 'development') {
