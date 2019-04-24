@@ -25,11 +25,9 @@ export interface Album {
   isPaid: boolean;
 }
 
-export interface AlbumList {
-  [key: number]: Album;
-}
+export type AlbumList = Album[];
 
-export interface Cards {
+export interface Card {
   albumList: AlbumList;
   categoryId: number;
   hotWord: string[];
@@ -79,6 +77,7 @@ export interface FpRecommendLine {
 export type SlideshowInfoList = SlideshowInfo[];
 export type RecommendInfoList = Album[];
 export type DailyListenCategoryList = DailyListenCategory[];
+export type Cards = Card[];
 export type FpRecommendLines = FpRecommendLine[];
 
 export type ExploreApi = { [key in apiList]: () => any };
