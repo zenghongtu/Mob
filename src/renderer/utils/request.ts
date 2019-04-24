@@ -8,4 +8,19 @@ const request: AxiosInstance = Axios.create({
   timeout: 3000,
 });
 
+const errorHandler = (error) => {
+  notification.error({
+    message: `请求错误: ${error.message}`,
+    // description: error.message,
+  });
+  return Promise.reject(error);
+};
+
+request.interceptors.request.use((config) => {
+  // todo with cookies
+  return config;
+}, errorHandler);
+
+request.interceptors.response.use((response) => response.data, errorHandler);
+
 export default request;
