@@ -77,6 +77,30 @@ export interface BroughtRspData {
   pageSie: number;
   totalCount: number;
 }
+export interface LikeItem {
+  albumId: number;
+  albumName: string;
+  albumUrl: string;
+  anchorId: number;
+  anchorName: string;
+  anchorUrl: string;
+  trackCoverPath: string;
+  trackCreateAt: number;
+  trackCreateAtStr: string;
+  trackDuration: string;
+  trackId: number;
+  trackPlayCount: number;
+  trackTitle: string;
+  trackUrl: string;
+}
+
+export interface LikeRspData {
+  hasMore: boolean;
+  pageNum: number;
+  pageSize: number;
+  totalCount: number;
+  tracksList: LikeItem[];
+}
 
 export type MyApi = { [key in apiList]: () => any };
 const myApi: MyApi = {} as MyApi;
