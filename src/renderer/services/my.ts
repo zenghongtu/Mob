@@ -43,6 +43,30 @@ export interface AlbumsInfoRspData {
   uid: number;
 }
 
+export interface ListenedItem {
+  albumId: number;
+  albumName: string;
+  albumUrl: string;
+  anchorId: number;
+  anchorName: string;
+  anchorUrl: string;
+  createAt: number;
+  createAtStr: string;
+  trackCover: string;
+  trackDuration: '16:49';
+  trackId: number;
+  trackStatus: number;
+  trackTitle: string;
+  trackUrl: string;
+}
+
+export interface ListenedRspData {
+  earlier: ListenedItem[];
+  today: ListenedItem[];
+  yesterday: ListenedItem[];
+  totalCount: number;
+}
+
 export type MyApi = { [key in apiList]: () => any };
 const myApi: MyApi = {} as MyApi;
 

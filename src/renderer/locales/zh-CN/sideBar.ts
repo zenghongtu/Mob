@@ -5,7 +5,7 @@ export default {
   rank: '排行',
   category: '分类',
   subscribed: '订阅',
-  heard: '听过',
+  listened: '听过',
   bought: '已购',
   like: '喜欢',
   local: '本地',

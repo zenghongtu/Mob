@@ -1,6 +1,6 @@
 const pageArr = [
   { name: "find", routes: ["recommend", "rank", "category"] },
-  { name: "my", routes: ["subscribed", "heard", "bought", "like"] },
+  { name: "my", routes: ["subscribed", "listened", "bought", "like"] },
   "local",
   "download",
   "history",
