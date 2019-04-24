@@ -67,6 +67,17 @@ export interface ListenedRspData {
   totalCount: number;
 }
 
+// todo fix
+export interface BroughtItem {
+  [key: string]: any;
+}
+export interface BroughtRspData {
+  albumList: BroughtItem[];
+  pageNum: number;
+  pageSie: number;
+  totalCount: number;
+}
+
 export type MyApi = { [key in apiList]: () => any };
 const myApi: MyApi = {} as MyApi;
 
