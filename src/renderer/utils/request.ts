@@ -1,31 +1,84 @@
-import Axios, { AxiosInstance } from 'axios';
+import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { notification } from 'antd';
+import hash from 'hash.js';
 import router from 'umi/router';
 
+const DEFAULT_EXPIRY = 3600; // sec
 const BASE_URL = 'https://www.ximalaya.com/revision/';
-const request: AxiosInstance = Axios.create({
+
+const instance: AxiosInstance = Axios.create({
   baseURL: BASE_URL,
   timeout: 3000,
+  // withCredentials: true,  // todo change
 });
 
 const errorHandler = (error) => {
+  // todo handle error status
   notification.error({
     message: `请求错误: ${error.message}`,
     // description: error.message,
   });
-  // todo handle
   return Promise.reject(error);
 };
 
-const NEED_COOKIES_PATHNAME = '/my';
+// const NEED_COOKIES_PATHNAME = '/my';
 
-request.interceptors.request.use((config) => {
-  if (config.url.startsWith(NEED_COOKIES_PATHNAME)) {
-    config.withCredentials = true;
-  }
+instance.interceptors.request.use((config) => {
   return config;
 }, errorHandler);
 
-request.interceptors.response.use((response) => response.data, errorHandler);
+instance.interceptors.response.use(({ data }) => {
+  if (data.ret !== 200) {
+    // todo handle
+    // if (data.ret === 401) {
+    //   return router.push('/login');
+    // }
+    return errorHandler({ message: data.msg });
+  }
+  return data;
+}, errorHandler);
 
-export default request;
+const cacheRsp = (response, hashKey) => {
+  const content = JSON.stringify(response);
+  sessionStorage.setItem(hashKey, content);
+  sessionStorage.setItem(`${hashKey}:TS`, Date.now().toString());
+
+  return response;
+};
+
+const request = ({ whitelist = [], expiry = DEFAULT_EXPIRY }) => ({
+  ...instance,
+  get: async (url: string, config?: AxiosRequestConfig) => {
+    if (config) {
+      config.url = url;
+    }
+    const fingerprint = JSON.stringify(config || url);
+    const isNeedCache = !whitelist.length || whitelist.includes(url);
+    const hashKey = hash
+      .sha256()
+      .update(fingerprint)
+      .digest('hex');
+
+    if (expiry !== 0) {
+      const cached = sessionStorage.getItem(hashKey);
+      const lastCachedTS: number = +sessionStorage.getItem(`${hashKey}:TS`);
+      if (cached !== null && lastCachedTS !== null) {
+        const age = (Date.now() - lastCachedTS) / 1000;
+        if (age < expiry) {
+          return JSON.parse(cached);
+        }
+        sessionStorage.removeItem(hashKey);
+        sessionStorage.removeItem(`${hashKey}:TS`);
+      }
+    }
+
+    const rsp = await instance.get(url, config);
+
+    if (isNeedCache) {
+      cacheRsp(rsp, hashKey);
+    }
+    return rsp;
+  },
+});
+
+export default request({ whitelist: [] });

@@ -72,6 +72,7 @@
     "antd": "^3.16.5",
     "axios": "^0.18.0",
     "global": "^4.3.2",
+    "hash.js": "^1.1.7",
     "http-proxy": "^1.17.0",
     "normalize.css": "^8.0.1"
   },
