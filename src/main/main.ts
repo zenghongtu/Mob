@@ -6,8 +6,20 @@ let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
+    minHeight: 600,
+    minWidth: 800,
+    width: 1024,
     height: 700,
-    width: 1100,
+    backgroundColor: 'white',
+    titleBarStyle: 'hiddenInset',
+    title: 'XiMa FM',
+    frame: 'darwin' === process.platform,
+    // icon: '',
+    show: true,
+    acceptFirstMouse: true,
+    webPreferences: {
+      webSecurity: false,
+    },
   });
 
   if (process.env.NODE_ENV === 'development') {
