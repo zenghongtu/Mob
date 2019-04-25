@@ -2,27 +2,29 @@ import React from 'react';
 import { Layout } from 'antd';
 import SideBar from './components/SideBar';
 import NavBar from './components/NavBar';
-import Payler from './components/Payler';
+import Player from './components/Player';
 import styles from './BasicLayout.css';
 
 const { Header, Footer, Sider, Content } = Layout;
 
 export default function(props) {
+  const SIDE_BAR_WIDTH = 260;
   return (
     <>
-      <Layout>
-        <Sider>
+      <Layout className={styles.mainWrap}>
+        <div className={styles.dragBar} />
+        <Sider width={SIDE_BAR_WIDTH}>
           <SideBar {...props} />
         </Sider>
         <Layout>
-          <nav>
+          <div className={styles.navWrap}>
             <NavBar />
-          </nav>
-          <Content>{props.children}</Content>
+          </div>
+          <Content className={styles.contentWrap}>{props.children}</Content>
         </Layout>
       </Layout>
-      <Footer>
-        <Payler />
+      <Footer className={styles.playerWrap}>
+        <Player />
       </Footer>
     </>
   );

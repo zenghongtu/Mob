@@ -1,3 +1,31 @@
-.normal {
-  background: #79f2a4;
+.mainWrap {
+  height: 100vh;
+  width: 100vw;
+  padding-bottom: 60px;
+  overflow: hidden;
+}
+
+.dragBar {
+  height: 20px;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  -webkit-app-region: drag;
+}
+
+.navWrap {
+  height: 40px;
+  min-height: 40px;
+}
+
+.contentWrap {
+  height: 100%;
+}
+
+.playerWrap {
+  position: fixed;
+  width: 100vw;
+  height: 60px;
+  min-height: 60px;
+  bottom: 0;
 }
