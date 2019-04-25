@@ -61,7 +61,7 @@
     "tslint": "^5.10.0",
     "typescript": "^3.2.4",
     "uglifyjs-webpack-plugin": "^2.1.1",
-    "umi": "^2.4.4",
+    "umi": "^2.6.16",
     "umi-plugin-locale": "^2.6.2",
     "umi-plugin-react": "^1.4.2",
     "webpack": "4.28.0",
@@ -71,6 +71,7 @@
   "dependencies": {
     "antd": "^3.16.5",
     "axios": "^0.18.0",
+    "global": "^4.3.2",
     "http-proxy": "^1.17.0",
     "normalize.css": "^8.0.1"
   },

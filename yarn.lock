@@ -6143,7 +6143,7 @@ global-prefix@^3.0.0:
 
 global@^4.3.2:
   version "4.3.2"
-  resolved "http://registry.npm.taobao.org/global/download/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
+  resolved "https://registry.npm.taobao.org/global/download/global-4.3.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fglobal%2Fdownload%2Fglobal-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
   integrity sha1-52mJJopsdMOJCLEwWxD8DjlOnQ8=
   dependencies:
     min-document "^2.19.0"
@@ -13842,10 +13842,10 @@ uglifyjs-webpack-plugin@^2.1.1:
     webpack-sources "^1.1.0"
     worker-farm "^1.5.2"
 
-umi-build-dev@1.8.1:
-  version "1.8.1"
-  resolved "http://registry.npm.taobao.org/umi-build-dev/download/umi-build-dev-1.8.1.tgz#9c23b00657a12eb8dca222a7124eb6ce4c30b90d"
-  integrity sha1-nCOwBlehLrjcoiKnEk62zkwwuQ0=
+umi-build-dev@1.8.3:
+  version "1.8.3"
+  resolved "https://registry.npm.taobao.org/umi-build-dev/download/umi-build-dev-1.8.3.tgz#5189fa1c3f5fbfaa9a2ac80e24a288ad546c0434"
+  integrity sha1-UYn6HD9fv6qaKsgOJKKIrVRsBDQ=
   dependencies:
     "@babel/code-frame" "7.0.0"
     "@babel/generator" "7.3.0"
@@ -13900,11 +13900,11 @@ umi-build-dev@1.8.1:
     signale "1.3.0"
     sockjs "0.3.19"
     stringify-object "3.3.0"
-    umi-core "1.2.2"
+    umi-core "1.2.3"
     umi-history "0.1.2"
     umi-mock "1.1.2"
     umi-notify "^0.1.1"
-    umi-test "1.5.4"
+    umi-test "1.5.6"
     umi-utils "1.4.1"
     uppercamelcase "3.0.0"
     url-polyfill "1.1.3"
@@ -13912,10 +13912,10 @@ umi-build-dev@1.8.1:
     whatwg-fetch "3.0.0"
     yeoman-generator "3.1.1"
 
-umi-core@1.2.2:
-  version "1.2.2"
-  resolved "http://registry.npm.taobao.org/umi-core/download/umi-core-1.2.2.tgz#7073311735cd3aa3097d03ee279b78985e233060"
-  integrity sha1-cHMxFzXNOqMJfQPuJ5t4mF4jMGA=
+umi-core@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.npm.taobao.org/umi-core/download/umi-core-1.2.3.tgz#be29824f8b1f8716c2f0d472324bf735ce4175cd"
+  integrity sha1-vimCT4sfhxbC8NRyMkv3Nc5Bdc0=
   dependencies:
     extend2 "1.0.0"
 
@@ -14042,10 +14042,10 @@ umi-plugin-routes@1.2.2:
   resolved "http://registry.npm.taobao.org/umi-plugin-routes/download/umi-plugin-routes-1.2.2.tgz#48da6f9d8cdf7ce82e63b62370613b56fa21d0eb"
   integrity sha1-SNpvnYzffOguY7YjcGE7Vvoh0Os=
 
-umi-test@1.5.4:
-  version "1.5.4"
-  resolved "http://registry.npm.taobao.org/umi-test/download/umi-test-1.5.4.tgz#7e64f70b82a710d6b5ef500e0ce3fb6644164e5b"
-  integrity sha1-fmT3C4KnENa171AODOP7ZkQWTls=
+umi-test@1.5.6:
+  version "1.5.6"
+  resolved "https://registry.npm.taobao.org/umi-test/download/umi-test-1.5.6.tgz#b2c62bf282c22c6b4097a32862cbbbbc1b2628eb"
+  integrity sha1-ssYr8oLCLGtAl6MoYsu7vBsmKOs=
   dependencies:
     "@babel/core" "7.2.2"
     "@babel/polyfill" "7.2.5"
@@ -14085,10 +14085,10 @@ umi-utils@1.4.1:
     is-url "1.2.4"
     slash2 "2.0.0"
 
-umi@^2.4.4:
-  version "2.6.14"
-  resolved "http://registry.npm.taobao.org/umi/download/umi-2.6.14.tgz#270bb798e69102f202edc20abd9fdef503b41374"
-  integrity sha1-Jwu3mOaRAvIC7cIKvZ/e9QO0E3Q=
+umi@^2.6.16:
+  version "2.6.16"
+  resolved "https://registry.npm.taobao.org/umi/download/umi-2.6.16.tgz#3c74f027866de86a84332baa1be5946a3aa70341"
+  integrity sha1-PHTwJ4Zt6GqEMyuqG+WUajqnA0E=
   dependencies:
     "@babel/core" "7.2.2"
     "@babel/runtime" "7.3.0"
@@ -14103,7 +14103,7 @@ umi@^2.4.4:
     resolve-cwd "2.0.0"
     semver "5.6.0"
     signale "1.3.0"
-    umi-build-dev "1.8.1"
+    umi-build-dev "1.8.3"
     umi-utils "1.4.1"
     update-notifier "2.5.0"
     yargs-parser "13.0.0"
