@@ -1,4 +1,4 @@
-.mainWrap {
+.container {
   height: 100vh;
   width: 100vw;
   padding-bottom: 60px;
@@ -6,20 +6,27 @@
 }
 
 .dragBar {
-  height: 20px;
+  height: 18px;
   width: 100vw;
   position: fixed;
   top: 0;
   -webkit-app-region: drag;
 }
 
+.mainWrap {
+  overflow: hidden;
+}
 .navWrap {
   height: 40px;
   min-height: 40px;
+  width: 100%;
+  -webkit-app-region: drag;
 }
 
 .contentWrap {
   height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .playerWrap {
@@ -28,4 +35,5 @@
   height: 60px;
   min-height: 60px;
   bottom: 0;
+  left: 0;
 }

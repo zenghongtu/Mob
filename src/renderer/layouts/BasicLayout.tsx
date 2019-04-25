@@ -11,12 +11,12 @@ export default function(props) {
   const SIDE_BAR_WIDTH = 260;
   return (
     <>
-      <Layout className={styles.mainWrap}>
+      <Layout className={styles.container}>
         <div className={styles.dragBar} />
         <Sider width={SIDE_BAR_WIDTH}>
           <SideBar {...props} />
         </Sider>
-        <Layout>
+        <Layout className={styles.mainWrap}>
           <div className={styles.navWrap}>
             <NavBar />
           </div>
