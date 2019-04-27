@@ -23,9 +23,9 @@ export default function(props) {
           <Content className={styles.contentWrap}>{props.children}</Content>
         </Layout>
       </Layout>
-      <Footer className={styles.playerWrap}>
+      <footer className={styles.playerWrap}>
         <Player />
-      </Footer>
+      </footer>
     </>
   );
 }

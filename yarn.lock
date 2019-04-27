@@ -4231,6 +4231,11 @@ deepmerge@^1.5.2:
   resolved "http://registry.npm.taobao.org/deepmerge/download/deepmerge-1.5.2.tgz#10499d868844cdad4fee0842df8c7f6f0c95a753"
   integrity sha1-EEmdhohEza1P7ghC34x/bwyVp1M=
 
+deepmerge@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/deepmerge/download/deepmerge-3.2.0.tgz#58ef463a57c08d376547f8869fdc5bcee957f44e"
+  integrity sha1-WO9GOlfAjTdlR/iGn9xbzulX9E4=
+
 default-gateway@^4.2.0:
   version "4.2.0"
   resolved "http://registry.npm.taobao.org/default-gateway/download/default-gateway-4.2.0.tgz#167104c7500c2115f6dd69b0a536bb8ed720552b"
@@ -6449,15 +6454,7 @@ hash-base@^3.0.0:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-hash.js@^1.0.0, hash.js@^1.0.3:
-  version "1.1.7"
-  resolved "http://registry.npm.taobao.org/hash.js/download/hash.js-1.1.7.tgz#0babca538e8d4ee4a0f8988d68866537a003cf42"
-  integrity sha1-C6vKU46NTuSg+JiNaIZlN6ADz0I=
-  dependencies:
-    inherits "^2.0.3"
-    minimalistic-assert "^1.0.1"
-
-hash.js@^1.1.7:
+hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.7:
   version "1.1.7"
   resolved "https://registry.npm.taobao.org/hash.js/download/hash.js-1.1.7.tgz#0babca538e8d4ee4a0f8988d68866537a003cf42"
   integrity sha1-C6vKU46NTuSg+JiNaIZlN6ADz0I=
@@ -8397,6 +8394,11 @@ load-json-file@^4.0.0:
     parse-json "^4.0.0"
     pify "^3.0.0"
     strip-bom "^3.0.0"
+
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/load-script/download/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+  integrity sha1-BJGTngvuVkPuSUp+PaPSuscMbKQ=
 
 loader-fs-cache@^1.0.0:
   version "1.0.2"
@@ -11624,6 +11626,15 @@ react-native-swipeout@^2.2.2:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
     react-tween-state "^0.1.5"
+
+react-player@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.npm.taobao.org/react-player/download/react-player-1.11.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-player%2Fdownload%2Freact-player-1.11.0.tgz#07437dfa1baae8ab027409df9adb93fe81b44efb"
+  integrity sha1-B0N9+huq6KsCdAnfmtuT/oG0Tvs=
+  dependencies:
+    deepmerge "^3.0.0"
+    load-script "^1.0.0"
+    prop-types "^15.5.6"
 
 react-redux@^5.0.5:
   version "5.1.1"

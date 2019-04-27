@@ -1,6 +1,7 @@
 {
   "extends": "tslint:recommended",
   "rules": {
+    "no-shadowed-variable": false,
     "interface-name": false,
     "object-literal-sort-keys": false,
     "max-line-length": {
