@@ -32,6 +32,11 @@ const routes = pageArr.map(route => {
 });
 routes.unshift({ path: "/", redirect: "/find/recommend" });
 
+routes.push({
+  path: "/:category/:id",
+  component: "./AlbumDetail",
+});
+
 export default [
   {
     path: "/",

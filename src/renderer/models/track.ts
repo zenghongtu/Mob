@@ -4,6 +4,7 @@ import {
   DEFAULT_ALBUM_PAGE_NUM,
   DEFAULT_ALBUM_PAGE_SIZE,
 } from '../services/play';
+import { getTrackPageInfo } from '@/services/track';
 
 export enum Sort {
   ASC,
@@ -34,16 +35,31 @@ export default {
   effects: {
     *playAlbum({ payload }, { put, call }) {
       yield put(updatePlayStateAction({ playState: PlayState.LOADING }));
-      const { albumId } = payload;
+      const { albumId, index, trackId } = payload;
       const { data } = yield call(getAlbum, albumId);
       const { hasMore, pageNum, pageSize, sort, tracksAudioPlay } = data;
+
+      let idx = 0;
+      if (trackId && index !== undefined) {
+        if (trackId === tracksAudioPlay[index].trackId) {
+          idx = index;
+        } else {
+          const findIdx = tracksAudioPlay.findIndex(
+            (item) => item.trackId === trackId,
+          );
+          if (findIdx !== -1) {
+            idx = findIdx;
+          }
+        }
+      }
+      const currentTrack = tracksAudioPlay[idx];
       const info = {
         albumId,
         hasMore,
         pageNum,
         pageSize,
         sort,
-        currentTrack: tracksAudioPlay[0],
+        currentTrack,
         playlist: tracksAudioPlay,
       };
       yield put({ type: 'updateTrack', payload: info });
@@ -51,6 +67,25 @@ export default {
         updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
       );
     },
+    // *playTrack({ payload }, { put, call }) {
+    //   yield put(updatePlayStateAction({ playState: PlayState.LOADING }));
+    //   const { albumId, index, trackId } = payload;
+    //   const { data } = yield call(getAlbum, albumId);
+    //   const { hasMore, pageNum, pageSize, sort, tracksAudioPlay } = data;
+    //   const info = {
+    //     trackId,
+    //     hasMore,
+    //     pageNum,
+    //     pageSize,
+    //     sort,
+    //     currentTrack: tracksAudioPlay[0],
+    //     playlist: tracksAudioPlay,
+    //   };
+    //   yield put({ type: 'updateTrack', payload: info });
+    //   yield put(
+    //     updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
+    //   );
+    // },
     *fetchMoreAlbum({ payload }, { put, call }) {
       // todo handle more album
     },
