@@ -10,6 +10,8 @@ import exploreApi, {
   Card,
 } from '@/services/explore';
 import { Carousel, Button } from 'antd';
+import Content from '@/common/Content';
+import AlbumCard from '@/common/AlbumCard';
 
 const SIZE = 5;
 
@@ -23,10 +25,6 @@ interface BannerSliderProps {
 
 interface AlbumsProps {
   data: AlbumList;
-}
-
-interface AlbumItemProps {
-  info: Album;
 }
 
 interface HotAlbumItemProps {
@@ -55,22 +53,12 @@ const BannerSlider = ({ data }: BannerSliderProps) => {
   );
 };
 
-const AlbumItem = ({ info }: AlbumItemProps) => {
-  const { albumCoverPath, albumTitle, albumUserNickName } = info;
-  return (
-    <div>
-      <h3>{albumTitle}</h3>
-      <h4>{albumUserNickName}</h4>
-      <img width='10' src={albumCoverPath} alt='' />
-    </div>
-  );
-};
 const Albums = ({ data }: AlbumsProps) => {
   return (
     <div>
       <div>
         {data.map((info) => {
-          return <AlbumItem info={info} />;
+          return <AlbumCard info={info} />;
         })}
       </div>
     </div>
@@ -116,54 +104,46 @@ const HotAlbums = ({ data, children }) => {
 };
 
 export default function() {
-  const [show, setShow] = useState(false);
-  const [slideshowInfoList, setSlideshowInfoList] = useState(null);
-  const [cards, setCards] = useState(null);
-  // const [dailyListenCategoryList, setDailyListenCategoryList] = useState(null); // move to SideBar
-  const [recommendInfoList, setRecommendInfoList] = useState(null);
-  useEffect(() => {
-    (async () => {
-      const requestList = [
-        exploreApi.getSlideshow(),
-        exploreApi['v2/getRecommend'](),
-        // exploreApi.getDailyListen(),
-        exploreApi.guessYouLike(),
-      ];
-      const [
-        {
-          data: { slideshowInfoList: slideshowInfoListData },
-        },
-        {
-          data: { cards: cardsData },
-        },
-        // {
-        //   data: { dailyListenCategoryList: dailyListenCategoryListData },
-        // },
-        {
-          data: { recommendInfoList: recommendInfoListData },
-        },
-      ] = await Promise.all(requestList);
+  const genRequestList = () => [
+    exploreApi.getSlideshow(),
+    exploreApi['v2/getRecommend'](),
+    // exploreApi.getDailyListen(),
+    exploreApi.guessYouLike(),
+  ];
 
-      setSlideshowInfoList(slideshowInfoListData);
-      setCards(cardsData);
-      // setDailyListenCategoryList(dailyListenCategoryListData);
-      setRecommendInfoList(recommendInfoListData);
-      setShow(true);
-    })();
-  }, []);
+  const rspHandler = (result) => {
+    const [
+      {
+        data: { slideshowInfoList },
+      },
+      {
+        data: { cards },
+      },
+      // {
+      //   data: { dailyListenCategoryList },
+      // },
+      {
+        data: { recommendInfoList },
+      },
+    ] = result;
+    return { slideshowInfoList, cards, recommendInfoList };
+  };
+
   return (
     <div className={styles.normal}>
-      {show ? (
-        <>
-          <BannerSlider data={slideshowInfoList} />
-          <GuessLike data={recommendInfoList}>
-            {(data) => <Albums data={data} />}
-          </GuessLike>
-          <HotAlbums data={cards}>{(data) => <Albums data={data} />}</HotAlbums>
-        </>
-      ) : (
-        <div>loading...</div>
-      )}
+      <Content
+        render={({ slideshowInfoList, recommendInfoList, cards }) => (
+          <>
+            {/* <BannerSlider data={slideshowInfoList} /> */}
+            <GuessLike data={recommendInfoList}>
+              {(data) => <Albums data={data} />}
+            </GuessLike>
+            <HotAlbums data={cards}>{(data) => <Albums data={data} />}</HotAlbums>
+          </>
+        )}
+        rspHandler={rspHandler}
+        genRequestList={genRequestList}
+      />
     </div>
   );
 }

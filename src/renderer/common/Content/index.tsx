@@ -8,11 +8,11 @@ interface Result {
 }
 export interface Content<T> {
   render: (result: Result) => React.ReactNode;
-  requestList: Array<Promise<T>>;
+  genRequestList: () => Array<Promise<T>>;
   rspHandler: (rspArr: any) => Result;
 }
 
-export default function({ render, requestList, rspHandler }: Content<any>) {
+export default function({ render, genRequestList, rspHandler }: Content<any>) {
   const [loading, setLoading] = useState(true);
   const [hasError, setError] = useState(false);
   const [result, setResult] = useState(null);
@@ -21,7 +21,7 @@ export default function({ render, requestList, rspHandler }: Content<any>) {
       try {
         setLoading(true);
         setError(false);
-        const rspArr = await Promise.all(requestList);
+        const rspArr = await Promise.all(genRequestList());
         setResult(rspHandler(rspArr));
       } catch (e) {
         setError(true);
