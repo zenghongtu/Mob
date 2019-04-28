@@ -52,8 +52,8 @@ export interface Track {
   albumTitle: string;
   categoryId: number;
   coverSmall: string;
-  isFree: false;
-  isPaid: false;
+  isFree: boolean;
+  isPaid: boolean;
   title: string;
   trackId: number;
   trackUrl: string;
