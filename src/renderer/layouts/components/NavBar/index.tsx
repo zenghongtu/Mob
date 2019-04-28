@@ -1,7 +1,7 @@
 import { memo, useState, useEffect } from 'react';
 import { Menu, Dropdown, Input } from 'antd';
-
 import router from 'umi/router';
+import { debounce } from 'lodash';
 
 import { CustomIcon } from '@/components/CustomIcon';
 import { SuggestRspData, getSuggest } from '@/services/suggest';
@@ -15,7 +15,7 @@ const NavBar = ({ history: { length } }) => {
   const [text, setText] = useState('');
   const [visible, setVisible] = useState(false);
 
-  const fetchSuggests = async (kw) => {
+  const fetchSuggests = debounce(async (kw) => {
     if (!kw) {
       setSuggests(null);
       return;
@@ -23,9 +23,13 @@ const NavBar = ({ history: { length } }) => {
     const {
       data: { result },
     }: { data: SuggestRspData } = await getSuggest({ kw });
+    let suggests = [...result.albumResultList, ...result.queryResultList];
+    if (suggests.length < 1) {
+      suggests = null;
+    }
     // todo (only support albumResult now)
-    setSuggests(result.albumResultList);
-  };
+    setSuggests(suggests);
+  }, 200);
 
   const handleRedirectSearch = (kw) => {
     setText(kw);
@@ -46,8 +50,11 @@ const NavBar = ({ history: { length } }) => {
   const handleFocus = () => {
     setVisible(true);
   };
+
   const handleBlur = () => {
-    // setVisible(false);
+    setTimeout(() => {
+      setVisible(false);
+    }, 100);
   };
 
   const handlePressEnter = (e) => {
@@ -70,8 +77,9 @@ const NavBar = ({ history: { length } }) => {
   //   location.reload();
   // };
 
-  const Suggests = suggests
-    ? suggests.map(({ highlightKeyword, keyword, id }) => {
+  const Suggests = suggests ? (
+    <Menu className={styles.suggests}>
+      {suggests.map(({ highlightKeyword, keyword, id }) => {
         return (
           <Menu.Item key={id}>
             <div
@@ -84,8 +92,9 @@ const NavBar = ({ history: { length } }) => {
             </div>
           </Menu.Item>
         );
-      })
-    : null;
+      })}
+    </Menu>
+  ) : null;
 
   return (
     <div className={styles.nav}>
@@ -110,7 +119,7 @@ const NavBar = ({ history: { length } }) => {
       /> */}
       <Dropdown
         visible={visible && !!suggests}
-        overlay={<Menu>{Suggests}</Menu>}
+        overlay={<div>{Suggests}</div>}
         placement='bottomLeft'
       >
         <Search
