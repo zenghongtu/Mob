@@ -31,14 +31,14 @@ export interface Params {
 }
 
 export interface User {
-  docs: Doc3[];
+  docs: Doc[];
   numFound: number;
   start: number;
-  sc: Sc;
+  sc: {};
   total: number;
 }
 
-export interface Doc3 {
+export interface Doc {
   uid: number;
   pTtitle?: string;
   create_time: number;
@@ -69,58 +69,12 @@ export interface Doc3 {
 }
 
 export interface Track {
-  docs: Doc2[];
+  docs: Doc[];
   numFound: number;
   totalPage: number;
   start: number;
-  sc: Sc;
+  sc: {};
   total: number;
-}
-
-export interface Doc2 {
-  upload_id: string;
-  user_source: number;
-  created_at: number;
-  title: string;
-  is_v: boolean;
-  duration: number;
-  uid: number;
-  category_id: number;
-  updated_at: number;
-  nickname: string;
-  is_paid: boolean;
-  id: number;
-  verify_type: number;
-  tags?: string;
-  category_title: string;
-  album_id: number;
-  waveform: string;
-  album_title: string;
-  price?: number;
-  discounter_price?: number;
-  is_free?: boolean;
-  is_authorized?: boolean;
-  price_type_id?: number;
-  count_play: number;
-  count_comment: number;
-  count_share: number;
-  count_like: number;
-  album_cover_path: string;
-  is_trailer: number;
-  is_trailer_bool: boolean;
-  isDraft: boolean;
-  sample_duration?: number;
-  price_type_enum?: number;
-  created_at_hour: number;
-  play_path_32?: string;
-  play_path_64?: string;
-  play_path_aacv164?: string;
-  play_path_aacv224?: string;
-  cover_path: string;
-  trackUrl: string;
-  albumUrl: string;
-  userUrl: string;
-  richTitle: string;
 }
 
 export interface Album {
@@ -130,50 +84,6 @@ export interface Album {
   start: number;
   sc: {};
   total: number;
-}
-
-export interface Doc {
-  play: number;
-  user_source: string;
-  cover_path: string;
-  title: string;
-  uid: number;
-  url: string;
-  pinyin: string;
-  category_id: number;
-  intro: string;
-  id: number;
-  is_paid: boolean;
-  is_finished: number;
-  tags?: string;
-  category_title: string;
-  isDraft: boolean;
-  created_at: number;
-  type: string;
-  display_price_with_unit?: string;
-  last_uptrack_at_hour: number;
-  discounted_price?: number;
-  is_v: boolean;
-  refund_support_type?: number;
-  count_comment: number;
-  score?: number;
-  price_type_id?: number;
-  updated_at: number;
-  isVipFree?: boolean;
-  price?: number;
-  nickname: string;
-  custom_title?: string;
-  verify_type: number;
-  vipFreeType?: number;
-  priceUnit?: string;
-  display_discounted_price_with_unit?: string;
-  serialState: number;
-  price_type_enum?: number;
-  tracks: number;
-  comments_count?: number;
-  price_types?: Pricetype[];
-  anchorUrl: string;
-  richTitle: string;
 }
 
 export interface Pricetype {
@@ -187,13 +97,82 @@ export interface Pricetype {
   discounted_price: string;
 }
 
+export interface AlbumResult {
+  response: AlbumResponse;
+  responseHeader: ResponseHeader;
+}
+
+export interface AlbumResponse {
+  docs: AlbumDoc[];
+  numFound: number;
+  totalPage: number;
+  start: number;
+  pageSize: number;
+  currentPage: number;
+  sc: {};
+  total: number;
+}
+
+export interface AlbumDoc {
+  anchorUrl: string;
+  category_id: number;
+  category_title: string;
+  count_comment: number;
+  cover_path: string;
+  created_at: number;
+  id: number;
+  intro: string;
+  isDraft: boolean;
+  is_finished: number;
+  is_paid: boolean;
+  is_v: boolean;
+  last_uptrack_at_hour: number;
+  nickname: string;
+  pinyin: string;
+  play: number;
+  richTitle: string;
+  serialState: number;
+  tags: string;
+  title: string;
+  tracks: number;
+  type: string;
+  uid: number;
+  updated_at: number;
+  url: string;
+  user_source: string;
+  verify_type: number;
+}
 const api = '/search';
 
 export const getSearchResult = ({
   kw,
   spellchecker = true,
-  core = 'all',
   device = 'iPhone',
 }) => {
-  return request.get(api, { params: { kw, spellchecker, core, device } });
+  return request.get(api, {
+    params: { kw, spellchecker, core: 'all', device },
+  });
+};
+
+export const getSearchAlbumResult = ({
+  kw,
+  spellchecker = true,
+  page = 1,
+  rows = 20,
+  device = 'iPhone',
+  condition = 'relation',
+  paidFilter = false,
+}) => {
+  return request.get(api, {
+    params: {
+      kw,
+      spellchecker,
+      core: 'album',
+      device,
+      page,
+      rows,
+      condition,
+      paidFilter,
+    },
+  });
 };
