@@ -1,5 +1,17 @@
 .contentWrap {
   display: flex;
+  padding: 20px 15px 10px;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-around;
+}
+
+/* todo fix last line*/
+.contentWrap:after {
+  content: '';
+  flex: auto;
+}
+
+.loadMore {
+  padding-bottom: 20px;
+  text-align: center;
 }

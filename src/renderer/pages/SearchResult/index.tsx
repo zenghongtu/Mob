@@ -13,6 +13,7 @@ import {
 } from '@/services/search';
 import AlbumCard from '@/common/AlbumCard';
 import { Button } from 'antd';
+import { FormattedMessage } from 'umi-plugin-locale';
 
 const formatDoc = (source: AlbumDoc) => {
   const {
@@ -94,32 +95,43 @@ const Albums = ({
   };
   const loadMore =
     currentPage < totalPage ? (
-      <div>
-        <Button onClick={handleLoadMore}>加载更多</Button>
+      <div className={styles.loadMore}>
+        <Button onClick={handleLoadMore}>
+          <FormattedMessage id='loadMore' />
+        </Button>
       </div>
     ) : null;
 
   return (
-    <div className={styles.contentWrap}>
-      {docs.map((doc) => {
-        const info = formatDoc(doc);
-        return <AlbumCard key={info.albumId} info={info} />;
-      })}
-      {loadMore}
-    </div>
+    <>
+      <div className={styles.contentWrap}>
+        {docs.map((doc) => {
+          const info = formatDoc(doc);
+          return <AlbumCard key={info.albumId} info={info} />;
+        })}
+      </div>
+      <div>{loadMore}</div>
+    </>
   );
 };
 
 export default function({ match }) {
-  const [params, setParams] = useState([match.params]);
+  const [params, setParams] = useState(match.params);
   const handleLoadMore = (params) => {
-    setParams([params]);
+    setParams(params);
   };
-  const genRequestList = ([params]) => {
-    return [getSearchAlbumResult({ ...params })];
+  const genRequestList = (params) => {
+    return [getSearchAlbumResult(params)];
   };
-  const rspHandler = (result) => {
-    return result[0].data.result;
+  const rspHandler = (result, lastResult) => {
+    const curResult = result[0].data.result;
+    if (lastResult) {
+      const lastDocs = lastResult.response.docs;
+      const curDocs = curResult.response.docs;
+      // todo fix (when the docs length is too long will happen)
+      curResult.response.docs = [...lastDocs, ...curDocs];
+    }
+    return curResult;
   };
 
   return (
