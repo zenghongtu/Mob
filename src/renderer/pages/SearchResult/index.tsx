@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styles from './index.css';
 import Content from '@/common/Content';
@@ -12,7 +12,7 @@ import {
   AlbumDoc,
 } from '@/services/search';
 import AlbumCard from '@/common/AlbumCard';
-import { Button } from 'antd';
+import { Button, Affix, Col, Statistic } from 'antd';
 import { FormattedMessage } from 'umi-plugin-locale';
 
 const formatDoc = (source: AlbumDoc) => {
@@ -102,6 +102,7 @@ const Albums = ({
       </div>
     ) : null;
 
+  // todo add search desc
   return (
     <>
       <div className={styles.contentWrap}>
@@ -120,12 +121,20 @@ export default function({ match }) {
   const handleLoadMore = (params) => {
     setParams(params);
   };
+
+  useEffect(() => {
+    setParams(match.params);
+  }, [match.params]);
+
   const genRequestList = (params) => {
     return [getSearchAlbumResult(params)];
   };
   const rspHandler = (result, lastResult) => {
     const curResult = result[0].data.result;
-    if (lastResult) {
+    if (
+      lastResult &&
+      curResult.responseHeader.params.q === lastResult.responseHeader.params.q
+    ) {
       const lastDocs = lastResult.response.docs;
       const curDocs = curResult.response.docs;
       // todo fix (when the docs length is too long will happen)

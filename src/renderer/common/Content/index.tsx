@@ -10,7 +10,7 @@ interface Result {
 export interface Content<T, R> {
   render: (result: Result) => React.ReactNode;
   genRequestList: (params?: R[]) => Array<Promise<T>>;
-  rspHandler: (rspArr: any) => Result;
+  rspHandler: (rspArr: any, lastResult?: any) => Result;
   params?: R[];
 }
 
@@ -29,7 +29,7 @@ export default function({
         setLoading(true);
         setError(false);
         const rspArr = await Promise.all(genRequestList(params));
-        setResult(rspHandler(rspArr));
+        setResult(rspHandler(rspArr, result));
       } catch (e) {
         setError(true);
       } finally {
