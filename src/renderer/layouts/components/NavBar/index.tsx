@@ -27,8 +27,7 @@ const NavBar = ({ history: { length } }) => {
     setSuggests(result.albumResultList);
   };
 
-  const handleRedirectSearch = (e) => {
-    const kw = typeof e === 'object' ? e.currentTarget.dataset.kw : e;
+  const handleRedirectSearch = (kw) => {
     setText(kw);
     setVisible(false);
     router.push(`/search/${kw}`);
@@ -52,7 +51,8 @@ const NavBar = ({ history: { length } }) => {
   };
 
   const handlePressEnter = (e) => {
-    handleRedirectSearch(e);
+    const kw = e.target.value;
+    handleRedirectSearch(kw);
   };
 
   const handleArrowClick = (n) => {
@@ -71,13 +71,14 @@ const NavBar = ({ history: { length } }) => {
   // };
 
   const Suggests = suggests
-    ? suggests.map(({ highlightKeyword, keyword }) => {
+    ? suggests.map(({ highlightKeyword, keyword, id }) => {
         return (
-          <Menu.Item>
+          <Menu.Item key={id}>
             <div
               className={styles.suggestItem}
-              data-kw={keyword}
-              onClick={handleRedirectSearch}
+              onClick={() => {
+                handleRedirectSearch(keyword);
+              }}
             >
               <span dangerouslySetInnerHTML={{ __html: highlightKeyword }} />
             </div>
