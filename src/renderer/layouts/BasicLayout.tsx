@@ -18,7 +18,7 @@ export default function(props) {
         </Sider>
         <Layout className={styles.mainWrap}>
           <div className={styles.navWrap}>
-            <NavBar />
+            <NavBar {...props} />
           </div>
           <Content className={styles.contentWrap}>{props.children}</Content>
         </Layout>

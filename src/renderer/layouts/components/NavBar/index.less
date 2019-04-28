@@ -1,0 +1,43 @@
+@inactivate-color: #dee2ec;
+@teal: #0292b7;
+@turquoise: #1ac8db;
+
+.hover(@color:@teal) {
+  & {
+    transition: all 0.3s ease-in;
+  }
+  &:hover {
+    color: @color;
+  }
+}
+
+.nav {
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.icon {
+  margin-right: 20px;
+  font-size: 18px;
+  .hover();
+
+  &.inactivate {
+    color: @inactivate-color;
+  }
+}
+
+.suggestItem {
+  & em {
+    color: @turquoise;
+    font-style: normal;
+    font-weight: 500;
+  }
+}
+
+.searchInput {
+  // todo
+}
