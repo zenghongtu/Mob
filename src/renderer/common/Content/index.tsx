@@ -6,13 +6,20 @@ import { Empty } from 'antd';
 interface Result {
   [key: string]: any;
 }
-export interface Content<T> {
+
+export interface Content<T, R> {
   render: (result: Result) => React.ReactNode;
-  genRequestList: () => Array<Promise<T>>;
+  genRequestList: (params?: R[]) => Array<Promise<T>>;
   rspHandler: (rspArr: any) => Result;
+  params?: R[];
 }
 
-export default function({ render, genRequestList, rspHandler }: Content<any>) {
+export default function({
+  render,
+  genRequestList,
+  rspHandler,
+  params,
+}: Content<any, any>) {
   const [loading, setLoading] = useState(true);
   const [hasError, setError] = useState(false);
   const [result, setResult] = useState(null);
@@ -21,7 +28,7 @@ export default function({ render, genRequestList, rspHandler }: Content<any>) {
       try {
         setLoading(true);
         setError(false);
-        const rspArr = await Promise.all(genRequestList());
+        const rspArr = await Promise.all(genRequestList(params));
         setResult(rspHandler(rspArr));
       } catch (e) {
         setError(true);
@@ -29,7 +36,7 @@ export default function({ render, genRequestList, rspHandler }: Content<any>) {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [params]);
   return (
     <div className={styles.contentWrap}>
       {loading ? (
