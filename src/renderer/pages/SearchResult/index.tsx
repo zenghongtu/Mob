@@ -12,7 +12,7 @@ import {
   AlbumDoc,
 } from '@/services/search';
 import AlbumCard from '@/common/AlbumCard';
-import { Button, Affix, Col, Statistic } from 'antd';
+import { Button, Affix, Col, Statistic, Pagination } from 'antd';
 import { FormattedMessage } from 'umi-plugin-locale';
 
 const formatDoc = (source: AlbumDoc) => {
@@ -90,28 +90,42 @@ const Albums = ({
   },
   onLoadMore,
 }: AlbumsProps) => {
-  const handleLoadMore = () => {
-    onLoadMore({ kw: q, page: currentPage + 1 });
+  // const handleLoadMore = (page) => {
+  //   onLoadMore({ kw: q, page });
+  // };
+  const handlePaginationChange = (page) => {
+    onLoadMore({ kw: q, page });
   };
-  const loadMore =
-    currentPage < totalPage ? (
-      <div className={styles.loadMore}>
-        <Button onClick={handleLoadMore}>
-          <FormattedMessage id='loadMore' />
-        </Button>
-      </div>
-    ) : null;
+  // const loadMore =
+  //   currentPage < totalPage ? (
+  //     <div className={styles.loadMore}>
+  //       <Button onClick={handleLoadMore}>
+  //         <FormattedMessage id='loadMore' />
+  //       </Button>
+  //     </div>
+  //   ) : null;
+
+  const PaginationBar = (
+    <div className={styles.paginationWrap}>
+      <Pagination
+        simple
+        current={currentPage}
+        onChange={handlePaginationChange}
+        total={totalPage}
+      />
+    </div>
+  );
 
   // todo add search desc
   return (
     <>
-      <div className={styles.contentWrap}>
+      <div className={styles.content}>
         {docs.map((doc) => {
           const info = formatDoc(doc);
           return <AlbumCard key={info.albumId} info={info} />;
         })}
       </div>
-      <div>{loadMore}</div>
+      <div>{PaginationBar}</div>
     </>
   );
 };
@@ -131,15 +145,15 @@ export default function({ match }) {
   };
   const rspHandler = (result, lastResult) => {
     const curResult = result[0].data.result;
-    if (
-      lastResult &&
-      curResult.responseHeader.params.q === lastResult.responseHeader.params.q
-    ) {
-      const lastDocs = lastResult.response.docs;
-      const curDocs = curResult.response.docs;
-      // todo fix (when the docs length is too long will happen)
-      curResult.response.docs = [...lastDocs, ...curDocs];
-    }
+    // if (
+    //   lastResult &&
+    //   curResult.responseHeader.params.q === lastResult.responseHeader.params.q
+    // ) {
+    //   const lastDocs = lastResult.response.docs;
+    //   const curDocs = curResult.response.docs;
+    //   // todo fix (when the docs length is too long will happen)
+    //   curResult.response.docs = [...lastDocs, ...curDocs];
+    // }
     return curResult;
   };
 

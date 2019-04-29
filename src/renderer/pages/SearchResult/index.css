@@ -1,24 +1,27 @@
-.contentWrap {
+.content {
   display: flex;
-  padding: 20px 15px 10px;
+  padding: 10px 15px 10px;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 
-/* todo fix last line*/
-.contentWrap:after {
-  content: '';
-  flex: auto;
-}
-
-.loadMore {
-  padding-bottom: 20px;
+.paginationWrap {
+  padding-bottom: 10px;
   text-align: center;
 }
 
-/* .widget {
-  display: flex;
-  z-index: 20;
-  justify-content: center;
-  background: #ccc;
+.filler {
+  width: 130px;
+  height: 0;
+}
+
+/* todo fix last line*/
+/* .contentWrap:after {
+  content: '';
+  flex: auto;
+} */
+
+/* .loadMore {
+  padding-bottom: 10px;
+  text-align: center;
 } */
