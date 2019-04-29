@@ -12,6 +12,7 @@ import { List, Skeleton, Button, Tag } from 'antd';
 import styles from './index.less';
 import { CustomIcon } from '@/components/CustomIcon';
 import TrackItem from '@/common/TrackItem';
+import { DEFAULT_COVER } from '@/common/AlbumCard';
 
 const TrackList = ({
   tracksInfo,
@@ -89,7 +90,11 @@ const AlbumContent = ({
   return (
     <div className={styles.content}>
       <div className={styles.header}>
-        <img className={styles.cover} src={cover} alt='' />
+        <img
+          className={styles.cover}
+          src={cover ? `http:${cover}` : DEFAULT_COVER}
+          alt=''
+        />
         <div className={styles.info}>
           <h2 className={styles.albumTitle}>
             <span>{albumTitle}</span>
