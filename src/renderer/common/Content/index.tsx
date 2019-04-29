@@ -39,7 +39,7 @@ export default function({
   }, [params]);
   return (
     <div className={styles.contentWrap}>
-      {loading ? (
+      {loading && !result ? (
         <Loading />
       ) : hasError ? (
         // todo use error image
