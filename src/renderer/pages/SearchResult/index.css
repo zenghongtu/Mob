@@ -1,6 +1,6 @@
 .content {
   display: flex;
-  padding: 10px 15px 10px;
+  margin: 10px 15px 10px;
   flex-wrap: wrap;
   justify-content: space-around;
 }
@@ -14,12 +14,6 @@
   width: 130px;
   height: 0;
 }
-
-/* todo fix last line*/
-/* .contentWrap:after {
-  content: '';
-  flex: auto;
-} */
 
 /* .loadMore {
   padding-bottom: 10px;
