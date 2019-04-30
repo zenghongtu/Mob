@@ -1,22 +1,25 @@
 {
-  "name": "umi-electron-typescript",
-  "version": "1.0.0",
-  "description": "an example based on umijs + electron + typescript",
+  "name": "mob",
+  "version": "0.1.0",
+  "description": "An ximalaya desktop client (unofficial).",
   "main": "./dist/main/main.js",
   "private": true,
   "build": {
+    "productName": "Mob",
+    "appId": "com.zenghongtu.Mob",
+    "compression": "maximum",
     "files": [
       "dist/",
       "node_modules/",
       "package.json"
     ],
     "mac": {
-      "category": "your.app.category.type"
+      "category": "utilities",
+      "icon": "icons/dock.icns"
     },
     "directories": {
       "output": "release"
     },
-    "appId": "com.wangtianlun.umi-electron-typescript",
     "asar": false
   },
   "scripts": {
@@ -33,19 +36,17 @@
     "dist": "electron-builder",
     "prettier": "prettier --list-different \"./**/*.{ts,tsx,js,jsx,less}\""
   },
-  "repository": "https://github.com/wangtianlun/umi-electron-typescript",
+  "repository": "https://github.com/zenghongtu/Mob",
   "keywords": [
     "Electron",
     "umi",
-    "quick",
-    "start",
-    "tutorial",
-    "demo",
-    "typescript"
+    "dva",
+    "typescript",
+    "ximalaya"
   ],
   "author": {
-    "name": "wangtianlun",
-    "email": "chongxinkaishi8188@gmail.com"
+    "name": "zenghongtu",
+    "email": "zenghongtu@gmail.com"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^5.2.1",
