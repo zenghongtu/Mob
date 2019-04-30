@@ -4,7 +4,6 @@ const pageArr = [
   "local",
   "download",
   "history",
-  "setting",
 ];
 
 const routes = pageArr.map(route => {
@@ -33,6 +32,14 @@ const routes = pageArr.map(route => {
 routes.unshift({ path: "/", redirect: "/find/recommend" });
 
 routes.push(
+  {
+    path: "/login",
+    component: "./Login",
+  },
+  {
+    path: "/setting",
+    component: "./Setting",
+  },
   {
     path: "/search/:kw",
     component: "./SearchResult",

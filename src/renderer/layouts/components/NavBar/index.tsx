@@ -1,19 +1,31 @@
 import { memo, useState, useEffect } from 'react';
-import { Menu, Dropdown, Input } from 'antd';
+import { Menu, Dropdown, Input, Icon, Divider } from 'antd';
 import router from 'umi/router';
 import { debounce } from 'lodash';
 
 import { CustomIcon } from '@/components/CustomIcon';
 import { SuggestRspData, getSuggest } from '@/services/suggest';
 import styles from './index.less';
+import { connect } from 'dva';
 
 const Search = Input.Search;
 
-const NavBar = ({ history: { length } }) => {
-  const [changeIndx, setChangeIndx] = useState(0);
+let lastHistoryLen = 0;
+const NavBar = ({ history, isLogin }) => {
+  const { length, action } = history;
+
+  const [curIndx, setCurIndx] = useState(0);
   const [suggests, setSuggests] = useState(null);
   const [text, setText] = useState('');
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // todo fix when length <= 2 will cause some bugs
+    if (lastHistoryLen > length) {
+      setCurIndx(0);
+    }
+    lastHistoryLen = length;
+  });
 
   const fetchSuggests = debounce(async (kw) => {
     if (!kw) {
@@ -64,11 +76,26 @@ const NavBar = ({ history: { length } }) => {
 
   const handleArrowClick = (n) => {
     return () => {
-      const x = changeIndx + n;
-      if (x < 1 && length + x >= 2) {
-        setChangeIndx(changeIndx + n);
-        router.go(n);
-      }
+      setCurIndx(curIndx + n);
+      router.go(n);
+    };
+  };
+
+  const handleWidgetIconClick = (pathname) => {
+    return () => {
+      router.push(`/${pathname}`);
+    };
+  };
+
+  const handleLogin = (type) => {
+    return () => {
+      router.push({
+        pathname: `/login`,
+        query: {
+          redirect: '/my/subscribed',
+          type,
+        },
+      });
     };
   };
 
@@ -76,6 +103,7 @@ const NavBar = ({ history: { length } }) => {
   // const handleRefreshClick = () => {
   //   location.reload();
   // };
+  //
 
   const Suggests = suggests ? (
     <Menu className={styles.suggests}>
@@ -96,20 +124,28 @@ const NavBar = ({ history: { length } }) => {
     </Menu>
   ) : null;
 
+  const UserMenu = (
+    <Menu>
+      {!isLogin ? (
+        <Menu.Item onClick={handleLogin('login')}>login</Menu.Item>
+      ) : (
+        <Menu.Item onClick={handleLogin('logout')}>logout</Menu.Item>
+      )}
+    </Menu>
+  );
+
+  const canGoBack = curIndx + length > 1;
+  const canGoForward = curIndx < 0;
   return (
     <div className={styles.nav}>
       <CustomIcon
-        className={`${styles.icon} ${
-          length + changeIndx <= 2 ? styles.inactivate : ''
-        }`}
-        onClick={handleArrowClick(-1)}
+        className={`${styles.icon} ${!canGoBack ? styles.inactivate : ''}`}
+        onClick={canGoBack ? handleArrowClick(-1) : undefined}
         type='icon-arrow-left'
       />
       <CustomIcon
-        className={`${styles.icon} ${
-          changeIndx === 0 ? styles.inactivate : ''
-        }`}
-        onClick={handleArrowClick(1)}
+        className={`${styles.icon} ${!canGoForward ? styles.inactivate : ''}`}
+        onClick={canGoForward ? handleArrowClick(1) : undefined}
         type='icon-arrow-right'
       />
       {/* <CustomIcon
@@ -135,8 +171,20 @@ const NavBar = ({ history: { length } }) => {
           style={{ width: 200 }}
         />
       </Dropdown>
+      <div className={styles.widget}>
+        <Dropdown overlay={UserMenu} trigger={['hover']}>
+          <Icon className={styles.icon} type='user' />
+        </Dropdown>
+        <Icon
+          className={styles.icon}
+          onClick={handleWidgetIconClick('setting')}
+          type='setting'
+        />
+      </div>
     </div>
   );
 };
 
-export default NavBar;
+export default connect(({ user: { isLogin } }) => {
+  return { isLogin };
+})(NavBar);
