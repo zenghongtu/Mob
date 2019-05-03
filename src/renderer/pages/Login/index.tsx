@@ -6,7 +6,7 @@ import router from 'umi/router';
 
 const Login = ({ isLogin, login, logout, location }) => {
   const {
-    query: { redirect, type },
+    query: { redirect, type = 'login' },
   } = location;
   const handleLoadedTarget = (session, url) => {
     if (type === 'logout') {
