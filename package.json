@@ -29,6 +29,8 @@
     "build-main-prod": "NODE_ENV=production webpack --config ./build/webpack.main.prod.config.js",
     "build-main-dev": "NODE_ENV=development webpack --config ./build/webpack.main.config.js",
     "build:renderer": "APP_ROOT=src/renderer umi build",
+    "test:renderer": "APP_ROOT=src/renderer PORT=6008 BROWSER=none umi test",
+    "test": "yarn run test:renderer",
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "debug:main": "electron --inspect=5858 -w ./dist/main/main.js",
@@ -70,6 +72,7 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
+    "@types/jest": "^24.0.12",
     "antd": "^3.16.5",
     "axios": "^0.18.0",
     "electron-store": "^3.2.0",
