@@ -15,10 +15,10 @@ const Login = ({ isLogin, login, logout, location }) => {
       });
     } else if (type === 'login') {
       session.cookies.get({ url }, (error, cookies) => {
-        login();
         if (redirect) {
           router.replace(`${redirect}`);
         }
+        login();
       });
     }
   };

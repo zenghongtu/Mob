@@ -1,5 +1,5 @@
 const initState = {
-  isLogin: 'false',
+  isLogin: false,
 };
 
 export default {
