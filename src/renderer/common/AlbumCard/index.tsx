@@ -25,6 +25,7 @@ const AlbumCard: React.FC<AlbumCardProps> = memo(
       albumUserNickName,
       albumUrl,
       intro,
+      isPaid,
     } = info;
 
     const isPlaying = isCurrent && playState === PlayState.PLAYING;
@@ -70,6 +71,7 @@ const AlbumCard: React.FC<AlbumCardProps> = memo(
           data-url={albumUrl}
           onClick={handleTitleClick}
         >
+          {isPaid && <span className={styles.payTag}>付费</span>}
           {albumTitle}
         </h4>
       </div>
