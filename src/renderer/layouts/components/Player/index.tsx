@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'dva';
 import ReactPlayer from 'react-player';
 
@@ -9,6 +9,8 @@ import { PlayState, PlayMode, PlaybackRate } from '../../../models/player';
 import { TooltipPlacement } from 'antd/lib/tooltip';
 import { DropDownProps } from 'antd/lib/dropdown';
 import { CustomIcon } from '@/components/CustomIcon';
+import { getTrackPay } from '@/services/track';
+import getPaidAudio from '@/utils/payAudio';
 
 const PopoverIcon: React.FC<{
   content: React.ReactNode;
@@ -40,9 +42,31 @@ const DEFAULT_COVER =
 const Player = ({ track: { currentTrack }, player, setPlayerState }) => {
   const playerRef = useRef(null);
   const [seeking, setSeeking] = useState(false);
+  const [audioUrl, setAudioUrl] = useState('');
+  const {
+    src,
+    isPaid,
+    hasBuy,
+    isLike,
+    index,
+    trackCoverPath,
+    trackUrl,
+    albumName,
+    trackName,
+    trackId,
+  } = currentTrack || ({} as TracksAudioPlay);
 
-  let playerProps = null;
-  let track = {};
+  useEffect(() => {
+    const isBought = isPaid && hasBuy;
+    if (isBought) {
+      (async () => {
+        const r = await getTrackPay(trackId);
+        const audio = await getPaidAudio(r.data);
+        setAudioUrl(audio);
+      })();
+    }
+  }, [trackId]);
+
   const {
     volume,
     muted,
@@ -59,7 +83,7 @@ const Player = ({ track: { currentTrack }, player, setPlayerState }) => {
     }
   };
 
-  const handleEnded = (e) => {
+  const handleEnded = () => {
     // todo next track
   };
 
@@ -71,7 +95,7 @@ const Player = ({ track: { currentTrack }, player, setPlayerState }) => {
   };
 
   const handlePlayPause = () => {
-    if (playerProps) {
+    if (currentTrack) {
       isPlaying
         ? setPlayerState({ playState: PlayState.PAUSE })
         : setPlayerState({ playState: PlayState.PLAYING });
@@ -119,31 +143,6 @@ const Player = ({ track: { currentTrack }, player, setPlayerState }) => {
     playerRef.current.seekTo(0);
   };
 
-  if (currentTrack) {
-    const { src: url } = currentTrack;
-    track = currentTrack;
-
-    playerProps = {
-      url,
-      volume,
-      muted,
-      loop: playMode === PlayMode.SINGLE,
-      playbackRate,
-      onPlay,
-      onProgress: handleProgress,
-      onEnded: handleEnded,
-      onDuration: handleDuration,
-      onError: handleError,
-    };
-  }
-
-  const {
-    trackCoverPath,
-    trackUrl,
-    albumName,
-    isLike,
-    trackName,
-  } = track as TracksAudioPlay;
   const isLoading = playState === PlayState.LOADING;
   const isPlaying = playState === PlayState.PLAYING;
 
@@ -151,6 +150,24 @@ const Player = ({ track: { currentTrack }, player, setPlayerState }) => {
     [PlayMode.SINGLE]: 'icon-repeat',
     [PlayMode.LIST]: 'icon-repeat-',
     [PlayMode.RANDOM]: 'icon-shuffle',
+  };
+
+  const canPlay = !isPaid;
+  // todo
+  const url = canPlay ? src : hasBuy ? audioUrl : '';
+
+  const playerProps = {
+    url,
+    playing: isPlaying,
+    volume,
+    muted,
+    loop: playMode === PlayMode.SINGLE,
+    playbackRate,
+    onPlay,
+    onProgress: handleProgress,
+    onEnded: handleEnded,
+    onDuration: handleDuration,
+    onError: handleError,
   };
 
   return (
@@ -268,9 +285,9 @@ const Player = ({ track: { currentTrack }, player, setPlayerState }) => {
         </PopoverIcon>
         <CustomIcon className={styles.conBtn} type='icon-paragraph-left' />
       </div>
-      {playerProps && (
+      {currentTrack && (
         <div className={styles.hidden}>
-          <ReactPlayer playing={isPlaying} ref={playerRef} {...playerProps} />
+          <ReactPlayer ref={playerRef} {...playerProps} />
         </div>
       )}
     </div>

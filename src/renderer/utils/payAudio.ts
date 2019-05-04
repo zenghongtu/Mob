@@ -327,5 +327,3 @@ const getPayAudio = t => {
 };
 
 export default getPayAudio;
-
-

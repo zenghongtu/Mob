@@ -1,4 +1,5 @@
 import request from '../utils/request';
+import requestPay from '@/utils/requestPay';
 
 export interface TrackRspData {
   trackInfo: TrackInfo;
@@ -110,8 +111,41 @@ export interface Category {
   subcategoryName: string;
 }
 
+export interface TrackPay {
+  ret: number;
+  msg: string;
+  trackId: number;
+  uid: number;
+  albumId: number;
+  title: string;
+  domain: string;
+  totalLength: number;
+  sampleDuration: number;
+  sampleLength: number;
+  isAuthorized: boolean;
+  apiVersion: string;
+  seed: number;
+  fileId: string;
+  buyKey: string;
+  duration: number;
+  ep: string;
+  highestQualityLevel: number;
+  downloadQualityLevel: number;
+}
+
 const api = '/track/trackPageInfo';
+const apiPay = '/track/pay';
 
 export const getTrackPageInfo = (trackId: string | number) => {
   return request.get(api, { params: { trackId } });
+};
+
+export const getTrackPay = (trackId: string | number) => {
+  return requestPay.get(`${apiPay}/${trackId}`, {
+    params: {
+      device: 'pc',
+      isBackend: 'false',
+      _: +new Date(),
+    },
+  });
 };

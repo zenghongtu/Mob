@@ -3,6 +3,8 @@ import { notification } from 'antd';
 import hash from 'hash.js';
 import router from 'umi/router';
 
+import genXmSign from './xmSign';
+
 const DEFAULT_EXPIRY = 3600; // sec
 const BASE_URL = 'https://www.ximalaya.com/revision/';
 
@@ -24,6 +26,7 @@ const errorHandler = (error) => {
 // const NEED_COOKIES_PATHNAME = '/my';
 
 instance.interceptors.request.use((config) => {
+  config.headers['xm-sign'] = genXmSign();
   return config;
 }, errorHandler);
 

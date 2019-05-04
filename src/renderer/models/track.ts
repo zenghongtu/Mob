@@ -36,36 +36,41 @@ export default {
     *playAlbum({ payload }, { put, call }) {
       yield put(updatePlayStateAction({ playState: PlayState.LOADING }));
       const { albumId, index, trackId } = payload;
-      const { data } = yield call(getAlbum, albumId);
-      const { hasMore, pageNum, pageSize, sort, tracksAudioPlay } = data;
+      try {
+        const { data } = yield call(getAlbum, albumId);
 
-      let idx = 0;
-      if (trackId && index !== undefined) {
-        if (trackId === tracksAudioPlay[index].trackId) {
-          idx = index;
-        } else {
-          const findIdx = tracksAudioPlay.findIndex(
-            (item) => item.trackId === trackId,
-          );
-          if (findIdx !== -1) {
-            idx = findIdx;
+        const { hasMore, pageNum, pageSize, sort, tracksAudioPlay } = data;
+
+        let idx = 0;
+        if (trackId && index !== undefined) {
+          if (trackId === tracksAudioPlay[index].trackId) {
+            idx = index;
+          } else {
+            const findIdx = tracksAudioPlay.findIndex(
+              (item) => item.trackId === trackId,
+            );
+            if (findIdx !== -1) {
+              idx = findIdx;
+            }
           }
         }
+        const currentTrack = tracksAudioPlay[idx];
+        const info = {
+          albumId,
+          hasMore,
+          pageNum,
+          pageSize,
+          sort,
+          currentTrack,
+          playlist: tracksAudioPlay,
+        };
+        yield put({ type: 'updateTrack', payload: info });
+        yield put(
+          updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
+        );
+      } catch (e) {
+        return null;
       }
-      const currentTrack = tracksAudioPlay[idx];
-      const info = {
-        albumId,
-        hasMore,
-        pageNum,
-        pageSize,
-        sort,
-        currentTrack,
-        playlist: tracksAudioPlay,
-      };
-      yield put({ type: 'updateTrack', payload: info });
-      yield put(
-        updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
-      );
     },
     // *playTrack({ payload }, { put, call }) {
     //   yield put(updatePlayStateAction({ playState: PlayState.LOADING }));
