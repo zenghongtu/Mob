@@ -151,11 +151,11 @@ const Player = ({
     setPlayerState({ played: parseFloat(e.currentTarget.value) });
     playerRef.current.seekTo(parseFloat(e.currentTarget.value));
   };
-  const handlePrev = (e) => {
-    // todo
+  const handlePrev = () => {
+    playPrevTrack();
   };
-  const handleNext = (e) => {
-    // todo
+  const handleNext = () => {
+    playNextTrack();
   };
   const handleStop = (e) => {
     setPlayerState({ playState: PlayState.STOP, played: 0 });
@@ -240,6 +240,10 @@ const Player = ({
         />
         <div className={styles.progressWrap}>
           <div className={styles.progress}>
+            <div className={styles.name}>
+              <span className={styles.albumName}>{albumName}</span>
+              <span className={styles.trackName}>{trackName}</span>
+            </div>
             <input
               className={styles.progressBar}
               min={0}
@@ -400,10 +404,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch({ type: 'player/updateState', payload });
     },
     playNextTrack() {
-      dispatch({ type: 'track/next' });
+      dispatch({ type: 'track/next', payload: { isFromBtn: true } });
     },
     playPrevTrack() {
-      dispatch({ type: 'track/prev' });
+      dispatch({ type: 'track/prev', payload: { isFromBtn: true } });
     },
     fetchMoreTracks() {
       dispatch({ type: 'track/fetchMoreTracks', payload: { isFromBtn: true } });

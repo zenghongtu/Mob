@@ -52,6 +52,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
       setInside(true);
     };
 
+    // todo fix when the album is current album
     const handleItemClick = () => {
       playAlbum({ albumId, index, trackId });
     };
@@ -71,7 +72,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
               {isInside ? (
                 <CustomIcon type='icon-play' />
               ) : (
-                <span> {track.index}</span>
+                <span> {index + 1}</span>
               )}
             </span>
             <span className={styles.itemTitle}>{track.title}</span>

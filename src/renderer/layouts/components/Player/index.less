@@ -62,18 +62,36 @@
 .progress {
   // height: 30px;
   display: flex;
-  justify-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
   width: 100%;
   overflow: hidden;
 }
 
+.name {
+  padding: 3px;
+}
+
+.albumName {
+  font-size: 14px;
+  font-weight: normal;
+}
+.trackName {
+  font-size: 12px;
+  font-weight: 400;
+  color: #123;
+  word-break: keep-all;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 .progressBar {
   // position: absolute;
-  background: transparent;
-  height: 28px;
-  -webkit-appearance: none;
-  margin: 0;
+  height: 22px;
   width: 100%;
+  margin: 0 0 -6px;
+  background: transparent;
+  -webkit-appearance: none;
 
   &:focus {
     outline: none;

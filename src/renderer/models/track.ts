@@ -6,9 +6,16 @@ import {
 } from '../services/play';
 import { getTrackPageInfo } from '@/services/track';
 
+const selectCurrentInfo = ({
+  track: { currentIndex, playlist, hasMore },
+  player: { playMode },
+}) => {
+  return { currentIndex, playlist, hasMore, playMode };
+};
+
 export enum Sort {
-  ASC,
-  DESC,
+  ASC = -1,
+  DESC = 1,
 }
 
 const initState = {
@@ -20,6 +27,7 @@ const initState = {
   playlist: [],
   switchingTrack: null,
   currentTrack: null,
+  currentIndex: 0,
 };
 
 const updatePlayStateAction = (payload) => {
@@ -62,14 +70,16 @@ export default {
           pageSize,
           sort,
           currentTrack,
+          currentIndex: idx,
           playlist: tracksAudioPlay,
         };
         yield put({ type: 'updateTrack', payload: info });
+      } catch (e) {
+        // todo
+      } finally {
         yield put(
           updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
         );
-      } catch (e) {
-        return null;
       }
     },
     // *playTrack({ payload }, { put, call }) {
@@ -124,33 +134,84 @@ export default {
           sort,
         );
         const { hasMore, tracksAudioPlay } = data;
+        let payload;
         if (!isFromBtn) {
           const currentTrack = tracksAudioPlay[0];
-          const payload = {
+          payload = {
             hasMore,
             currentTrack,
             currentIndex: currentIndex + 1,
             playlist: [...playlist, ...tracksAudioPlay],
           };
-          yield put({ type: 'updateTrack', payload });
         } else {
-          const payload = {
+          payload = {
             hasMore,
             playlist: [...playlist, ...tracksAudioPlay],
           };
-          yield put({ type: 'updateTrack', payload });
         }
+        yield put({ type: 'updateTrack', payload });
       } catch (e) {
         // todo
       } finally {
         // todo
       }
     },
-    *next({ payload }, { put, call }) {
-      // todo handle nextTrack
+    *next({ payload: { isFromBtn = false } }, { put, call, select }) {
+      const { playlist, currentIndex, hasMore, playMode } = yield select(
+        selectCurrentInfo,
+      );
+
+      if (playMode === PlayMode.SINGLE && !isFromBtn) {
+        yield put({ type: 'player/updateState', payload: { played: 0.0 } });
+        return;
+      }
+
+      let newIndex = currentIndex + 1;
+      if (playMode === PlayMode.RANDOM) {
+        newIndex = Math.round(Math.random() * (playlist.length - 1));
+      } else {
+        if (newIndex >= playlist.length) {
+          if (hasMore) {
+            yield put({
+              type: 'fetchMoreTracks',
+              payload: { isFromBtn: false },
+            });
+            return;
+          } else {
+            newIndex = 0;
+          }
+        }
+      }
+      const payload = {
+        currentTrack: playlist[newIndex],
+        currentIndex: newIndex,
+      };
+      yield put({ type: 'updateTrack', payload });
     },
-    *prev({ payload }, { put, call }) {
-      // todo handle prevTrack
+    *prev({ payload: { isFromBtn = false } }, { put, call, select }) {
+      const { playlist, currentIndex, hasMore, playMode } = yield select(
+        selectCurrentInfo,
+      );
+
+      if (playMode === PlayMode.SINGLE && !isFromBtn) {
+        yield put({ type: 'player/updateState', payload: { played: 0.0 } });
+        return;
+      }
+
+      let newIndex = currentIndex - 1;
+      if (playMode === PlayMode.RANDOM) {
+        newIndex = Math.round(Math.random() * (playlist.length - 1));
+      } else {
+        if (newIndex < 0) {
+          // todo fix index
+          newIndex = playlist.length - 1;
+        }
+      }
+      const payload = {
+        currentTrack: playlist[newIndex],
+        currentIndex: newIndex,
+      };
+      yield put({ type: 'updateTrack', payload });
     },
   },
   reducers: {
