@@ -78,6 +78,7 @@ export const getAlbum = (
   albumId: string,
   pageNum = DEFAULT_ALBUM_PAGE_NUM,
   pageSize = DEFAULT_ALBUM_PAGE_SIZE,
+  sort = 1,
 ) => {
-  return request.get(api, { params: { albumId, pageNum, pageSize } });
+  return request.get(api, { params: { albumId, pageNum, pageSize, sort } });
 };

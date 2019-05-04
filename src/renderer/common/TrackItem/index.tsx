@@ -11,12 +11,12 @@ interface TrackItemProps {
   index: number;
   track: Track;
   albumId: string | number;
-  pageNum: number;
-  pageSize: number;
-  trackTotalCount: number;
-  isCurrent: boolean;
-  playState: PlayState;
-  playTrack: ({ trackId }: { trackId: string | number }) => void;
+  pageNum?: number;
+  pageSize?: number;
+  trackTotalCount?: number;
+  isCurrent?: boolean;
+  playState?: PlayState;
+  playTrack?: ({ trackId }: { trackId: string | number }) => void;
   playAlbum: ({
     albumId,
     index,

@@ -3,7 +3,16 @@ import { connect } from 'dva';
 import ReactPlayer from 'react-player';
 
 import styles from './index.less';
-import { Button, Icon, Slider, Popover, Dropdown, Menu, message } from 'antd';
+import {
+  Button,
+  Icon,
+  Slider,
+  Popover,
+  Dropdown,
+  Menu,
+  message,
+  List,
+} from 'antd';
 import { TracksAudioPlay } from '@/services/play';
 import { PlayState, PlayMode, PlaybackRate } from '../../../models/player';
 import { TooltipPlacement } from 'antd/lib/tooltip';
@@ -11,6 +20,9 @@ import { DropDownProps } from 'antd/lib/dropdown';
 import { CustomIcon } from '@/components/CustomIcon';
 import { getTrackPay } from '@/services/track';
 import getPaidAudio from '@/utils/payAudio';
+import TrackItem from '@/common/TrackItem';
+import { Track } from '@/services/album';
+import { debounce } from 'lodash';
 
 const PopoverIcon: React.FC<{
   content: React.ReactNode;
@@ -39,7 +51,14 @@ const DEFAULT_COVER =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAATklEQVRIie3WKw4AIR' +
   'AE0WVvwufAhHBQQgYNegSGhMFUm5LPtmt9zO/B/hcoMDAwMPB9uJasagaLiKoZHFNSNYN9iKoncxwBYGBgYODdFh5WEq2hxmOgAAAAAElFTkSuQmCC';
 
-const Player = ({ track: { currentTrack }, player, setPlayerState }) => {
+const Player = ({
+  track: { currentTrack, playlist, hasMore, albumId },
+  player,
+  setPlayerState,
+  playNextTrack,
+  playPrevTrack,
+  fetchMoreTracks,
+}) => {
   const playerRef = useRef(null);
   const [seeking, setSeeking] = useState(false);
   const [audioUrl, setAudioUrl] = useState('');
@@ -141,6 +160,20 @@ const Player = ({ track: { currentTrack }, player, setPlayerState }) => {
   const handleStop = (e) => {
     setPlayerState({ playState: PlayState.STOP, played: 0 });
     playerRef.current.seekTo(0);
+  };
+
+  const handleFetchMoreTracks = debounce(
+    ({ scrollHeight, scrollTop, offsetHeight }) => {
+      if (hasMore && scrollTop + offsetHeight + 100 >= scrollHeight) {
+        fetchMoreTracks();
+      }
+    },
+    200,
+  );
+
+  const handlePlaylistScroll = (e) => {
+    const { target } = e;
+    handleFetchMoreTracks(target);
   };
 
   const isLoading = playState === PlayState.LOADING;
@@ -283,7 +316,67 @@ const Player = ({ track: { currentTrack }, player, setPlayerState }) => {
             onClick={toggleMuted}
           />
         </PopoverIcon>
-        <CustomIcon className={styles.conBtn} type='icon-paragraph-left' />
+        <PopoverIcon
+          content={
+            <div className={styles.playlist} onScroll={handlePlaylistScroll}>
+              <List
+                loading={false}
+                itemLayout='horizontal'
+                // loadMore={loadMore}
+                dataSource={playlist}
+                renderItem={(item: TracksAudioPlay, idx) => {
+                  const {
+                    albumId,
+                    albumIsSample,
+                    albumName,
+                    albumUrl,
+                    anchorId,
+                    canPlay,
+                    createTime,
+                    duration,
+                    firstPlayStatus,
+                    hasBuy,
+                    index,
+                    isBaiduMusic,
+                    isCopyright,
+                    isLike,
+                    isPaid,
+                    sampleDuration,
+                    src,
+                    trackCoverPath,
+                    trackId,
+                    trackName,
+                    trackUrl,
+                    updateTime,
+                  } = item;
+                  const track = {
+                    index,
+                    trackId,
+                    isPaid,
+                    hasBuy,
+                    title: trackName,
+                    isLike,
+                    url,
+                    duration,
+                  };
+
+                  return (
+                    <TrackItem
+                      index={idx}
+                      // pageNum={pageNum}
+                      // pageSize={pageSize}
+                      // trackTotalCount={trackTotalCount}
+                      albumId={albumId}
+                      track={track}
+                    />
+                  );
+                }}
+              />
+            </div>
+          }
+        >
+          <CustomIcon className={styles.conBtn} type='icon-paragraph-left' />
+        </PopoverIcon>
       </div>
       {currentTrack && (
         <div className={styles.hidden}>
@@ -305,6 +398,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setPlayerState(payload) {
       dispatch({ type: 'player/updateState', payload });
+    },
+    playNextTrack() {
+      dispatch({ type: 'track/next' });
+    },
+    playPrevTrack() {
+      dispatch({ type: 'track/prev' });
+    },
+    fetchMoreTracks() {
+      dispatch({ type: 'track/fetchMoreTracks', payload: { isFromBtn: true } });
     },
   };
 };

@@ -91,8 +91,60 @@ export default {
     //     updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
     //   );
     // },
-    *fetchMoreAlbum({ payload }, { put, call }) {
-      // todo handle more album
+    *fetchMoreTracks(
+      { payload: { isFromBtn = false } },
+      { put, call, select },
+    ) {
+      try {
+        const {
+          pageNum,
+          pageSize,
+          sort,
+          albumId,
+          playlist,
+          currentIndex,
+        } = yield select(
+          ({
+            track: { pageNum, pageSize, sort, albumId, playlist, currentIndex },
+          }) => ({
+            pageNum,
+            pageSize,
+            sort,
+            albumId,
+            playlist,
+            currentIndex,
+          }),
+        );
+        const newPageNum = pageNum + 1;
+        const { data } = yield call(
+          getAlbum,
+          albumId,
+          newPageNum,
+          pageSize,
+          sort,
+        );
+        const { hasMore, tracksAudioPlay } = data;
+        if (!isFromBtn) {
+          const currentTrack = tracksAudioPlay[0];
+          const payload = {
+            hasMore,
+            currentTrack,
+            currentIndex: currentIndex + 1,
+            playlist: [...playlist, ...tracksAudioPlay],
+          };
+          yield put({ type: 'updateTrack', payload });
+        } else {
+          const payload = {
+            hasMore,
+            playlist: [...playlist, ...tracksAudioPlay],
+          };
+          yield put({ type: 'updateTrack', payload });
+        }
+      } catch (e) {
+        // todo
+      } finally {
+        // todo
+      }
     },
     *next({ payload }, { put, call }) {
       // todo handle nextTrack

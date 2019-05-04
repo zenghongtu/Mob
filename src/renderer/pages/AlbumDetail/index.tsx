@@ -39,7 +39,6 @@ const TrackList = ({
   const { pageNum, pageSize, sort, trackTotalCount, tracks } = tracksInfo;
   return (
     <List
-      className='demo-loadmore-list'
       loading={false}
       itemLayout='horizontal'
       loadMore={loadMore}
