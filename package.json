@@ -30,6 +30,7 @@
     "build-main-dev": "NODE_ENV=development webpack --config ./build/webpack.main.config.js",
     "build:renderer": "APP_ROOT=src/renderer umi build",
     "test:renderer": "APP_ROOT=src/renderer PORT=6008 BROWSER=none umi test",
+    "test:watch": "yarn run test:renderer -w",
     "test": "yarn run test:renderer",
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
