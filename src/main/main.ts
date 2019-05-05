@@ -1,6 +1,9 @@
 import { app, BrowserWindow } from 'electron';
+import * as electronReferer from 'electron-referer';
 import * as path from 'path';
 import * as url from 'url';
+
+electronReferer('https://www.ximalaya.com/');
 
 let mainWindow: Electron.BrowserWindow | null;
 

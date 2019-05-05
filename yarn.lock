@@ -4832,6 +4832,11 @@ electron-publish@20.39.0:
     lazy-val "^1.0.4"
     mime "^2.4.0"
 
+electron-referer@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npm.taobao.org/electron-referer/download/electron-referer-0.3.0.tgz#23457bfb6441db8655c0a93b4311178cf01cdcdb"
+  integrity sha1-I0V7+2RB24ZVwKk7QxEXjPAc3Ns=
+
 electron-store@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npm.taobao.org/electron-store/download/electron-store-3.2.0.tgz#50d2d6677beb46293c15814f2d230b65c6ca555e"
