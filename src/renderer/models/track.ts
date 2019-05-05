@@ -213,6 +213,39 @@ export default {
       };
       yield put({ type: 'updateTrack', payload });
     },
+    *setLike({ payload: { index, trackId } }, { put, select }) {
+      // todo fix
+      const { playlist, currentIndex, currentTrack } = yield select(
+        ({ track: { playlist, currentIndex, currentTrack } }) => ({
+          playlist,
+          currentIndex,
+          currentTrack,
+        }),
+      );
+      let payload;
+      if (index === currentIndex && currentTrack.trackId === trackId) {
+        currentTrack.isLike = true;
+        payload = {
+          playlist: [
+            ...playlist.slice(0, index - 1),
+            currentTrack,
+            ...playlist.slice(index + 1),
+          ],
+          currentTrack,
+        };
+      } else if (index < playlist.length) {
+        const index = playlist.findIndex((track) => track.trackId === trackId);
+        const track = playlist[index];
+        payload = {
+          playlist: [
+            ...playlist.slice(0, index - 1),
+            track,
+            ...playlist.slice(index + 1),
+          ],
+        };
+      }
+      yield put({ type: 'updateTrack', payload });
+    },
   },
   reducers: {
     updateTrack(state: any, { payload }: any) {

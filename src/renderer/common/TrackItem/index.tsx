@@ -6,6 +6,7 @@ import { PlayState } from '@/models/player';
 import { List, Skeleton } from 'antd';
 import { CustomIcon } from '@/components/CustomIcon';
 import { Track } from '@/services/album';
+import { setLikeTrack } from '@/services/like';
 
 interface TrackItemProps {
   index: number;
@@ -15,6 +16,7 @@ interface TrackItemProps {
   pageSize?: number;
   trackTotalCount?: number;
   isCurrent?: boolean;
+  isCurrentAlbum: boolean;
   playState?: PlayState;
   playTrack?: ({ trackId }: { trackId: string | number }) => void;
   playAlbum: ({
@@ -27,6 +29,13 @@ interface TrackItemProps {
     trackId: number;
   }) => void;
   playPauseTrack: (isPlaying: boolean) => void;
+  setLike: ({
+    index,
+    trackId,
+  }: {
+    index: number;
+    trackId: number | string;
+  }) => void;
 }
 
 const TrackItem: React.FC<TrackItemProps> = memo(
@@ -38,10 +47,12 @@ const TrackItem: React.FC<TrackItemProps> = memo(
     pageSize,
     trackTotalCount,
     isCurrent,
+    isCurrentAlbum,
     playState,
     playTrack,
     playAlbum,
     playPauseTrack,
+    setLike,
   }) => {
     const [isInside, setInside] = useState(false);
     const { createDateFormat, isLike, isPaid, playCount, trackId, url } = track;
@@ -61,10 +72,30 @@ const TrackItem: React.FC<TrackItemProps> = memo(
       }
     };
 
+    const handleClickLike = async (e) => {
+      try {
+        const rsp = await setLikeTrack(trackId);
+        if (rsp.ret === 200) {
+          if (isCurrentAlbum) {
+            // todo fix
+            setLike({ index, trackId });
+          } else {
+            // todo
+          }
+        }
+      } catch (e) {
+        // todo
+      }
+    };
+
     return (
       <List.Item
         actions={[
-          <CustomIcon className={styles.like} type='icon-heart-empty' />,
+          <CustomIcon
+            className={isLike ? styles.like : styles.likeIcon}
+            type='icon-heart-empty'
+            onClick={handleClickLike}
+          />,
         ]}
         onMouseEnter={handleItemMouseEnter}
         onMouseLeave={handleItemMouseLeave}
@@ -91,11 +122,16 @@ const TrackItem: React.FC<TrackItemProps> = memo(
 );
 
 const mapStateToProps = (
-  { track: { currentTrack }, player: { playState } },
-  { track },
+  { track: { currentTrack, albumId: curAlbumId }, player: { playState } },
+  { track, albumId },
 ) => {
   const isCurrent = currentTrack.trackId === track.trackId;
-  return { isCurrent, playState: isCurrent ? playState : undefined };
+  const isCurrentAlbum = curAlbumId === albumId;
+  return {
+    isCurrent,
+    isCurrentAlbum,
+    playState: isCurrent ? playState : undefined,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -110,6 +146,9 @@ const mapDispatchToProps = (dispatch) => {
         playState: isPlaying ? PlayState.PAUSE : PlayState.PLAYING,
       };
       dispatch({ type: 'player/updateState', payload });
+    },
+    setLike(payload) {
+      dispatch({ type: 'track/setLike', payload });
     },
   };
 };
