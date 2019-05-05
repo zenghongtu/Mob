@@ -45,6 +45,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
   }) => {
     const [isInside, setInside] = useState(false);
     const { createDateFormat, isLike, isPaid, playCount, trackId, url } = track;
+    const isPlaying = playState === PlayState.PLAYING;
     const handleItemMouseLeave = (e) => {
       setInside(false);
     };
@@ -52,11 +53,13 @@ const TrackItem: React.FC<TrackItemProps> = memo(
       setInside(true);
     };
 
-    // todo fix when the album is current album
     const handleItemClick = () => {
-      playAlbum({ albumId, index, trackId });
+      if (isCurrent) {
+        playPauseTrack(isPlaying);
+      } else {
+        playAlbum({ albumId, index, trackId });
+      }
     };
-    // const isPlaying = isCurrent && playState === PlayState.PLAYING;
 
     return (
       <List.Item
@@ -70,7 +73,11 @@ const TrackItem: React.FC<TrackItemProps> = memo(
           <div onClick={handleItemClick} className={styles.itemWrap}>
             <span className={styles.itemWidget}>
               {isInside ? (
-                <CustomIcon type='icon-play' />
+                isCurrent && isPlaying ? (
+                  <CustomIcon type='icon-pause' />
+                ) : (
+                  <CustomIcon type='icon-play' />
+                )
               ) : (
                 <span> {index + 1}</span>
               )}
@@ -83,16 +90,12 @@ const TrackItem: React.FC<TrackItemProps> = memo(
   },
 );
 
-const mapStateToProps = ({ track, player }, { info }) => {
-  // debugger;
-  // debugger;
-  // const isCurrent = +track.albumId === info.albumId;
-  // const playState = isCurrent ? player.playState : null;
-  // return {
-  //   isCurrent,
-  //   playState,
-  // };
-  return {};
+const mapStateToProps = (
+  { track: { currentTrack }, player: { playState } },
+  { track },
+) => {
+  const isCurrent = currentTrack.trackId === track.trackId;
+  return { isCurrent, playState: isCurrent ? playState : undefined };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
