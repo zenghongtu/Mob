@@ -41,7 +41,7 @@
   color: #ccc;
 }
 
-.playerInfo {
+.trackInfo {
   flex: 1;
   .controlWrap();
 }
@@ -53,23 +53,25 @@
 }
 .progressWrap {
   &:extend(.playerInfo);
+  flex: 1;
   min-width: 430px;
   margin: 0 20px;
-  height: 100%;
   background: #ccc;
   overflow: hidden;
 }
 .progress {
   // height: 30px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  width: 100%;
   overflow: hidden;
 }
 
 .name {
-  padding: 3px;
+  display: flex;
+  align-items: baseline;
+  padding: 3px 5px;
 }
 
 .albumName {
@@ -77,6 +79,8 @@
   font-weight: normal;
 }
 .trackName {
+  flex: 1;
+  width: 20px;
   font-size: 12px;
   font-weight: 400;
   color: #123;
@@ -85,6 +89,7 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
 .progressBar {
   // position: absolute;
   height: 22px;
@@ -147,4 +152,12 @@
   height: 300px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.barWrap {
+  display: flex;
+}
+
+.duration {
+  padding: 0 5px;
 }

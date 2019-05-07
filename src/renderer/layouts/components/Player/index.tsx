@@ -23,6 +23,7 @@ import getPaidAudio from '@/utils/payAudio';
 import TrackItem from '@/common/TrackItem';
 import { Track } from '@/services/album';
 import { debounce } from 'lodash';
+import Duration from './Duration';
 
 const PopoverIcon: React.FC<{
   content: React.ReactNode;
@@ -62,6 +63,7 @@ const Player = ({
   const playerRef = useRef(null);
   const [seeking, setSeeking] = useState(false);
   const [audioUrl, setAudioUrl] = useState('');
+  const [duration, setDuration] = useState(0);
   const {
     src,
     isPaid,
@@ -106,8 +108,8 @@ const Player = ({
     // todo next track
   };
 
-  const handleDuration = (e) => {
-    // todo update duration
+  const handleDuration = (duration) => {
+    setDuration(duration);
   };
   const handleError = (e) => {
     // handle error
@@ -232,7 +234,7 @@ const Player = ({
           type='icon-stop'
         />
       </div>
-      <div className={styles.playerInfo}>
+      <div className={styles.trackInfo}>
         <img
           className={styles.cover}
           src={trackCoverPath || DEFAULT_COVER}
@@ -242,19 +244,28 @@ const Player = ({
           <div className={styles.progress}>
             <div className={styles.name}>
               <span className={styles.albumName}>{albumName}</span>
-              <span className={styles.trackName}>{trackName}</span>
+              <span className={styles.trackName} title={trackName}>
+                {trackName}
+              </span>
             </div>
-            <input
-              className={styles.progressBar}
-              min={0}
-              max={1}
-              step='any'
-              value={played}
-              type='range'
-              onMouseDown={handleSeekMouseDown}
-              onChange={handleSeekChange}
-              onMouseUp={handleSeekMouseUp}
-            />
+            <div className={styles.barWrap}>
+              <Duration
+                seconds={duration * played}
+                className={styles.duration}
+              />
+              <input
+                className={styles.progressBar}
+                min={0}
+                max={1}
+                step='any'
+                value={played}
+                type='range'
+                onMouseDown={handleSeekMouseDown}
+                onChange={handleSeekChange}
+                onMouseUp={handleSeekMouseUp}
+              />
+              <Duration seconds={duration} className={styles.duration} />
+            </div>
           </div>
         </div>
       </div>
