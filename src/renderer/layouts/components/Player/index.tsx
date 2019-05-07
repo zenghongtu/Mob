@@ -24,6 +24,7 @@ import TrackItem from '@/common/TrackItem';
 import { Track } from '@/services/album';
 import { debounce } from 'lodash';
 import Duration from './Duration';
+import download from '@/utils/download';
 
 const PopoverIcon: React.FC<{
   content: React.ReactNode;
@@ -163,6 +164,14 @@ const Player = ({
     setPlayerState({ playState: PlayState.STOP, played: 0 });
     playerRef.current.seekTo(0);
   };
+  const handleDownload = async () => {
+    const filename = `${albumName}-${trackName}`;
+    try {
+      await download(url, filename);
+    } catch (e) {
+      message.error(`${filename} 下载失败！`);
+    }
+  };
 
   const handleFetchMoreTracks = debounce(
     ({ scrollHeight, scrollTop, offsetHeight }) => {
@@ -294,7 +303,11 @@ const Player = ({
         </PopoverIcon>
 
         <CustomIcon className={styles.conBtn} type='icon-heart-empty' />
-        <CustomIcon className={styles.conBtn} type='icon-arrow-down' />
+        <CustomIcon
+          className={styles.conBtn}
+          type='icon-arrow-down'
+          onClick={handleDownload}
+        />
         <CustomIcon
           className={styles.conBtn}
           type='icon-speech-bubble-center'
