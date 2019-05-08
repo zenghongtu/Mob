@@ -1,10 +1,11 @@
 import { persistStore, persistReducer } from 'redux-persist';
-import createElectronStorage from 'redux-persist-electron-storage';
+// import createElectronStorage from 'redux-persist-electron-storage';
+import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
-  timeout: 1000, // you can define your time. But is required.
+  timeout: 100, // you can define your time. But is required.
   key: 'redux-storage',
-  storage: createElectronStorage(),
+  storage,
 };
 
 const persistEnhancer = () => (createStore) => (
