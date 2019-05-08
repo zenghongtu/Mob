@@ -7,6 +7,7 @@ import { List, Skeleton } from 'antd';
 import { CustomIcon } from '@/components/CustomIcon';
 import { Track } from '@/services/album';
 import { setLikeTrack, cancelLikeTrack } from '@/services/like';
+import PayTag from '@/components/PayTag';
 
 interface TrackItemProps {
   index: number;
@@ -121,7 +122,10 @@ const TrackItem: React.FC<TrackItemProps> = memo(
                 <span> {index + 1}</span>
               )}
             </span>
-            <span className={styles.itemTitle}>{track.title}</span>
+            <span className={styles.itemTitle}>
+              {isPaid && <PayTag />}
+              {track.title}
+            </span>
           </div>
         </Skeleton>
       </List.Item>

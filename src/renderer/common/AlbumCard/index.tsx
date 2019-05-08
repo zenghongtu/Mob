@@ -4,6 +4,8 @@ import { connect } from 'dva';
 import styles from './index.less';
 import { Album } from '@/services/explore';
 import { PlayState } from '@/models/player';
+import { Tag } from 'antd';
+import PayTag from '@/components/PayTag';
 
 interface AlbumCardProps {
   info: Album;
@@ -71,7 +73,7 @@ const AlbumCard: React.FC<AlbumCardProps> = memo(
           data-url={albumUrl}
           onClick={handleTitleClick}
         >
-          {isPaid && <span className={styles.payTag}>付费</span>}
+          {isPaid && <PayTag />}
           {albumTitle}
         </h4>
       </div>
