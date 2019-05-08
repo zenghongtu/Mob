@@ -3,7 +3,7 @@ import router from 'umi/router';
 import { connect } from 'dva';
 import styles from './index.less';
 import { PlayState } from '@/models/player';
-import { List, Skeleton } from 'antd';
+import { List, Skeleton, message } from 'antd';
 import { CustomIcon } from '@/components/CustomIcon';
 import { Track } from '@/services/album';
 import { setLikeTrack, cancelLikeTrack } from '@/services/like';
@@ -93,7 +93,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
           setLike(!isLike);
         }
       } catch (e) {
-        // todo
+        message.error('操作失败，请稍后重试！');
       }
     };
 
@@ -119,7 +119,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
                   <CustomIcon type='icon-play' />
                 )
               ) : (
-                <span> {index + 1}</span>
+                <span> {index}</span>
               )}
             </span>
             <span className={styles.itemTitle}>

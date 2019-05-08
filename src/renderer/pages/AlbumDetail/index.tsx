@@ -7,12 +7,17 @@ import {
   AnchorInfo,
   getAlbumInfo,
   Track,
+  getTracksList,
 } from '@/services/album';
-import { List, Skeleton, Button, Tag } from 'antd';
+import { List, Skeleton, Button, Tag, message, Pagination } from 'antd';
 import styles from './index.less';
 import { CustomIcon } from '@/components/CustomIcon';
 import TrackItem from '@/common/TrackItem';
 import { DEFAULT_COVER } from '@/common/AlbumCard';
+import {
+  setSubscriptionAlbum,
+  cancelSubscriptionAlbum,
+} from '@/services/subscription';
 
 const TrackList = ({
   tracksInfo,
@@ -23,29 +28,29 @@ const TrackList = ({
 }) => {
   const initLoading = true;
   const loading = false;
-  const loadMore =
-    !initLoading && !loading ? (
-      <div
-        style={{
-          textAlign: 'center',
-          marginTop: 12,
-          height: 32,
-          lineHeight: '32px',
-        }}
-      >
-        <Button onClick={this.onLoadMore}>loading more</Button>
-      </div>
-    ) : null;
+  // const loadMore =
+  //   !initLoading && !loading ? (
+  //     <div
+  //       style={{
+  //         textAlign: 'center',
+  //         marginTop: 12,
+  //         height: 32,
+  //         lineHeight: '32px',
+  //       }}
+  //     >
+  //       <Button onClick={onLoadMore}>loading more</Button>
+  //     </div>
+  //   ) : null;
   const { pageNum, pageSize, sort, trackTotalCount, tracks } = tracksInfo;
   return (
     <List
       loading={false}
       itemLayout='horizontal'
-      loadMore={loadMore}
+      // loadMore={loadMore}
       dataSource={tracks}
       renderItem={(item, idx) => (
         <TrackItem
-          index={idx}
+          index={item.index}
           pageNum={pageNum}
           pageSize={pageSize}
           trackTotalCount={trackTotalCount}
@@ -60,7 +65,7 @@ const TrackList = ({
 const AlbumContent = ({
   albumId,
   mainInfo,
-  tracksInfo,
+  tracksInfo: info,
   anchorInfo,
 }: {
   albumId: string | number;
@@ -79,21 +84,68 @@ const AlbumContent = ({
     isFinished,
     isPaid,
     isPublic,
-    isSubscribe,
+    isSubscribe: subscribe,
     metas,
     playCount,
     richIntro,
     updateDate,
   } = mainInfo;
 
+  const [isSubscribe, setSubscribe] = useState(subscribe);
+  const handleSubClick = async () => {
+    try {
+      let rsp;
+      if (isSubscribe) {
+        rsp = await cancelSubscriptionAlbum(albumId);
+      } else {
+        rsp = await setSubscriptionAlbum(albumId);
+      }
+      if (rsp.ret === 200) {
+        setSubscribe(!isSubscribe);
+      }
+    } catch (e) {
+      message.warn('操作失败，请稍后重试');
+    }
+  };
+  const [tracksInfo, setTracksInfo] = useState(info);
+  const { pageNum, pageSize, sort, trackTotalCount } = tracksInfo;
+  const handlePaginationChange = async (page) => {
+    try {
+      const rsp = await getTracksList(albumId, page);
+      setTracksInfo(rsp.data);
+    } catch (e) {
+      message.error('操作失败，请稍后重试！');
+    }
+  };
+  const PaginationBar = (
+    <div className={styles.paginationWrap}>
+      <Pagination
+        simple
+        current={pageNum}
+        onChange={handlePaginationChange}
+        total={trackTotalCount}
+        pageSize={pageSize}
+      />
+    </div>
+  );
+
   return (
     <div className={styles.content}>
       <div className={styles.header}>
-        <img
-          className={styles.cover}
-          src={cover ? `http:${cover}` : DEFAULT_COVER}
-          alt=''
-        />
+        <div>
+          <img
+            className={styles.cover}
+            src={cover ? `http:${cover}` : DEFAULT_COVER}
+            alt=''
+          />
+          <div className={styles.btns}>
+            <Button onClick={handleSubClick}>
+              <CustomIcon type='icon-star-' />
+              {isSubscribe ? '已订阅' : '订阅'}
+            </Button>
+          </div>
+        </div>
+
         <div className={styles.info}>
           <h2 className={styles.albumTitle}>
             <span>{albumTitle}</span>
@@ -109,6 +161,7 @@ const AlbumContent = ({
       <div className={styles.trackList}>
         <TrackList albumId={albumId} tracksInfo={tracksInfo} />
       </div>
+      <div>{PaginationBar}</div>
     </div>
   );
 };

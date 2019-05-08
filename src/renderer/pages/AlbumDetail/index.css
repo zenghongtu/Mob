@@ -1,21 +1,15 @@
-@teal: #0292b7;
-@base-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-@base-transition: all 0.5s cubic-bezier(0.075, 0.82, 0.135, 1);
-
 .hover {
-  transition: @base-transition;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.135, 1);
   cursor: pointer;
-  &:hover {
-    color: @teal;
-  }
 }
-
+.hover:hover {
+  color: #0292b7;
+}
 .content {
   padding: 20px;
   margin: 0 30px;
   background: #fff;
 }
-
 .header {
   display: flex;
 }
@@ -26,13 +20,12 @@
   margin: 0 20px;
   border-radius: 15px;
   box-sizing: content-box;
-  box-shadow: @base-shadow;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 .btns {
   margin: 10px;
   text-align: center;
 }
-
 .info {
   flex: 1;
 }
@@ -44,13 +37,10 @@
   color: #8c756a;
   margin-left: 5px;
 }
-
 .intro {
   transform: scale(0.9);
   transform-origin: top left;
-  & img {
-    width: 100%;
-  }
 }
-.trackList {
+.intro img {
+  width: 100%;
 }

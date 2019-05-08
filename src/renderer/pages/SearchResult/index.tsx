@@ -131,6 +131,7 @@ const Albums = ({
         current={currentPage}
         onChange={handlePaginationChange}
         total={totalPage}
+        pageSize={pageSize}
       />
     </div>
   );
