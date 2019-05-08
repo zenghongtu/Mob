@@ -5,6 +5,7 @@ import {
   DEFAULT_ALBUM_PAGE_SIZE,
 } from '../services/play';
 import { getTrackPageInfo } from '@/services/track';
+import { message, notification } from 'antd';
 
 const selectCurrentInfo = ({
   track: { currentIndex, playlist, hasMore },
@@ -215,36 +216,36 @@ export default {
     },
     *setLike({ payload: { index, trackId } }, { put, select }) {
       // todo fix
-      const { playlist, currentIndex, currentTrack } = yield select(
-        ({ track: { playlist, currentIndex, currentTrack } }) => ({
-          playlist,
-          currentIndex,
-          currentTrack,
-        }),
-      );
-      let payload;
-      if (index === currentIndex && currentTrack.trackId === trackId) {
-        currentTrack.isLike = true;
-        payload = {
-          playlist: [
-            ...playlist.slice(0, index - 1),
-            currentTrack,
-            ...playlist.slice(index + 1),
-          ],
-          currentTrack,
-        };
-      } else if (index < playlist.length) {
-        const index = playlist.findIndex((track) => track.trackId === trackId);
-        const track = playlist[index];
-        payload = {
-          playlist: [
-            ...playlist.slice(0, index - 1),
-            track,
-            ...playlist.slice(index + 1),
-          ],
-        };
-      }
-      yield put({ type: 'updateTrack', payload });
+      //   const { playlist, currentIndex, currentTrack } = yield select(
+      //     ({ track: { playlist, currentIndex, currentTrack } }) => ({
+      //       playlist,
+      //       currentIndex,
+      //       currentTrack,
+      //     }),
+      //   );
+      //   let payload;
+      //   if (index === currentIndex && currentTrack.trackId === trackId) {
+      //     currentTrack.isLike = true;
+      //     payload = {
+      //       playlist: [
+      //         ...playlist.slice(0, index - 1),
+      //         currentTrack,
+      //         ...playlist.slice(index + 1),
+      //       ],
+      //       currentTrack,
+      //     };
+      //   } else if (index < playlist.length) {
+      //     const index = playlist.findIndex((track) => track.trackId === trackId);
+      //     const track = playlist[index];
+      //     payload = {
+      //       playlist: [
+      //         ...playlist.slice(0, index - 1),
+      //         track,
+      //         ...playlist.slice(index + 1),
+      //       ],
+      //     };
+      //   }
+      //   yield put({ type: 'updateTrack', payload });
     },
   },
   reducers: {

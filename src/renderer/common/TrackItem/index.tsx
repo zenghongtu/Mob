@@ -6,7 +6,7 @@ import { PlayState } from '@/models/player';
 import { List, Skeleton } from 'antd';
 import { CustomIcon } from '@/components/CustomIcon';
 import { Track } from '@/services/album';
-import { setLikeTrack } from '@/services/like';
+import { setLikeTrack, cancelLikeTrack } from '@/services/like';
 
 interface TrackItemProps {
   index: number;
@@ -29,13 +29,13 @@ interface TrackItemProps {
     trackId: number;
   }) => void;
   playPauseTrack: (isPlaying: boolean) => void;
-  setLike: ({
-    index,
-    trackId,
-  }: {
-    index: number;
-    trackId: number | string;
-  }) => void;
+  // setLike: ({
+  //   index,
+  //   trackId,
+  // }: {
+  //   index: number;
+  //   trackId: number | string;
+  // }) => void;
 }
 
 const TrackItem: React.FC<TrackItemProps> = memo(
@@ -52,10 +52,18 @@ const TrackItem: React.FC<TrackItemProps> = memo(
     playTrack,
     playAlbum,
     playPauseTrack,
-    setLike,
+    // setLike,
   }) => {
+    const {
+      createDateFormat,
+      isLike: like,
+      isPaid,
+      playCount,
+      trackId,
+      url,
+    } = track;
+    const [isLike, setLike] = useState(like);
     const [isInside, setInside] = useState(false);
-    const { createDateFormat, isLike, isPaid, playCount, trackId, url } = track;
     const isPlaying = playState === PlayState.PLAYING;
     const handleItemMouseLeave = (e) => {
       setInside(false);
@@ -72,16 +80,16 @@ const TrackItem: React.FC<TrackItemProps> = memo(
       }
     };
 
-    const handleClickLike = async (e) => {
+    const handleClickLike = async () => {
       try {
-        const rsp = await setLikeTrack(trackId);
+        let rsp;
+        if (isLike) {
+          rsp = await cancelLikeTrack(trackId);
+        } else {
+          rsp = await setLikeTrack(trackId);
+        }
         if (rsp.ret === 200) {
-          if (isCurrentAlbum) {
-            // todo fix
-            setLike({ index, trackId });
-          } else {
-            // todo
-          }
+          setLike(!isLike);
         }
       } catch (e) {
         // todo
@@ -92,8 +100,8 @@ const TrackItem: React.FC<TrackItemProps> = memo(
       <List.Item
         actions={[
           <CustomIcon
-            className={isLike ? styles.like : styles.likeIcon}
-            type='icon-heart-empty'
+            className={styles.like}
+            type={isLike ? 'icon-heart-full' : 'icon-heart-empty'}
             onClick={handleClickLike}
           />,
         ]}

@@ -25,6 +25,7 @@ import { Track } from '@/services/album';
 import { debounce } from 'lodash';
 import Duration from './Duration';
 import download from '@/utils/download';
+import { setLikeTrack, cancelLikeTrack } from '@/services/like';
 
 const PopoverIcon: React.FC<{
   content: React.ReactNode;
@@ -60,6 +61,7 @@ const Player = ({
   playNextTrack,
   playPrevTrack,
   fetchMoreTracks,
+  // setLike,
 }) => {
   const playerRef = useRef(null);
   const [seeking, setSeeking] = useState(false);
@@ -69,7 +71,7 @@ const Player = ({
     src,
     isPaid,
     hasBuy,
-    isLike,
+    isLike: like,
     index,
     trackCoverPath,
     trackUrl,
@@ -77,6 +79,8 @@ const Player = ({
     trackName,
     trackId,
   } = currentTrack || ({} as TracksAudioPlay);
+  // todo remove (the same as ximalaya  official site new )
+  const [isLike, setLike] = useState(like);
 
   useEffect(() => {
     const isBought = isPaid && hasBuy;
@@ -163,6 +167,21 @@ const Player = ({
   const handleStop = (e) => {
     setPlayerState({ playState: PlayState.STOP, played: 0 });
     playerRef.current.seekTo(0);
+  };
+  const handleClickLike = async () => {
+    try {
+      let rsp;
+      if (isLike) {
+        rsp = await cancelLikeTrack(trackId);
+      } else {
+        rsp = await setLikeTrack(trackId);
+      }
+      if (rsp.ret === 200) {
+        setLike(!isLike);
+      }
+    } catch (e) {
+      // todo
+    }
   };
   const handleDownload = async () => {
     const filename = `${albumName}-${trackName}`;
@@ -302,7 +321,11 @@ const Player = ({
           <span className={styles.rate}>x{playbackRate.toFixed(2)}</span>
         </PopoverIcon>
 
-        <CustomIcon className={styles.conBtn} type='icon-heart-empty' />
+        <CustomIcon
+          className={styles.conBtn}
+          type={isLike ? 'icon-heart-full' : 'icon-heart-empty'}
+          onClick={handleClickLike}
+        />
         <CustomIcon
           className={styles.conBtn}
           type='icon-arrow-down'
@@ -435,6 +458,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     fetchMoreTracks() {
       dispatch({ type: 'track/fetchMoreTracks', payload: { isFromBtn: true } });
+    },
+    setLike(payload) {
+      dispatch({ type: 'track/setLike', payload });
     },
   };
 };
