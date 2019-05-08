@@ -55,14 +55,51 @@
   &:extend(.playerInfo);
   flex: 1;
   min-width: 430px;
-  margin: 0 20px;
-  background: #ccc;
+  margin: 0 10px;
+  padding: 0 10px;
+  background: transparent;
   overflow: hidden;
+  position: relative;
+}
+@keyframes process-animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 2.89em 0;
+  }
+}
+.loadedBar {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  background: rgba(204, 204, 204, 0.1);
+  background-image: repeating-linear-gradient(
+    30deg,
+    #fff,
+    #fff 15px,
+    transparent 0,
+    transparent 30px
+  );
+  transition: all 1s ease-out;
+  // todo fix crash
+  animation: process-animation 2s infinite linear;
+  &.complete {
+    background: none;
+    background-image: none;
+  }
 }
 .progress {
-  // height: 30px;
+  height: 100%;
   width: 100%;
   display: flex;
+  position: relative;
+  left: 0;
+  top: 0;
+  z-index: 1;
   justify-content: space-between;
   flex-direction: column;
   overflow: hidden;
@@ -90,7 +127,7 @@
   overflow: hidden;
 }
 
-.progressBar {
+.playedBar {
   // position: absolute;
   height: 22px;
   width: 100%;

@@ -110,14 +110,17 @@ const Player = ({
   };
 
   const handleEnded = () => {
-    // todo next track
+    playNextTrack();
   };
 
   const handleDuration = (duration) => {
     setDuration(duration);
   };
   const handleError = (e) => {
-    // handle error
+    // tslint:disable-next-line:no-console
+    console.warn('play error：', e);
+    message.error('播放失败，尝试播放下一个');
+    playNextTrack();
   };
 
   const handlePlayPause = () => {
@@ -269,6 +272,12 @@ const Player = ({
           alt=''
         />
         <div className={styles.progressWrap}>
+          <div
+            className={`${styles.loadedBar} ${
+              loaded === 1 ? styles.complete : ''
+            }`}
+          />
+
           <div className={styles.progress}>
             <div className={styles.name}>
               <span className={styles.albumName}>{albumName}</span>
@@ -282,7 +291,7 @@ const Player = ({
                 className={styles.duration}
               />
               <input
-                className={styles.progressBar}
+                className={styles.playedBar}
                 min={0}
                 max={1}
                 step='any'
