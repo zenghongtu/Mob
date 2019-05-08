@@ -14,16 +14,37 @@ const instance: AxiosInstance = Axios.create({
   // withCredentials: true,  // todo change
 });
 
-const errorHandler = (error) => {
-  // todo handle error status
-  notification.error({
-    message: `请求错误: ${error.message}`,
-    // description: error.message,
-  });
-  return Promise.reject(error);
+// keep only one notification
+const createNotification = (message, onClick = undefined) => {
+  try {
+    notification.destroy();
+  } finally {
+    notification.error({
+      message,
+      onClick,
+    });
+  }
 };
 
-// const NEED_COOKIES_PATHNAME = '/my';
+const errorHandler = (error) => {
+  const { message, status } = error;
+  let msg = `请求错误: ${message}`;
+  if (message === 'Network Error') {
+    msg = `无法连接到网络！`;
+  }
+  if (status === 401) {
+    msg = `请先登录（点此前往登录）`;
+    createNotification(msg, () => {
+      router.push('/login');
+    });
+  } else {
+    if (status >= 500) {
+      msg = `服务器错误，请稍后重试`;
+    }
+    createNotification(msg);
+  }
+  return Promise.reject(error);
+};
 
 instance.interceptors.request.use((config) => {
   config.headers['xm-sign'] = genXmSign();
@@ -31,12 +52,12 @@ instance.interceptors.request.use((config) => {
 }, errorHandler);
 
 instance.interceptors.response.use(({ data }) => {
-  if (data.ret !== 200) {
+  if (data.ret >= 300) {
     // todo handle
     // if (data.ret === 401) {
     //   return router.push('/login');
     // }
-    return errorHandler({ message: data.msg });
+    return errorHandler({ message: data.msg, status: data.ret });
   }
   return data;
 }, errorHandler);
