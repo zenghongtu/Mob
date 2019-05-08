@@ -83,6 +83,7 @@ const Player = ({
   const [isLike, setLike] = useState(like);
 
   useEffect(() => {
+    setLike(like);
     const isBought = isPaid && hasBuy;
     if (isBought) {
       (async () => {
