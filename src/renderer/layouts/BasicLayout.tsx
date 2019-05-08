@@ -1,13 +1,19 @@
 import React from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
-import { Layout, Spin } from 'antd';
+import { Layout, Spin, message } from 'antd';
 import SideBar from './components/SideBar';
 import NavBar from './components/NavBar';
 import Player from './components/Player';
 import styles from './BasicLayout.css';
 
 const { Header, Footer, Sider, Content } = Layout;
+
+message.config({
+  top: 10,
+  duration: 2,
+  maxCount: 1,
+});
 
 export default function(props) {
   const SIDE_BAR_WIDTH = 260;
