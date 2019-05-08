@@ -17,6 +17,8 @@ const Login = ({ isLogin, login, logout, location }) => {
       session.cookies.get({ url }, (error, cookies) => {
         if (redirect) {
           router.replace(`${redirect}`);
+        } else {
+          router.goBack();
         }
         login();
       });

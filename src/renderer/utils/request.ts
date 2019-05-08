@@ -35,7 +35,13 @@ const errorHandler = (error) => {
   if (status === 401) {
     msg = `请先登录（点此前往登录）`;
     createNotification(msg, () => {
-      router.push('/login');
+      router.push({
+        pathname: '/login',
+        query: {
+          type: 'login',
+        },
+      });
+      notification.destroy();
     });
   } else {
     if (status >= 500) {
