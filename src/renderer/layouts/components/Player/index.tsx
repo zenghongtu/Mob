@@ -275,7 +275,9 @@ const Player = ({
         <div className={styles.progressWrap}>
           <div
             className={`${styles.loadedBar} ${
-              loaded === 1 ? styles.complete : ''
+              loaded === 1 || playState === PlayState.STOP
+                ? styles.complete
+                : ''
             }`}
           />
 
