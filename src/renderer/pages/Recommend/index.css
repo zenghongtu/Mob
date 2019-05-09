@@ -1,3 +1,25 @@
-.normal {
-  background: #e479f2;
+.wrap {
+  margin: 0 10px;
+  padding: 10px;
+  overflow: hidden;
+  /* background: #fff; */
+}
+
+.guessLikeHead {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  /* background-color: #fff; */
+}
+
+.albums {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 20px 30px;
+}
+
+.filler {
+  width: 130px;
+  height: 0;
 }

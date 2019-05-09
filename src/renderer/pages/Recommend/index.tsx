@@ -1,5 +1,11 @@
-import React, { useEffect, useState, ReactComponentElement } from 'react';
+import React, {
+  useEffect,
+  useState,
+  ReactComponentElement,
+  useRef,
+} from 'react';
 
+import { debounce } from 'lodash';
 import styles from './index.css';
 import exploreApi, {
   SlideshowInfoList,
@@ -14,6 +20,8 @@ import Content from '@/common/Content';
 import AlbumCard from '@/common/AlbumCard';
 
 const SIZE = 5;
+// todo use offsetWidth
+const cardWidth = 130;
 
 interface SliderItemProps {
   info: SlideshowInfo;
@@ -25,6 +33,7 @@ interface BannerSliderProps {
 
 interface AlbumsProps {
   data: AlbumList;
+  containerWidth: number;
 }
 
 interface HotAlbumItemProps {
@@ -43,24 +52,27 @@ const SliderItem = ({ info }: SliderItemProps) => {
   );
 };
 
-const BannerSlider = ({ data }: BannerSliderProps) => {
-  return (
-    <Carousel autoplay>
-      {data.map((info) => {
-        return <SliderItem key={info.focusId} info={info} />;
-      })}
-    </Carousel>
-  );
-};
+// const BannerSlider = ({ data }: BannerSliderProps) => {
+//   return (
+//     <Carousel autoplay>
+//       {data.map((info) => {
+//         return <SliderItem key={info.focusId} info={info} />;
+//       })}
+//     </Carousel>
+//   );
+// };
 
-const Albums = ({ data }: AlbumsProps) => {
+const Albums = ({ data, containerWidth }: AlbumsProps) => {
+  const rowCardCount = Math.floor(containerWidth / cardWidth);
+  const fillCount = rowCardCount - (data.length % rowCardCount);
   return (
-    <div>
-      <div>
-        {data.map((info) => {
-          return <AlbumCard info={info} />;
-        })}
-      </div>
+    <div className={styles.albums}>
+      {data.map((info) => {
+        return <AlbumCard key={info.albumId} info={info} />;
+      })}
+      {Array.from({ length: fillCount }).map((_, idx) => {
+        return <div key={idx} className={styles.filler} />;
+      })}
     </div>
   );
 };
@@ -76,10 +88,13 @@ const GuessLike = ({ data, children }) => {
 
   return (
     <div>
-      <div>
-        <Button onClick={handRefreshBtnClick}>换一批</Button>
+      <div className={styles.guessLikeHead}>
+        <h3>猜你喜欢</h3>
+        <Button type='primary' size='small' ghost onClick={handRefreshBtnClick}>
+          换一批
+        </Button>
       </div>
-      <div>{children(info)}</div>
+      {children(info)}
     </div>
   );
 };
@@ -87,8 +102,8 @@ const GuessLike = ({ data, children }) => {
 const HotAlbumItem = ({ data, children }: HotAlbumItemProps) => {
   return (
     <div>
-      <h2>{data.title}</h2>
-      <div>{children(data.albumList)}</div>
+      <h3>{data.title}</h3>
+      {children(data.albumList)}
     </div>
   );
 };
@@ -97,13 +112,28 @@ const HotAlbums = ({ data, children }) => {
   return (
     <div>
       {data.map((item) => {
-        return <HotAlbumItem data={item} children={children} />;
+        return (
+          <HotAlbumItem key={item.albumId} data={item} children={children} />
+        );
       })}
     </div>
   );
 };
 
 export default function() {
+  const containerRef = useRef(null);
+  const [width, setWidth] = useState(null);
+  const handleResize = debounce(() => {
+    setWidth(containerRef.current.offsetWidth);
+  }, 100);
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const genRequestList = () => [
     exploreApi.getSlideshow(),
     exploreApi['v2/getRecommend'](),
@@ -130,15 +160,17 @@ export default function() {
   };
 
   return (
-    <div className={styles.normal}>
+    <div className={styles.wrap} ref={containerRef}>
       <Content
         render={({ slideshowInfoList, recommendInfoList, cards }) => (
           <>
             {/* <BannerSlider data={slideshowInfoList} /> */}
             <GuessLike data={recommendInfoList}>
-              {(data) => <Albums data={data} />}
+              {(data) => <Albums containerWidth={width} data={data} />}
             </GuessLike>
-            <HotAlbums data={cards}>{(data) => <Albums data={data} />}</HotAlbums>
+            <HotAlbums data={cards}>
+              {(data) => <Albums containerWidth={width} data={data} />}
+            </HotAlbums>
           </>
         )}
         rspHandler={rspHandler}
