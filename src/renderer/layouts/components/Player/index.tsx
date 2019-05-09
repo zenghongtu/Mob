@@ -55,7 +55,7 @@ const DEFAULT_COVER =
   'AE0WVvwufAhHBQQgYNegSGhMFUm5LPtmt9zO/B/hcoMDAwMPB9uJasagaLiKoZHFNSNYN9iKoncxwBYGBgYODdFh5WEq2hxmOgAAAAAElFTkSuQmCC';
 
 const Player = ({
-  track: { currentTrack, playlist, hasMore, albumId },
+  track: { currentTrack, playlist, hasMore, albumId, pageNum, pageSize, sort },
   player,
   setPlayerState,
   playNextTrack,
@@ -65,7 +65,7 @@ const Player = ({
 }) => {
   const playerRef = useRef(null);
   const [seeking, setSeeking] = useState(false);
-  const [audioUrl, setAudioUrl] = useState('');
+  const [url, setAudioUrl] = useState('');
   const [duration, setDuration] = useState(0);
   const {
     src,
@@ -78,23 +78,27 @@ const Player = ({
     albumName,
     trackName,
     trackId,
+    canPlay,
   } = currentTrack || ({} as TracksAudioPlay);
   // todo remove (the same as ximalaya  official site new )
   const [isLike, setLike] = useState(like);
 
   useEffect(() => {
     setLike(like);
-    const isBought = isPaid && hasBuy;
-    if (isBought) {
-      (async () => {
-        const r = await getTrackPay(trackId);
-        const audio = await getPaidAudio(r.data);
-        setAudioUrl(audio);
-      })();
+    if (isPaid) {
+      if (canPlay || hasBuy) {
+        (async () => {
+          const r = await getTrackPay(trackId);
+          const audio = await getPaidAudio(r.data);
+          setAudioUrl(audio);
+        })();
+      } else {
+        message.error('未购买，无法播放！');
+        setAudioUrl('');
+        setPlayerState({ playState: PlayState.STOP, played: 0 });
+      }
     } else {
-      message.info('未购买，无法播放！');
-      setAudioUrl('');
-      setPlayerState({ playState: PlayState.STOP, played: 0 });
+      setAudioUrl(src);
     }
   }, [trackId]);
 
@@ -223,10 +227,6 @@ const Player = ({
     [PlayMode.RANDOM]: 'icon-shuffle',
   };
 
-  const canPlay = !isPaid;
-  // todo
-  const url = canPlay ? src : hasBuy ? audioUrl : '';
-
   const playerProps = {
     url,
     playing: isPlaying,
@@ -326,7 +326,10 @@ const Player = ({
                 })
                 .map((rate) => {
                   return (
-                    <Menu.Item key={rate.toString()}>
+                    <Menu.Item
+                      className={styles.menuItem}
+                      key={rate.toString()}
+                    >
                       {rate.toFixed(2)}
                     </Menu.Item>
                   );
@@ -347,10 +350,10 @@ const Player = ({
           type='icon-arrow-down'
           onClick={handleDownload}
         />
-        <CustomIcon
+        {/* <CustomIcon
           className={styles.conBtn}
           type='icon-speech-bubble-center'
-        />
+        /> */}
         <span>|</span>
         <CustomIcon
           onClick={handlePlayMode}
@@ -425,6 +428,7 @@ const Player = ({
                     isLike,
                     url,
                     duration,
+                    canPlay,
                   };
 
                   return (
