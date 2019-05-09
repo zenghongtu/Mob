@@ -4,6 +4,8 @@ import { FormattedMessage } from 'umi-plugin-locale';
 import styles from './index.less';
 import exploreApi, { DayListenData } from '@/services/explore';
 import { connect } from 'dva';
+import { getTracks, TracksData } from '@/services/play';
+import { TrackRspData } from '@/services/track';
 const SubMenu = Menu.SubMenu;
 
 const SideBar = ({
@@ -27,29 +29,8 @@ const SideBar = ({
 
         const res = data.dailyListenCategoryList.reduce((arr, item) => {
           const trackArr = item.trackList.map((track) => {
-            const {
-              trackId,
-              uid,
-              title,
-              isPaid,
-              isFree,
-              coverSmall,
-              albumId,
-              albumTitle,
-              categoryId,
-              trackUrl,
-            } = track;
-            return {
-              canPlay: true,
-              albumId,
-              albumName: albumTitle,
-              isPaid,
-              // src: '',
-              trackCoverPath: coverSmall,
-              trackId,
-              trackName: title,
-              trackUrl,
-            };
+            const { trackId } = track;
+            return trackId;
           });
           return [...arr, ...trackArr];
         }, []);
@@ -96,18 +77,24 @@ const SideBar = ({
       );
     }
   });
-  const handlePlayDayListen = () => {
-    const info = {
-      albumId: '',
-      hasMore: false,
-      // pageNum,
-      // pageSize,
-      // sort,
-      currentTrack: trackList[0],
-      currentIndex: 0,
-      playlist: trackList,
-    };
-    playTracks(info);
+  const handlePlayDayListen = async () => {
+    try {
+      const rsp: { data: TracksData } = await getTracks(trackList);
+      const playlist = rsp.data.tracksForAudioPlay;
+      const info = {
+        albumId: '',
+        hasMore: false,
+        // pageNum,
+        // pageSize,
+        // sort,
+        currentTrack: playlist[0],
+        currentIndex: 0,
+        playlist,
+      };
+      playTracks(info);
+    } catch (e) {
+      // todo
+    }
   };
 
   const dateArr = new Date().toDateString().split(' ');

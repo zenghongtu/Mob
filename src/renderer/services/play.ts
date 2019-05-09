@@ -70,6 +70,36 @@ export interface AlbumData {
   tracksAudioPlay: TracksAudioPlay[];
   uid: number;
 }
+
+export interface TracksData {
+  tracksForAudioPlay: TracksForAudioPlay[];
+}
+
+interface TracksForAudioPlay {
+  index: number;
+  trackId: number;
+  trackName: string;
+  trackUrl: string;
+  trackCoverPath: string;
+  albumId: number;
+  albumName: string;
+  albumUrl: string;
+  anchorId: number;
+  canPlay: boolean;
+  isBaiduMusic: boolean;
+  isPaid: boolean;
+  duration: number;
+  src?: string;
+  hasBuy: boolean;
+  albumIsSample: boolean;
+  sampleDuration: number;
+  updateTime: string;
+  createTime: string;
+  isLike: boolean;
+  isCopyright: boolean;
+  firstPlayStatus: boolean;
+}
+
 export const DEFAULT_ALBUM_PAGE_NUM = 1;
 export const DEFAULT_ALBUM_PAGE_SIZE = 30;
 
@@ -81,4 +111,10 @@ export const getAlbum = (
   sort = 1,
 ) => {
   return request.get(api, { params: { albumId, pageNum, pageSize, sort } });
+};
+
+export const getTracks = (trackIds: number[]) => {
+  return request.get('/play/tracks', {
+    params: { trackIds: trackIds.join(',') },
+  });
 };
