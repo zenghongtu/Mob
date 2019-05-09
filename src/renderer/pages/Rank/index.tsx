@@ -1,125 +1,191 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs } from 'antd';
-import rankApi, {
-  TopAlbumRankPageList,
-  RankCategoryList,
+import {
+  getRankElement,
+  getCluster,
+  ClusterRspData,
+  ClusterType,
+  RankElementRspData,
 } from '@/services/rank';
 
-import styles from './index.css';
+import styles from './index.less';
+import Content from '@/common/Content';
+import { Link } from 'react-router-dom';
 
 const TabPane = Tabs.TabPane;
 
-interface FeatureRankItemProps {
-  data: TopAlbumRankPageList;
+interface RankContentProps {
+  rankListData: RankElementRspData;
 }
 
-interface CategoryRankProps {
-  data: RankCategoryList;
+interface NavTabsProps {
+  tabs: ClusterType[];
+  active: string;
+  activeSub: string;
+  onTabClick: (tab: string) => void;
+  onSubTabClick: (tab: string) => void;
 }
 
-const RankSubItem = ({ info }) => {
-  return <div>{info.albumTitle}</div>;
-};
-
-const FeatureRankItem = ({ data }: FeatureRankItemProps) => {
-  const { albums, rankResult } = data[0];
+const AlbumItem = ({ info }) => {
+  const {
+    albumTitle,
+    albumUrl,
+    anchorUrl,
+    categoryCode,
+    categoryId,
+    categoryTitle,
+    cover,
+    description,
+    id,
+    isPaid,
+    isSubscribe,
+    lastUpdateTrack,
+    lastUpdateTrackUri,
+    playCount,
+    price,
+    tagStr,
+    trackCount,
+  } = info;
   return (
     <div>
-      <h2>{rankResult.title}</h2>
-      {albums.map((album) => {
-        return <RankSubItem info={album} />;
-      })}
+      {' '}
+      <Link to={albumUrl}>{albumTitle}</Link>
     </div>
   );
 };
 
-const FeatureRank = ({ data }) => {
+const RankContent = ({ rankListData }: RankContentProps) => {
   return (
-    <div>
-      {Object.keys(data).map((rankName) => {
-        return <FeatureRankItem data={data[rankName]} />;
-      })}
-    </div>
+    <>
+      <div>
+        {rankListData.rankList.map(({ albums, rankId, title }) => {
+          return (
+            <div key={rankId}>
+              <h3>{title}</h3>
+              {albums.map((album) => {
+                return <AlbumItem key={album.id} info={album} />;
+              })}
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 
-const CategoryRank = ({ data }: CategoryRankProps) => {
+const NavTabs = ({
+  tabs,
+  active,
+  activeSub,
+  onTabClick,
+  onSubTabClick,
+}: NavTabsProps) => {
   return (
-    <div>
-      {data.map((item) => {
-        return <div>{item.title}</div>;
-      })}
-    </div>
+    <Tabs
+      tabPosition={'top'}
+      onTabClick={onTabClick}
+      defaultActiveKey=''
+      activeKey={active}
+      type='card'
+    >
+      {tabs.map(
+        ({
+          rankClusterTypeTitle,
+          rankClusterTypeCode,
+          rankClusterTypeId,
+          rankClusterCategories,
+        }) => {
+          // remove zhubo tab
+          if (rankClusterTypeCode === 'anchor') {
+            return null;
+          }
+          return (
+            <TabPane tab={rankClusterTypeTitle} key={rankClusterTypeCode || ''}>
+              {rankClusterCategories && (
+                <Tabs
+                  size='small'
+                  defaultActiveKey=''
+                  activeKey={activeSub}
+                  onTabClick={onSubTabClick}
+                >
+                  <TabPane tab={'全部'} key={''} />
+                  {rankClusterCategories.map(
+                    ({
+                      categoryCode,
+                      categoryId,
+                      position,
+                      rankClusterId,
+                      rankClusterTitle,
+                      rankClusterTypeId,
+                      rankId,
+                      rankType,
+                    }) => {
+                      return (
+                        <TabPane tab={rankClusterTitle} key={categoryCode} />
+                      );
+                    },
+                  )}
+                </Tabs>
+              )}
+            </TabPane>
+          );
+        },
+      )}
+    </Tabs>
   );
 };
 
 export default function() {
-  const [featureRankAlbums, setFeatureRankAlbums] = useState({
-    topRankAlbumList: null,
-    premiumRankAlbumList: null,
-    surgeRankAlbumList: null,
+  const [codeState, setCodeState] = useState({
+    typeCode: '',
+    clusterCode: '',
   });
-
-  const [allRankCategory, setAllRankCategory] = useState(null);
-
-  const [isLoading, setLoading] = useState(true);
+  const [tabs, setTabs] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const apiList = [
-        rankApi.getTopRankAlbum(),
-        rankApi.getPremiumRankAlbum(),
-        rankApi.getSurgeRankAlbum(),
-      ];
-      const [
-        {
-          data: { albumRankPageList: topRankAlbumList },
-        },
-        {
-          data: { albumRankPageList: premiumRankAlbumList },
-        },
-        {
-          data: { albumRankPageList: surgeRankAlbumList },
-        },
-      ] = await Promise.all(apiList);
-
-      setFeatureRankAlbums({
-        topRankAlbumList,
-        premiumRankAlbumList,
-        surgeRankAlbumList,
-      });
-      setLoading(false);
+      try {
+        const { data }: { data: ClusterRspData } = await getCluster();
+        setTabs(data.clusterType);
+      } catch (e) {
+        // todo
+      }
     })();
   }, []);
 
-  const FEATURE_TAB = 'feature';
-  const CATEGORY_TAB = 'category';
+  const handleTabClick = (typeCode) => {
+    setCodeState({ typeCode, clusterCode: '' });
+  };
+  const handleSubTabClick = (clusterCode) => {
+    setCodeState({ ...codeState, clusterCode });
+  };
 
-  const handleTabClick = (tab) => {
-    if (tab === CATEGORY_TAB && !allRankCategory) {
-      setLoading(true);
-      (async () => {
-        const {
-          data: { rankCategoryList },
-        } = await rankApi.getAllCategory();
-        setAllRankCategory(rankCategoryList);
-        setLoading(false);
-      })();
-    } else {
-      setLoading(false);
-    }
+  const genRequestList = ([codeState]) => [getRankElement(codeState)];
+
+  const rspHandler = (result) => {
+    const [{ data: rankListData }] = result;
+    return { rankListData };
   };
 
   return (
-    <div className={styles.normal}>
-      <Tabs tabPosition={'top'} onTabClick={handleTabClick}>
-        <TabPane tab={FEATURE_TAB} key={FEATURE_TAB}>
-          {isLoading ? 'loading...' : <FeatureRank data={featureRankAlbums} />}
-        </TabPane>
-        <TabPane tab={CATEGORY_TAB} key={CATEGORY_TAB}>
-          {isLoading ? 'loading...' : <CategoryRank data={allRankCategory} />}
-        </TabPane>
-      </Tabs>
+    <div className={styles.wrap}>
+      {tabs && (
+        <NavTabs
+          tabs={tabs}
+          active={codeState.typeCode}
+          activeSub={codeState.clusterCode}
+          onTabClick={handleTabClick}
+          onSubTabClick={handleSubTabClick}
+        />
+      )}
+      <Content
+        params={[codeState]}
+        render={({ rankListData }) => (
+          <RankContent rankListData={rankListData} />
+        )}
+        rspHandler={rspHandler}
+        genRequestList={genRequestList}
+      />
     </div>
   );
 }
