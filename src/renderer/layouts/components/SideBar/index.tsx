@@ -63,14 +63,14 @@ const SideBar = ({
     history.push(`/${selectedKeys[0]}`);
   };
 
-  const MenuItems = routes.map(({ name, routes: subRoutes }) => {
+  const MenuItems = routes.map(({ name, icon, routes: subRoutes }) => {
     if (subRoutes) {
       return (
         <SubMenu
           key={name}
           title={
             <span>
-              <Icon type='mail' />
+              <Icon type={icon} />
               <span>
                 <FormattedMessage id={name} />
               </span>
