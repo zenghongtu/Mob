@@ -8,10 +8,11 @@ import { CustomIcon } from '@/components/CustomIcon';
 import { Track } from '@/services/album';
 import { setLikeTrack, cancelLikeTrack } from '@/services/like';
 import PayTag from '@/components/PayTag';
+import { TracksAudioPlay } from '@/services/play';
 
 interface TrackItemProps {
   index: number;
-  track: Track;
+  track: Track & TracksAudioPlay;
   albumId: string | number;
   pageNum?: number;
   pageSize?: number;
@@ -56,13 +57,16 @@ const TrackItem: React.FC<TrackItemProps> = memo(
     // setLike,
   }) => {
     const {
-      createDateFormat,
+      // createDateFormat,
       isLike: like,
       isPaid,
-      playCount,
+      // playCount,
       trackId,
-      url,
+      // url,
+      hasBuy,
+      title,
     } = track;
+
     const [isLike, setLike] = useState(like);
     const [isInside, setInside] = useState(false);
     const isPlaying = playState === PlayState.PLAYING;
@@ -93,7 +97,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
           setLike(!isLike);
         }
       } catch (e) {
-        message.error('操作失败，请稍后重试！');
+        // message.error('操作失败，请稍后重试！');
       }
     };
 
@@ -123,8 +127,8 @@ const TrackItem: React.FC<TrackItemProps> = memo(
               )}
             </span>
             <span className={styles.itemTitle}>
-              {isPaid && <PayTag />}
-              {track.title}
+              {isPaid && !hasBuy && <PayTag />}
+              {title}
             </span>
           </div>
         </Skeleton>

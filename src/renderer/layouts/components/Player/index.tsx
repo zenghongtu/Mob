@@ -91,6 +91,10 @@ const Player = ({
         const audio = await getPaidAudio(r.data);
         setAudioUrl(audio);
       })();
+    } else {
+      message.info('未购买，无法播放！');
+      setAudioUrl('');
+      setPlayerState({ playState: PlayState.STOP, played: 0 });
     }
   }, [trackId]);
 
@@ -120,8 +124,8 @@ const Player = ({
   const handleError = (e) => {
     // tslint:disable-next-line:no-console
     console.warn('play error：', e);
-    message.error('播放失败，尝试播放下一个');
-    playNextTrack();
+    message.error('播放失败，请换一个播放~');
+    // playNextTrack();
   };
 
   const handlePlayPause = () => {
@@ -130,7 +134,7 @@ const Player = ({
         ? setPlayerState({ playState: PlayState.PAUSE })
         : setPlayerState({ playState: PlayState.PLAYING });
     } else {
-      message.info('当前无可播放的内容，请先去选择 (^_^)');
+      message.info('当前无播放的内容，请先选择 (^_^)');
     }
   };
 

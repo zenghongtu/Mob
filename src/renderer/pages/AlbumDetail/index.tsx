@@ -104,7 +104,7 @@ const AlbumContent = ({
         setSubscribe(!isSubscribe);
       }
     } catch (e) {
-      message.warn('操作失败，请稍后重试');
+      // message.warn('操作失败，请稍后重试');
     }
   };
   const [tracksInfo, setTracksInfo] = useState(info);
@@ -114,7 +114,7 @@ const AlbumContent = ({
       const rsp = await getTracksList(albumId, page);
       setTracksInfo(rsp.data);
     } catch (e) {
-      message.error('操作失败，请稍后重试！');
+      // message.error('操作失败，请稍后重试！');
     }
   };
   const PaginationBar = (
