@@ -83,6 +83,16 @@ const Player = ({
   // todo remove (the same as ximalaya  official site new )
   const [isLike, setLike] = useState(like);
 
+  const {
+    volume,
+    muted,
+    playbackRate,
+    playMode,
+    playState,
+    played,
+    loaded,
+  } = player;
+
   useEffect(() => {
     setLike(like);
     if (isPaid) {
@@ -102,16 +112,6 @@ const Player = ({
     }
   }, [trackId]);
 
-  const {
-    volume,
-    muted,
-    playbackRate,
-    playMode,
-    playState,
-    played,
-    loaded,
-  } = player;
-
   const handleProgress = ({ loaded, loadedSeconds, played, playedSeconds }) => {
     if (!seeking) {
       setPlayerState({ loaded, played });
@@ -126,10 +126,11 @@ const Player = ({
     setDuration(duration);
   };
   const handleError = (e) => {
+    // todo fix with https://github.com/CookPete/react-player/issues/395
     // tslint:disable-next-line:no-console
     console.warn('play error：', e);
-    message.error('播放失败，请换一个播放~');
-    // playNextTrack();
+    setPlayerState({ playState: PlayState.STOP });
+    // message.error('播放失败，请换一个播放~');
   };
 
   const handlePlayPause = () => {
@@ -449,7 +450,7 @@ const Player = ({
           <CustomIcon className={styles.conBtn} type='icon-paragraph-left' />
         </PopoverIcon>
       </div>
-      {currentTrack && (
+      {url && (
         <div className={styles.hidden}>
           <ReactPlayer ref={playerRef} {...playerProps} />
         </div>
