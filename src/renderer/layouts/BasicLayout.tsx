@@ -25,7 +25,7 @@ export default function(props) {
       >
         <Layout className={styles.container}>
           <div className={styles.dragBar} />
-          <Sider width={SIDE_BAR_WIDTH}>
+          <Sider width={SIDE_BAR_WIDTH} style={{ background: '#fff' }}>
             <SideBar {...props} />
           </Sider>
           <Layout className={styles.mainWrap}>

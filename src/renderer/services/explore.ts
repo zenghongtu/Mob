@@ -62,7 +62,7 @@ export interface Track {
 
 export interface DailyListenCategory {
   categoryName: string;
-  trackList: Track[];
+  trackList: TrackList[];
 }
 
 export interface FpRecommendLine {
@@ -74,9 +74,30 @@ export interface FpRecommendLine {
   url: string;
 }
 
+export interface DayListenData {
+  dailyListenCategoryList: DailyListenCategoryList[];
+}
+
+interface DailyListenCategoryList {
+  categoryName: string;
+  trackList: TrackList[];
+}
+
+interface TrackList {
+  trackId: number;
+  uid: number;
+  title: string;
+  isPaid: boolean;
+  isFree: boolean;
+  coverSmall: string;
+  albumId: number;
+  albumTitle: string;
+  categoryId: number;
+  trackUrl: string;
+}
+
 export type SlideshowInfoList = SlideshowInfo[];
 export type RecommendInfoList = Album[];
-export type DailyListenCategoryList = DailyListenCategory[];
 export type Cards = Card[];
 export type FpRecommendLines = FpRecommendLine[];
 
