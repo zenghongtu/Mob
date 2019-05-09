@@ -66,7 +66,7 @@
     background-position: 0 0;
   }
   100% {
-    background-position: 2.89em 0;
+    background-position: 2.969em 0;
   }
 }
 .loadedBar {
@@ -76,19 +76,22 @@
   left: 0;
   top: 0;
   z-index: 0;
-  background: rgba(204, 204, 204, 0.1);
-  background-image: repeating-linear-gradient(
-    30deg,
-    #fff,
-    #fff 15px,
-    transparent 0,
-    transparent 30px
+  background-color: #fff;
+  background-size: 2.89em 2.89em;
+  background-image: linear-gradient(
+    -45deg,
+    rgba(204, 204, 204, 0.1) 0em,
+    rgba(204, 204, 204, 0.1) 0.8em,
+    #fff 0.9em,
+    #fff 2.1em,
+    rgba(204, 204, 204, 0.1) 2.1em,
+    rgba(204, 204, 204, 0.1) 2.9em,
+    #fff 2.9em,
+    #fff 4.1em
   );
+  animation: process-animation 1s infinite linear;
   transition: all 1s ease-out;
-  // todo fix crash
-  animation: process-animation 2s infinite linear;
   &.complete {
-    background: none;
     background-image: none;
   }
 }
