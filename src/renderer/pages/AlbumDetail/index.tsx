@@ -50,7 +50,7 @@ const TrackList = ({
       dataSource={tracks}
       renderItem={(item, idx) => (
         <TrackItem
-          index={item.index}
+          index={idx}
           pageNum={pageNum}
           pageSize={pageSize}
           trackTotalCount={trackTotalCount}

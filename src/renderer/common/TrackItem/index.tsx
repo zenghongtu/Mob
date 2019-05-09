@@ -18,17 +18,27 @@ interface TrackItemProps {
   pageSize?: number;
   trackTotalCount?: number;
   isCurrent?: boolean;
-  isCurrentAlbum: boolean;
+  // isCurrentAlbum?: boolean;
   playState?: PlayState;
-  playTrack?: ({ trackId }: { trackId: string | number }) => void;
+  playTrack?: ({
+    index,
+    trackId,
+  }: {
+    index: number;
+    trackId: string | number;
+  }) => void;
   playAlbum: ({
     albumId,
     index,
     trackId,
+    pageNum,
+    sort,
   }: {
     albumId: string | number;
     index: number;
     trackId: number;
+    pageNum?: number;
+    sort?: number;
   }) => void;
   playPauseTrack: (isPlaying: boolean) => void;
   // setLike: ({
@@ -49,7 +59,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
     pageSize,
     trackTotalCount,
     isCurrent,
-    isCurrentAlbum,
+    // isCurrentAlbum,
     playState,
     playTrack,
     playAlbum,
@@ -64,6 +74,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
       trackId,
       // url,
       hasBuy,
+      canPlay,
       title,
     } = track;
 
@@ -80,8 +91,10 @@ const TrackItem: React.FC<TrackItemProps> = memo(
     const handleItemClick = () => {
       if (isCurrent) {
         playPauseTrack(isPlaying);
+      } else if (pageNum !== undefined) {
+        playAlbum({ albumId, index, trackId, pageNum, sort: -1 });
       } else {
-        playAlbum({ albumId, index, trackId });
+        playTrack({ index, trackId });
       }
     };
 
@@ -123,11 +136,11 @@ const TrackItem: React.FC<TrackItemProps> = memo(
                   <CustomIcon type='icon-play' />
                 )
               ) : (
-                <span> {index}</span>
+                <span> {index + 1}</span>
               )}
             </span>
             <span className={styles.itemTitle}>
-              {isPaid && !hasBuy && <PayTag />}
+              {isPaid && !hasBuy && !canPlay && <PayTag />}
               {title}
             </span>
           </div>
@@ -142,10 +155,10 @@ const mapStateToProps = (
   { track, albumId },
 ) => {
   const isCurrent = currentTrack.trackId === track.trackId;
-  const isCurrentAlbum = curAlbumId === albumId;
+  // const isCurrentAlbum = curAlbumId === albumId;
   return {
     isCurrent,
-    isCurrentAlbum,
+    // isCurrentAlbum,
     playState: isCurrent ? playState : undefined,
   };
 };

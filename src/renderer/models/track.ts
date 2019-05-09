@@ -44,11 +44,17 @@ export default {
   effects: {
     *playAlbum({ payload }, { put, call }) {
       yield put(updatePlayStateAction({ playState: PlayState.LOADING }));
-      const { albumId, index, trackId } = payload;
+      const { albumId, index, trackId, pageNum, pageSize, sort } = payload;
       try {
-        const { data } = yield call(getAlbum, albumId);
+        const { data } = yield call(getAlbum, albumId, pageNum, pageSize, sort);
 
-        const { hasMore, pageNum, pageSize, sort, tracksAudioPlay } = data;
+        const {
+          hasMore,
+          pageNum: curPageNum,
+          pageSize: curPageSize,
+          sort: curSort,
+          tracksAudioPlay,
+        } = data;
 
         let idx = 0;
         if (trackId && index !== undefined) {
@@ -67,9 +73,9 @@ export default {
         const info = {
           albumId,
           hasMore,
-          pageNum,
-          pageSize,
-          sort,
+          pageNum: curPageNum,
+          pageSiz: curPageSize,
+          sort: curSort,
           currentTrack,
           currentIndex: idx,
           playlist: tracksAudioPlay,
@@ -83,34 +89,44 @@ export default {
         );
       }
     },
-    // *playTrack({ payload }, { put, call }) {
-    //   yield put(updatePlayStateAction({ playState: PlayState.LOADING }));
-    //   const { albumId, index, trackId } = payload;
-    //   const { data } = yield call(getAlbum, albumId);
-    //   const { hasMore, pageNum, pageSize, sort, tracksAudioPlay } = data;
-    //   const info = {
-    //     trackId,
-    //     hasMore,
-    //     pageNum,
-    //     pageSize,
-    //     sort,
-    //     currentTrack: tracksAudioPlay[0],
-    //     playlist: tracksAudioPlay,
-    //   };
-    //   yield put({ type: 'updateTrack', payload: info });
-    //   yield put(
-    //     updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
-    //   );
-    // },
+    *playTrack({ payload }, { put, call, select }) {
+      // yield put(updatePlayStateAction({ playState: PlayState.LOADING }));
+      const { index, trackId } = payload;
+
+      const { playlist, currentIndex } = yield select(selectCurrentInfo);
+      if (index === currentIndex) {
+        return;
+      }
+      let idx;
+      if (trackId && index !== undefined) {
+        if (trackId === playlist[index].trackId) {
+          idx = index;
+        } else {
+          const findIdx = playlist.findIndex((item) => item.trackId === trackId);
+          if (findIdx !== -1) {
+            idx = findIdx;
+          }
+        }
+      }
+      const info = {
+        trackId,
+        currentTrack: playlist[idx],
+      };
+
+      yield put({ type: 'updateTrack', payload: info });
+      // yield put(
+      //   updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
+      // );
+    },
     *fetchMoreTracks(
       { payload: { isFromBtn = false } },
       { put, call, select },
     ) {
       try {
         const {
-          pageNum,
-          pageSize,
-          sort,
+          pageNum: curPageNum,
+          pageSize: curPageSize,
+          sort: curSort,
           albumId,
           playlist,
           currentIndex,
@@ -126,27 +142,33 @@ export default {
             currentIndex,
           }),
         );
-        const newPageNum = pageNum + 1;
+        const newPageNum = curPageNum + 1;
         const { data } = yield call(
           getAlbum,
           albumId,
           newPageNum,
-          pageSize,
-          sort,
+          curPageSize,
+          curSort,
         );
-        const { hasMore, tracksAudioPlay } = data;
+        const { hasMore, tracksAudioPlay, pageNum, pageSize, sort } = data;
         let payload;
         if (!isFromBtn) {
           const currentTrack = tracksAudioPlay[0];
           payload = {
             hasMore,
             currentTrack,
+            pageNum,
+            pageSize,
+            sort,
             currentIndex: currentIndex + 1,
             playlist: [...playlist, ...tracksAudioPlay],
           };
         } else {
           payload = {
             hasMore,
+            pageNum,
+            pageSize,
+            sort,
             playlist: [...playlist, ...tracksAudioPlay],
           };
         }
