@@ -7,13 +7,26 @@ import { PlayState } from '@/models/player';
 import { Tag } from 'antd';
 import PayTag from '@/components/PayTag';
 
+interface Info extends Album {
+  trackId?: string;
+}
+
 interface AlbumCardProps {
-  info: Album;
+  info: Info;
   isCurrent: boolean;
   playState: PlayState;
   playAlbum: ({ albumId }: { albumId: string }) => void;
   playPauseTrack: (isPlaying: boolean) => void;
   isTrack?: boolean;
+  playSingleTrack: ({
+    trackId,
+    track,
+    index,
+  }: {
+    trackId: string;
+    track?: any;
+    index?: number;
+  }) => void;
 }
 export const DEFAULT_COVER =
   // tslint:disable-next-line:max-line-length
@@ -26,6 +39,7 @@ const AlbumCard: React.FC<AlbumCardProps> = memo(
     playAlbum,
     playPauseTrack,
     isTrack = false,
+    playSingleTrack,
   }) => {
     const {
       albumId,
@@ -36,6 +50,7 @@ const AlbumCard: React.FC<AlbumCardProps> = memo(
       albumUrl,
       intro,
       isPaid,
+      trackId,
     } = info;
 
     const isPlaying = isCurrent && playState === PlayState.PLAYING;
@@ -45,7 +60,11 @@ const AlbumCard: React.FC<AlbumCardProps> = memo(
       if (isCurrent) {
         playPauseTrack(isPlaying);
       } else {
-        playAlbum({ albumId: id });
+        if (isTrack) {
+          playSingleTrack({ trackId });
+        } else {
+          playAlbum({ albumId: id });
+        }
       }
     };
 
@@ -93,8 +112,13 @@ const AlbumCard: React.FC<AlbumCardProps> = memo(
   },
 );
 
-const mapStateToProps = ({ track, player }, { info }) => {
-  const isCurrent = +track.albumId === info.albumId;
+const mapStateToProps = ({ track, player }, { info, isTrack }) => {
+  let isCurrent;
+  if (isTrack) {
+    isCurrent = +info.trackId === +track.trackId;
+  } else {
+    isCurrent = +track.albumId === +info.albumId;
+  }
   const playState = isCurrent ? player.playState : null;
   return {
     isCurrent,
@@ -105,6 +129,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     playAlbum(payload) {
       dispatch({ type: 'track/playAlbum', payload });
+    },
+    playSingleTrack(payload) {
+      dispatch({ type: 'track/playSingleTrack', payload });
     },
     playPauseTrack(isPlaying) {
       const payload = {

@@ -192,7 +192,7 @@ const mapStateToProps = (
   { track: { currentTrack, albumId: curAlbumId }, player: { playState } },
   { track, albumId },
 ) => {
-  const isCurrent = currentTrack.trackId === track.trackId;
+  const isCurrent = currentTrack && currentTrack.trackId === track.trackId;
   // const isCurrentAlbum = curAlbumId === albumId;
   return {
     isCurrent,

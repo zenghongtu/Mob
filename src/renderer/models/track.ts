@@ -3,6 +3,7 @@ import {
   getAlbum,
   DEFAULT_ALBUM_PAGE_NUM,
   DEFAULT_ALBUM_PAGE_SIZE,
+  getTracks,
 } from '../services/play';
 import { getTrackPageInfo } from '@/services/track';
 import { message, notification } from 'antd';
@@ -117,6 +118,34 @@ export default {
       // yield put(
       //   updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
       // );
+    },
+    *playSingleTrack({ payload }, { put, call, select }) {
+      yield put(updatePlayStateAction({ playState: PlayState.LOADING }));
+      const { index, trackId, track } = payload;
+      let currentTrack;
+      try {
+        if (track) {
+          currentTrack = track;
+        } else {
+          const {
+            data: { tracksForAudioPlay },
+          } = yield call(getTracks, [trackId]);
+          currentTrack = tracksForAudioPlay[0];
+        }
+      } catch (e) {
+        return;
+      }
+
+      const info = {
+        trackId,
+        currentTrack,
+        playlist: [currentTrack],
+      };
+
+      yield put({ type: 'updateTrack', payload: info });
+      yield put(
+        updatePlayStateAction({ playState: PlayState.PLAYING, played: 0 }),
+      );
     },
     *fetchMoreTracks(
       { payload: { isFromBtn = false } },

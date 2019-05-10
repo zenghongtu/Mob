@@ -42,16 +42,10 @@ const getInfo = (source) => {
     // isDeleted,
     // isFinished,
     // isPaid,
+    trackId,
   };
 };
-const getTrackListItem = ({
-  handleItemClick,
-  isInside,
-  isCurrent,
-  isPlaying,
-  index,
-  track,
-}) => {
+const TrackListItem = ({ track }) => {
   const {
     albumId,
     albumName,
@@ -99,16 +93,21 @@ export interface TrackListProps {
   data: LikeRspData;
 }
 
-function TrackList({ data }: TrackListProps) {
+function TrackList({ data: { tracksList, totalCount } }: TrackListProps) {
   return (
     <div className={styles.wrap}>
       <div>
-        共喜欢过 <b>{data.totalCount}</b> 条声音
+        共喜欢过 <b>{totalCount}</b> 条声音
       </div>
       <div className={styles.inner}>
-        {data.tracksList.map((item) => {
-          return <TrackItem track={item} render={getTrackListItem} />;
-        })}
+        <List
+          dataSource={tracksList}
+          renderItem={(item) => (
+            <List.Item>
+              <TrackListItem track={item} />
+            </List.Item>
+          )}
+        />
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { AlbumsInfoItem, ListenedRspData } from '@/services/my';
 import styles from './index.css';
 import Content from '@/common/Content';
 import { Timeline, Tag, List, Icon } from 'antd';
-import TrackItem from '@/common/TrackItem';
+// import TrackItem from '@/common/TrackItem';
 import AlbumCard from '@/common/AlbumCard';
 import { Link } from 'react-router-dom';
 
@@ -42,16 +42,10 @@ const getInfo = (source) => {
     // isDeleted,
     // isFinished,
     // isPaid,
+    trackId,
   };
 };
-const getTrackListItem = ({
-  handleItemClick,
-  isInside,
-  isCurrent,
-  isPlaying,
-  index,
-  track,
-}) => {
+const TrackListItem = ({ track }) => {
   const {
     albumId,
     albumName,
@@ -118,9 +112,16 @@ function TrackList({ data }: TrackListProps) {
                   <div>
                     <Tag>{listKeyMap[key]}</Tag>
                   </div>
-                  {data[key].map((item) => {
-                    return <TrackItem track={item} render={getTrackListItem} />;
-                  })}
+                  <div className={styles.inner}>
+                    <List
+                      dataSource={data[key]}
+                      renderItem={(item) => (
+                        <List.Item>
+                          <TrackListItem track={item} />
+                        </List.Item>
+                      )}
+                    />
+                  </div>
                 </Timeline.Item>
               </div>
             );
