@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import myApi, { BroughtRspData, BroughtItem } from '@/services/my';
 
 import styles from './index.css';
+import { Empty } from 'antd';
 
 export interface AlbumsInfoItemProps {
   data: BroughtItem;
@@ -17,7 +18,11 @@ export interface AlbumsInfosProps {
 }
 
 function AlbumsInfos({ data }: AlbumsInfosProps) {
-  return <div>{data.totalCount}</div>;
+  return (
+    <div>
+      <Empty />
+    </div>
+  );
 }
 
 export default function() {
@@ -31,7 +36,8 @@ export default function() {
   }, []);
 
   return (
-    <div className={styles.normal}>
+    <div className={styles.wrap}>
+      <div style={{ textAlign: 'center' }}>正在开发中...</div>
       {broughtAlbumsRsp ? (
         <AlbumsInfos data={broughtAlbumsRsp} />
       ) : (
