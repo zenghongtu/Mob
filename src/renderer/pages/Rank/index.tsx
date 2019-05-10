@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs } from 'antd';
+import { Tabs, List, Icon, Button, Tag } from 'antd';
 import {
   getRankElement,
   getCluster,
@@ -11,11 +11,14 @@ import {
 import styles from './index.less';
 import Content from '@/common/Content';
 import { Link } from 'react-router-dom';
+import AlbumCard from '@/common/AlbumCard';
+import PayTag from '@/components/PayTag';
 
 const TabPane = Tabs.TabPane;
 
 interface RankContentProps {
   rankListData: RankElementRspData;
+  onTabChange: (codeState: { typeCode: string; clusterCode: string }) => void;
 }
 
 interface NavTabsProps {
@@ -48,23 +51,147 @@ const AlbumItem = ({ info }) => {
   } = info;
   return (
     <div>
-      {' '}
       <Link to={albumUrl}>{albumTitle}</Link>
     </div>
   );
 };
 
-const RankContent = ({ rankListData }: RankContentProps) => {
+const RankContent = ({
+  rankListData: { rankList, typeId },
+  onTabChange,
+}: RankContentProps) => {
+  if (typeId) {
+    return (
+      <>
+        <div className={styles.typeRankWrap}>
+          {rankList.map(({ albums, rankId }) => {
+            //  id: number;
+            //  albumTitle: string;
+            //  albumUrl: string;
+            //  cover: string;
+            //  anchorUrl: string;
+            //  playCount: number;
+            //  trackCount: number;
+            //  description: string;
+            //  tagStr: string;
+            //  isPaid: boolean;
+            //  price: string;
+            //  isSubscribe: boolean;
+            //  categoryId: number;
+            //  categoryCode: string;
+            //  categoryTitle: string;
+            //  lastUpdateTrack: string;
+            //  lastUpdateTrackUri: string;
+            return (
+              <div key={rankId} className={styles.typeRankItem}>
+                <List
+                  className={styles.typeList}
+                  dataSource={albums}
+                  renderItem={(album) => {
+                    const {
+                      id,
+                      albumTitle,
+                      albumUrl,
+                      cover,
+                      anchorUrl,
+                      playCount,
+                      trackCount,
+                      description,
+                      tagStr,
+                      isPaid,
+                      price,
+                      isSubscribe,
+                      categoryId,
+                      categoryCode,
+                      categoryTitle,
+                      lastUpdateTrack,
+                      lastUpdateTrackUri,
+                    } = album;
+                    const info = {
+                      albumCoverPath: `imagev2.xmcdn.com/${cover}`,
+                      albumId: id,
+                      albumPlayCount: playCount,
+                      albumTitle: '',
+                      albumTrackCount: trackCount,
+                      albumUrl,
+                      // albumUserNickName,
+                      // anchorGrade,
+                      // anchorId,
+                      anchorUrl,
+                      // intro,
+                      // isDeleted,
+                      // isFinished,
+                      isPaid,
+                    };
+                    return (
+                      <List.Item>
+                        <List.Item.Meta
+                          avatar={
+                            <div className={styles.avatar}>
+                              <AlbumCard info={info} />
+                            </div>
+                          }
+                          title={<Link to={albumUrl}>{albumTitle}</Link>}
+                          description={
+                            <div>
+                              {description}
+                              <div className={styles.tags}>
+                                {isPaid && <PayTag />}
+                                <Tag>{categoryTitle}</Tag>
+                                <Tag>
+                                  播放<b> {playCount} </b>次
+                                </Tag>
+                                <Tag>
+                                  共<b> {trackCount} </b>个专辑
+                                </Tag>
+                              </div>
+                            </div>
+                          }
+                        />
+                      </List.Item>
+                    );
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </>
+    );
+  }
+  const handleLinkClick = (moreUri) => () => {
+    const [, , typeCode, clusterCode] = moreUri.split('/');
+    onTabChange({ typeCode, clusterCode });
+  };
   return (
     <>
-      <div>
-        {rankListData.rankList.map(({ albums, rankId, title }) => {
+      <div className={styles.selectedRankWrap}>
+        {rankList.map(({ albums, rankId, title, moreUri }) => {
           return (
-            <div key={rankId}>
-              <h3>{title}</h3>
-              {albums.map((album) => {
-                return <AlbumItem key={album.id} info={album} />;
-              })}
+            <div key={rankId} className={styles.selectedRankItem}>
+              <div className={styles.rankTitle}>
+                <h3>{title}</h3>
+                {moreUri && (
+                  <Button
+                    type='link'
+                    size={'small'}
+                    onClick={handleLinkClick(moreUri)}
+                  >
+                    <Icon type='right' />
+                  </Button>
+                )}
+              </div>
+              <List
+                className={styles.list}
+                size='small'
+                bordered
+                dataSource={albums}
+                renderItem={({ albumTitle, albumUrl }) => (
+                  <List.Item>
+                    <Link to={albumUrl}>{albumTitle}</Link>
+                  </List.Item>
+                )}
+              />
             </div>
           );
         })}
@@ -181,7 +308,7 @@ export default function() {
       <Content
         params={[codeState]}
         render={({ rankListData }) => (
-          <RankContent rankListData={rankListData} />
+          <RankContent onTabChange={setCodeState} rankListData={rankListData} />
         )}
         rspHandler={rspHandler}
         genRequestList={genRequestList}

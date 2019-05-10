@@ -66,16 +66,17 @@ const AlbumCard: React.FC<AlbumCardProps> = memo(
             />
           </div>
         </div>
-
-        <h4
-          className={styles.title}
-          title={albumTitle}
-          data-url={albumUrl}
-          onClick={handleTitleClick}
-        >
-          {isPaid && <PayTag />}
-          {albumTitle}
-        </h4>
+        {albumTitle && (
+          <h4
+            className={styles.title}
+            title={albumTitle}
+            data-url={albumUrl}
+            onClick={handleTitleClick}
+          >
+            {isPaid && <PayTag />}
+            {albumTitle}
+          </h4>
+        )}
       </div>
     );
   },
