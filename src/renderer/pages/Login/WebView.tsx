@@ -1,9 +1,11 @@
 import * as path from 'path';
-import React, { Component, useEffect, useRef } from 'react';
+import React, { Component, useEffect, useRef, useState } from 'react';
+import { Spin } from 'antd';
 
 const TARGET_URL = 'www.ximalaya.com/passport/sync_set';
 const COOKIE_URL = 'https://www.ximalaya.com';
 const WebView = ({ onLoadedSession }) => {
+  const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     const webview = document.querySelector('#xmlyWebView') as HTMLElement;
     const handleDOMReady = (e) => {
@@ -15,9 +17,19 @@ const WebView = ({ onLoadedSession }) => {
         webview.reload();
       }
     };
+    const handleLoadCommit = () => {
+      setLoading(true);
+    };
+    const handleDidFinishLoad = () => {
+      setLoading(false);
+    };
     webview.addEventListener('dom-ready', handleDOMReady);
+    webview.addEventListener('load-commit', handleLoadCommit);
+    webview.addEventListener('did-finish-load', handleDidFinishLoad);
     return () => {
       webview.removeEventListener('dom-ready', handleDOMReady);
+      webview.removeEventListener('load-commit', handleLoadCommit);
+      webview.removeEventListener('did-finish-load', handleDidFinishLoad);
     };
   }, []);
 
@@ -31,7 +43,9 @@ const WebView = ({ onLoadedSession }) => {
   };
   return (
     <div>
-      <webview {...props} />
+      <Spin tip='Loading...' spinning={isLoading}>
+        <webview {...props} />
+      </Spin>
     </div>
   );
 };
