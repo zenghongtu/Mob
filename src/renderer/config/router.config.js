@@ -54,6 +54,10 @@ routes.push(
     component: "./SearchResult",
   },
   {
+    path: "/category/:cat/:subCat",
+    component: "./CategoryDetail",
+  },
+  {
     path: "/:category/:id",
     component: "./AlbumDetail",
   },

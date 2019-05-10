@@ -41,3 +41,44 @@ export type AllCategoryInfo = AllCategoryInfoItem[];
 export const getAllCategoryInfo = () => {
   return request.get('/category/allCategoryInfo');
 };
+
+export interface CategoryPageAlbumsRspData {
+  page: number;
+  total: number;
+  pageSize: number;
+  albums: Album[];
+  pageConfig: { h1title?: string };
+}
+
+export interface Album {
+  albumId: number;
+  title: string;
+  coverPath: string;
+  anchorName: string;
+  uid: number;
+  isPaid: boolean;
+  isFinished: number;
+  link: string;
+  playCount: number;
+  trackCount: number;
+}
+
+export const getCategoryPageAlbums = ({
+  category,
+  subcategory,
+  meta = '',
+  sort = 0,
+  page = 1,
+  perPage = 30,
+}) => {
+  return request.get('/category/queryCategoryPageAlbums', {
+    params: {
+      category,
+      subcategory,
+      meta,
+      sort,
+      page,
+      perPage,
+    },
+  });
+};
