@@ -53,7 +53,7 @@ export interface ListenedItem {
   createAt: number;
   createAtStr: string;
   trackCover: string;
-  trackDuration: '16:49';
+  trackDuration: string;
   trackId: number;
   trackStatus: number;
   trackTitle: string;

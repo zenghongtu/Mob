@@ -10,9 +10,9 @@ import { setLikeTrack, cancelLikeTrack } from '@/services/like';
 import PayTag from '@/components/PayTag';
 import { TracksAudioPlay } from '@/services/play';
 
-interface TrackItemProps {
+interface TrackItemProps<T> {
   index: number;
-  track: Track & TracksAudioPlay;
+  track: T;
   albumId: string | number;
   pageNum?: number;
   pageSize?: number;
@@ -41,6 +41,14 @@ interface TrackItemProps {
     sort?: number;
   }) => void;
   playPauseTrack: (isPlaying: boolean) => void;
+  render?: (props: {
+    handleItemClick: () => void;
+    isInside: boolean;
+    isCurrent: boolean;
+    isPlaying: boolean;
+    index: number;
+    track: T;
+  }) => React.ReactNode;
   // setLike: ({
   //   index,
   //   trackId,
@@ -50,7 +58,47 @@ interface TrackItemProps {
   // }) => void;
 }
 
-const TrackItem: React.FC<TrackItemProps> = memo(
+const defaultRender = ({
+  handleItemClick,
+  isInside,
+  isCurrent,
+  isPlaying,
+  index,
+  track,
+}) => {
+  const {
+    // createDateFormat,
+    isLike,
+    isPaid,
+    // playCount,
+    trackId,
+    // url,
+    hasBuy,
+    canPlay,
+    title,
+  } = track;
+  return (
+    <div onClick={handleItemClick} className={styles.itemWrap}>
+      <span className={styles.itemWidget}>
+        {isInside ? (
+          isCurrent && isPlaying ? (
+            <CustomIcon type='icon-pause' />
+          ) : (
+            <CustomIcon type='icon-play' />
+          )
+        ) : (
+          <span> {index + 1}</span>
+        )}
+      </span>
+      <span className={styles.itemTitle}>
+        {isPaid && !hasBuy && !canPlay && <PayTag />}
+        {title}
+      </span>
+    </div>
+  );
+};
+
+const TrackItem: React.FC<TrackItemProps<Track & TracksAudioPlay>> = memo(
   ({
     index,
     track,
@@ -64,6 +112,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
     playTrack,
     playAlbum,
     playPauseTrack,
+    render,
     // setLike,
   }) => {
     const {
@@ -113,7 +162,14 @@ const TrackItem: React.FC<TrackItemProps> = memo(
         // message.error('操作失败，请稍后重试！');
       }
     };
-
+    const props = {
+      handleItemClick,
+      isInside,
+      isCurrent,
+      isPlaying,
+      index,
+      track,
+    };
     return (
       <List.Item
         actions={[
@@ -126,25 +182,7 @@ const TrackItem: React.FC<TrackItemProps> = memo(
         onMouseEnter={handleItemMouseEnter}
         onMouseLeave={handleItemMouseLeave}
       >
-        <Skeleton title={false} loading={false} active>
-          <div onClick={handleItemClick} className={styles.itemWrap}>
-            <span className={styles.itemWidget}>
-              {isInside ? (
-                isCurrent && isPlaying ? (
-                  <CustomIcon type='icon-pause' />
-                ) : (
-                  <CustomIcon type='icon-play' />
-                )
-              ) : (
-                <span> {index + 1}</span>
-              )}
-            </span>
-            <span className={styles.itemTitle}>
-              {isPaid && !hasBuy && !canPlay && <PayTag />}
-              {title}
-            </span>
-          </div>
-        </Skeleton>
+        {render ? render(props) : defaultRender(props)}
       </List.Item>
     );
   },

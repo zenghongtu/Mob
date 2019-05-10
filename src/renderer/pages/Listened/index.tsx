@@ -4,50 +4,145 @@ import myApi, { ListenedItem } from '@/services/my';
 import { AlbumsInfoItem, ListenedRspData } from '@/services/my';
 
 import styles from './index.css';
+import Content from '@/common/Content';
+import { Timeline, Tag, List, Icon } from 'antd';
+import TrackItem from '@/common/TrackItem';
+import AlbumCard from '@/common/AlbumCard';
+import { Link } from 'react-router-dom';
 
-export interface AlbumsInfoItemProps {
-  data: ListenedItem;
-}
-
-const AlbumsInfoItem = ({ data }: AlbumsInfoItemProps) => {
-  return <div>{data.albumName}</div>;
+const getInfo = (source) => {
+  const {
+    albumId,
+    albumName,
+    albumUrl,
+    anchorId,
+    anchorName,
+    anchorUrl,
+    createAt,
+    createAtStr,
+    trackCover,
+    trackDuration,
+    trackId,
+    trackStatus,
+    trackTitle,
+    trackUrl,
+  } = source;
+  return {
+    albumCoverPath: trackCover,
+    albumId,
+    // albumPlayCount,
+    albumTitle: albumName,
+    // albumTrackCount,
+    albumUrl,
+    albumUserNickName: anchorName,
+    // anchorGrade,
+    anchorId,
+    anchorUrl,
+    // intro,
+    // isDeleted,
+    // isFinished,
+    // isPaid,
+  };
+};
+const getTrackListItem = ({
+  handleItemClick,
+  isInside,
+  isCurrent,
+  isPlaying,
+  index,
+  track,
+}) => {
+  const {
+    albumId,
+    albumName,
+    albumUrl,
+    anchorId,
+    anchorName,
+    anchorUrl,
+    createAt,
+    createAtStr,
+    trackCover,
+    trackDuration,
+    trackId,
+    trackStatus,
+    trackTitle,
+    trackUrl,
+  } = track;
+  const info = getInfo(track);
+  return (
+    <>
+      <List.Item.Meta
+        avatar={
+          <div className={styles.avatar}>
+            <AlbumCard info={info} isTrack />
+          </div>
+        }
+        title={<Link to={albumUrl}>{trackTitle}</Link>}
+        description={
+          <div>
+            <div className={styles.albumName}>{albumName}</div>
+            <div>
+              <Icon type='user' /> {anchorName}
+              &nbsp; &nbsp; &nbsp;
+              <Icon type='dashboard' /> {trackDuration}
+            </div>
+          </div>
+        }
+      />
+      <div className={styles.createAtStr}>{createAtStr}</div>
+    </>
+  );
 };
 
-export interface AlbumsInfosProps {
+export interface TrackListProps {
   data: ListenedRspData;
 }
 
-function AlbumsInfos({ data }: AlbumsInfosProps) {
-  const listKeys = ['today', 'yesterday', 'earlier'];
+function TrackList({ data }: TrackListProps) {
+  const listKeyMap = {
+    today: '今天',
+    yesterday: '昨天',
+    earlier: '更早',
+  };
   return (
-    <div>
-      {listKeys.map((key) => {
-        return (
-          <div>
-            <div>{key}</div>
-            {data[key].map((item) => {
-              return <AlbumsInfoItem data={item} />;
-            })}
-          </div>
-        );
-      })}
+    <div className={styles.wrap}>
+      <div>
+        共听过 <b>{data.totalCount}</b> 条声音
+      </div>
+      <div className={styles.inner}>
+        <Timeline>
+          {Object.keys(listKeyMap).map((key) => {
+            return (
+              <div key={key}>
+                <Timeline.Item>
+                  <div>
+                    <Tag>{listKeyMap[key]}</Tag>
+                  </div>
+                  {data[key].map((item) => {
+                    return <TrackItem track={item} render={getTrackListItem} />;
+                  })}
+                </Timeline.Item>
+              </div>
+            );
+          })}
+        </Timeline>
+      </div>
     </div>
   );
 }
 
 export default function() {
-  const [listenedRsp, setListenedRsp] = useState(null);
+  const genRequestList = () => [myApi.getListened()];
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await myApi.getListened();
-      setListenedRsp(data);
-    })();
-  }, []);
+  const rspHandler = ([{ data }]) => {
+    return { ListenedRsp: data };
+  };
 
   return (
-    <div className={styles.normal}>
-      {listenedRsp ? <AlbumsInfos data={listenedRsp} /> : 'loading...'}
-    </div>
+    <Content
+      render={({ ListenedRsp }) => <TrackList data={ListenedRsp} />}
+      rspHandler={rspHandler}
+      genRequestList={genRequestList}
+    />
   );
 }

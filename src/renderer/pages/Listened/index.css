@@ -1,3 +1,20 @@
-.normal {
-  background: #a2f279;
+.wrap {
+  padding: 20px 20px;
+}
+
+.inner {
+  padding: 20px 0 10px 10px;
+}
+
+.avatar {
+  margin-top: -16px;
+}
+
+.albumName {
+  color: #666;
+  margin: 5px 0 10px;
+}
+
+.createAtStr {
+  margin-top: -10px;
 }
