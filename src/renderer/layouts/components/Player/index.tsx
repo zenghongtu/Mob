@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'dva';
+import { ipcRenderer } from 'electron';
 import ReactPlayer from 'react-player';
 
 import styles from './index.less';
@@ -94,6 +95,13 @@ const Player = ({
   } = player;
 
   useEffect(() => {
+    ipcRenderer.on('HOTKEY', handleGlobalShortcut);
+    return () => {
+      ipcRenderer.removeListener('HOTKEY', handleGlobalShortcut);
+    };
+  }, [volume]);
+
+  useEffect(() => {
     setLike(like);
     if (isPaid) {
       if (canPlay || hasBuy) {
@@ -111,7 +119,29 @@ const Player = ({
       setAudioUrl(src);
     }
   }, [trackId]);
-
+  const handleGlobalShortcut = (e, hotkey) => {
+    switch (hotkey) {
+      case 'nextTrack':
+        handleNext();
+        break;
+      case 'prevTrack':
+        handlePrev();
+        break;
+      case 'volumeUp':
+        const volumeUp = volume > 0.95 ? 1 : volume + 0.05;
+        handleVolume(volumeUp * 100);
+        break;
+      case 'volumeDown':
+        const volumeDown = volume < 0.05 ? 0 : volume - 0.05;
+        handleVolume(volumeDown * 100);
+        break;
+      case 'changePlayState':
+        handlePlayPause();
+        break;
+      default:
+        break;
+    }
+  };
   const handleProgress = ({ loaded, loadedSeconds, played, playedSeconds }) => {
     if (!seeking) {
       setPlayerState({ loaded, played });

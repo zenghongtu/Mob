@@ -1,7 +1,15 @@
-import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  dialog,
+  ipcMain,
+  Menu,
+  globalShortcut,
+} from 'electron';
 import * as electronReferer from 'electron-referer';
 import * as path from 'path';
 import * as url from 'url';
+import { GLOBAL_SHORTCUT } from './config';
 
 electronReferer('https://www.ximalaya.com/');
 
@@ -196,6 +204,11 @@ function createWindow() {
         // todo add notification
         app.dock.downloadFinished(filePath);
       }
+    });
+  });
+  Object.keys(GLOBAL_SHORTCUT).forEach((key) => {
+    globalShortcut.register(key, () => {
+      mainWindow.webContents.send('HOTKEY', GLOBAL_SHORTCUT[key]);
     });
   });
 }
