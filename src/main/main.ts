@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import * as electronReferer from 'electron-referer';
 import * as path from 'path';
 import * as url from 'url';
@@ -6,6 +6,7 @@ import * as url from 'url';
 electronReferer('https://www.ximalaya.com/');
 
 let mainWindow: Electron.BrowserWindow | null;
+let forceQuit = false;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -15,7 +16,7 @@ function createWindow() {
     height: 700,
     backgroundColor: 'white',
     titleBarStyle: 'hiddenInset',
-    title: 'XiMa FM',
+    title: 'Mob',
     frame: 'darwin' === process.platform,
     // icon: '',
     show: true,
@@ -27,7 +28,7 @@ function createWindow() {
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:6008/#/');
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadURL(
       url.format({
@@ -37,11 +38,23 @@ function createWindow() {
       }),
     );
   }
-
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  });
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
+  mainWindow.on('close', (e) => {
+    if (forceQuit) {
+      app.quit();
+    } else {
+      e.preventDefault();
+      mainWindow.hide();
+    }
+  });
+
+  // todo fix notice
   mainWindow.webContents.session.on('will-download', (e, item, webContents) => {
     const totalBytes = item.getTotalBytes();
 
@@ -80,7 +93,12 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow();
+  if (!mainWindow.isVisible()) {
+    mainWindow.show();
   }
+});
+
+app.on('before-quit', (e) => {
+  forceQuit = true;
+  mainWindow = null;
 });
