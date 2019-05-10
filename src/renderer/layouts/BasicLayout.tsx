@@ -15,8 +15,8 @@ message.config({
   maxCount: 1,
 });
 
+export const SIDE_BAR_WIDTH = 260;
 export default function(props) {
-  const SIDE_BAR_WIDTH = 260;
   return (
     <>
       <PersistGate

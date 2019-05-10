@@ -15,6 +15,7 @@ import {
 import AlbumCard from '@/common/AlbumCard';
 import { Button, Affix, Col, Statistic, Pagination } from 'antd';
 import { FormattedMessage } from 'umi-plugin-locale';
+import FillDiv from '@/components/FillDiv';
 
 const formatDoc = (source: AlbumDoc) => {
   const {
@@ -84,9 +85,6 @@ interface AlbumsProps extends AlbumResult {
   onLoadMore: (params: any) => void;
 }
 
-// todo use offsetWidth to get
-const cardWidth = 130;
-
 const Albums = ({
   response: { currentPage, docs, numFound, pageSize, start, total, totalPage },
   responseHeader: {
@@ -94,21 +92,6 @@ const Albums = ({
   },
   onLoadMore,
 }: AlbumsProps) => {
-  const contentRef = useRef(null);
-  const [fillCount, setFillCount] = useState(0);
-  const handleResize = debounce(() => {
-    const rowCardCount = Math.floor(contentRef.current.offsetWidth / cardWidth);
-    const count = rowCardCount - (pageSize % rowCardCount);
-    setFillCount(count);
-  }, 100);
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   // const handleLoadMore = (page) => {
   //   onLoadMore({ kw: q, page });
   // };
@@ -139,14 +122,12 @@ const Albums = ({
   // todo add search desc
   return (
     <>
-      <div ref={contentRef} className={styles.content}>
+      <div className={styles.content}>
         {docs.map((doc) => {
           const info = formatDoc(doc);
           return <AlbumCard key={info.albumId} info={info} />;
         })}
-        {Array.from({ length: fillCount }).map((_, idx) => {
-          return <div key={idx} className={styles.filler} />;
-        })}
+        <FillDiv />
       </div>
       <div>{PaginationBar}</div>
     </>

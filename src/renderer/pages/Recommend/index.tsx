@@ -18,10 +18,9 @@ import exploreApi, {
 import { Carousel, Button } from 'antd';
 import Content from '@/common/Content';
 import AlbumCard from '@/common/AlbumCard';
+import FillDiv from '@/components/FillDiv';
 
 const SIZE = 5;
-// todo use offsetWidth
-const cardWidth = 130;
 
 interface SliderItemProps {
   info: SlideshowInfo;
@@ -33,7 +32,6 @@ interface BannerSliderProps {
 
 interface AlbumsProps {
   data: AlbumList;
-  containerWidth: number;
 }
 
 interface HotAlbumItemProps {
@@ -62,17 +60,13 @@ const SliderItem = ({ info }: SliderItemProps) => {
 //   );
 // };
 
-const Albums = ({ data, containerWidth }: AlbumsProps) => {
-  const rowCardCount = Math.floor(containerWidth / cardWidth);
-  const fillCount = rowCardCount - (data.length % rowCardCount);
+const Albums = ({ data }: AlbumsProps) => {
   return (
     <div className={styles.albums}>
       {data.map((info) => {
         return <AlbumCard key={info.albumId} info={info} />;
       })}
-      {Array.from({ length: fillCount }).map((_, idx) => {
-        return <div key={idx} className={styles.filler} />;
-      })}
+      <FillDiv />
     </div>
   );
 };
@@ -121,19 +115,6 @@ const HotAlbums = ({ data, children }) => {
 };
 
 export default function() {
-  const containerRef = useRef(null);
-  const [width, setWidth] = useState(null);
-  const handleResize = debounce(() => {
-    setWidth(containerRef.current.offsetWidth);
-  }, 100);
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   const genRequestList = () => [
     exploreApi.getSlideshow(),
     exploreApi['v2/getRecommend'](),
@@ -160,17 +141,15 @@ export default function() {
   };
 
   return (
-    <div className={styles.wrap} ref={containerRef}>
+    <div className={styles.wrap}>
       <Content
         render={({ slideshowInfoList, recommendInfoList, cards }) => (
           <>
             {/* <BannerSlider data={slideshowInfoList} /> */}
             <GuessLike data={recommendInfoList}>
-              {(data) => <Albums containerWidth={width} data={data} />}
+              {(data) => <Albums data={data} />}
             </GuessLike>
-            <HotAlbums data={cards}>
-              {(data) => <Albums containerWidth={width} data={data} />}
-            </HotAlbums>
+            <HotAlbums data={cards}>{(data) => <Albums data={data} />}</HotAlbums>
           </>
         )}
         rspHandler={rspHandler}

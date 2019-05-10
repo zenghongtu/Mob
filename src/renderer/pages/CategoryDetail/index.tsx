@@ -12,6 +12,7 @@ import {
   CategoryPageAlbumsRspData,
   Album,
 } from '@/services/category';
+import FillDiv from '@/components/FillDiv';
 
 const formatAlbumInfo = (source: Album) => {
   const {
@@ -65,21 +66,6 @@ const Albums = ({
   },
   onLoadMore,
 }: AlbumsProps) => {
-  const contentRef = useRef(null);
-  const [fillCount, setFillCount] = useState(0);
-  const handleResize = debounce(() => {
-    const rowCardCount = Math.floor(contentRef.current.offsetWidth / cardWidth);
-    const count = rowCardCount - (pageSize % rowCardCount);
-    setFillCount(count);
-  }, 100);
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   const handlePaginationChange = (page) => {
     onLoadMore({ page, perPage: pageSize });
   };
@@ -100,14 +86,12 @@ const Albums = ({
     <>
       <h2 className={styles.h1title}>{pageConfig.h1title}</h2>
 
-      <div ref={contentRef} className={styles.content}>
+      <div className={styles.content}>
         {albums.map((album) => {
           const info = formatAlbumInfo(album);
           return <AlbumCard key={info.albumId} info={info} />;
         })}
-        {Array.from({ length: fillCount }).map((_, idx) => {
-          return <div key={idx} className={styles.filler} />;
-        })}
+        <FillDiv />
       </div>
       <div>{PaginationBar}</div>
     </>
