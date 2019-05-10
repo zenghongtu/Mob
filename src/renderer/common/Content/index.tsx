@@ -40,7 +40,9 @@ export default function({
   return (
     <div className={styles.contentWrap}>
       {loading && !result ? (
-        <Loading />
+        <div className={styles.loading}>
+          <Loading />
+        </div>
       ) : hasError ? (
         // todo use error image
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />

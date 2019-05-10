@@ -2,3 +2,7 @@
   min-height: 50vh;
   width: 100%;
 }
+
+.loading {
+  margin-top: 200px;
+}
