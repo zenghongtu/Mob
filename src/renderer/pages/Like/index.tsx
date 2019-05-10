@@ -1,45 +1,131 @@
 import React, { useState, useEffect } from 'react';
 
-import myApi, { LikeRspData, LikeItem } from '@/services/my';
+import myApi, { ListenedItem, LikeRspData } from '@/services/my';
 import { AlbumsInfoItem, ListenedRspData } from '@/services/my';
 
 import styles from './index.css';
+import Content from '@/common/Content';
+import { Timeline, Tag, List, Icon } from 'antd';
+import TrackItem from '@/common/TrackItem';
+import AlbumCard from '@/common/AlbumCard';
+import { Link } from 'react-router-dom';
 
-export interface AlbumsInfoItemProps {
-  data: LikeItem;
-}
+const getInfo = (source) => {
+  const {
+    albumId,
+    albumName,
+    albumUrl,
+    anchorId,
+    anchorName,
+    anchorUrl,
+    trackCoverPath,
+    trackCreateAt,
+    trackCreateAtStr,
+    trackDuration,
+    trackId,
+    trackPlayCount,
+    trackTitle,
+    trackUrl,
+  } = source;
+  return {
+    albumCoverPath: trackCoverPath,
+    albumId,
+    // albumPlayCount,
+    albumTitle: albumName,
+    // albumTrackCount,
+    albumUrl,
+    albumUserNickName: anchorName,
+    // anchorGrade,
+    anchorId,
+    anchorUrl,
+    // intro,
+    // isDeleted,
+    // isFinished,
+    // isPaid,
+  };
+};
+const getTrackListItem = ({
+  handleItemClick,
+  isInside,
+  isCurrent,
+  isPlaying,
+  index,
+  track,
+}) => {
+  const {
+    albumId,
+    albumName,
+    albumUrl,
+    anchorId,
+    anchorName,
+    anchorUrl,
+    trackCoverPath,
+    trackCreateAt,
+    trackCreateAtStr,
+    trackDuration,
+    trackId,
+    trackPlayCount,
+    trackTitle,
+    trackUrl,
+  } = track;
 
-const AlbumsInfoItem = ({ data }: AlbumsInfoItemProps) => {
-  return <div>{data.albumName}</div>;
+  const info = getInfo(track);
+  return (
+    <>
+      <List.Item.Meta
+        avatar={
+          <div className={styles.avatar}>
+            <AlbumCard info={info} isTrack />
+          </div>
+        }
+        title={<Link to={albumUrl}>{trackTitle}</Link>}
+        description={
+          <div>
+            <div className={styles.albumName}>{albumName}</div>
+            <div>
+              <Icon type='user' /> {anchorName}
+              &nbsp; &nbsp; &nbsp;
+              <Icon type='dashboard' /> {trackDuration}
+            </div>
+          </div>
+        }
+      />
+      <div className={styles.createAtStr}>{trackCreateAtStr}</div>
+    </>
+  );
 };
 
-export interface AlbumsInfosProps {
+export interface TrackListProps {
   data: LikeRspData;
 }
 
-function AlbumsInfos({ data }: AlbumsInfosProps) {
+function TrackList({ data }: TrackListProps) {
   return (
-    <div>
-      {data.tracksList.map((item) => {
-        return <AlbumsInfoItem data={item} />;
-      })}
+    <div className={styles.wrap}>
+      <div>
+        共喜欢过 <b>{data.totalCount}</b> 条声音
+      </div>
+      <div className={styles.inner}>
+        {data.tracksList.map((item) => {
+          return <TrackItem track={item} render={getTrackListItem} />;
+        })}
+      </div>
     </div>
   );
 }
 
 export default function() {
-  const [likeRsp, setLikeRsp] = useState(null);
+  const genRequestList = () => [myApi.getLikeTracks()];
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await myApi.getLikeTracks();
-      setLikeRsp(data);
-    })();
-  }, []);
+  const rspHandler = ([{ data }]) => {
+    return { LikeTracksRsp: data };
+  };
 
   return (
-    <div className={styles.normal}>
-      {likeRsp ? <AlbumsInfos data={likeRsp} /> : 'loading...'}
-    </div>
+    <Content
+      render={({ LikeTracksRsp }) => <TrackList data={LikeTracksRsp} />}
+      rspHandler={rspHandler}
+      genRequestList={genRequestList}
+    />
   );
 }
