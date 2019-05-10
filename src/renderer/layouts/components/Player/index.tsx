@@ -289,6 +289,7 @@ const Player = ({
           <div className={styles.progress}>
             <div className={styles.name}>
               <span className={styles.albumName}>{albumName}</span>
+              &nbsp;&nbsp;&nbsp;
               <span className={styles.trackName} title={trackName}>
                 {trackName}
               </span>

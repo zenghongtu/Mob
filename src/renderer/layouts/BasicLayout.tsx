@@ -21,10 +21,13 @@ export default function(props) {
     <>
       <PersistGate
         persistor={persistStore(window.g_app._store)}
-        loading={<Spin />}
+        loading={
+          <div className={styles.spin}>
+            <Spin size='large' />
+          </div>
+        }
       >
         <Layout className={styles.container}>
-          <div className={styles.dragBar} />
           <Sider width={SIDE_BAR_WIDTH} style={{ background: '#fff' }}>
             <SideBar {...props} />
           </Sider>

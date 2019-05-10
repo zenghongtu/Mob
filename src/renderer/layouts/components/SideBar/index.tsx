@@ -109,7 +109,12 @@ const SideBar = ({
           <span className={styles.day}>{day}</span>
         </div>
         <div className={styles.desc}>
-          今日必听 <b>{trackList.length}</b> 条
+          <ruby>
+            今日更新
+            <b> {trackList.length} </b>条<rp>(</rp>
+            <rt>每日必听</rt>
+            <rp>)</rp>
+          </ruby>
         </div>
       </div>
       <Menu

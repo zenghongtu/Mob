@@ -51,7 +51,9 @@ const AlbumItem = ({ info }) => {
   } = info;
   return (
     <div>
-      <Link to={albumUrl}>{albumTitle}</Link>
+      <Link className={styles.link} to={albumUrl}>
+        {albumTitle}
+      </Link>
     </div>
   );
 };
@@ -131,7 +133,11 @@ const RankContent = ({
                               <AlbumCard info={info} />
                             </div>
                           }
-                          title={<Link to={albumUrl}>{albumTitle}</Link>}
+                          title={
+                            <Link className={styles.link} to={albumUrl}>
+                              {albumTitle}
+                            </Link>
+                          }
                           description={
                             <div>
                               {description}
@@ -142,7 +148,7 @@ const RankContent = ({
                                   播放<b> {playCount} </b>次
                                 </Tag>
                                 <Tag>
-                                  共<b> {trackCount} </b>个专辑
+                                  共<b> {trackCount} </b>个声音
                                 </Tag>
                               </div>
                             </div>
@@ -188,7 +194,9 @@ const RankContent = ({
                 dataSource={albums}
                 renderItem={({ albumTitle, albumUrl }) => (
                   <List.Item>
-                    <Link to={albumUrl}>{albumTitle}</Link>
+                    <Link className={styles.link} to={albumUrl}>
+                      {albumTitle}
+                    </Link>
                   </List.Item>
                 )}
               />

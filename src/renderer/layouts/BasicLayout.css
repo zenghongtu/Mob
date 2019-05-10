@@ -5,14 +5,6 @@
   overflow: hidden;
 }
 
-.dragBar {
-  height: 18px;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  -webkit-app-region: drag;
-}
-
 .mainWrap {
   overflow: hidden;
 }
@@ -36,4 +28,11 @@
   min-height: 60px;
   bottom: 0;
   left: 0;
+}
+
+.spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
