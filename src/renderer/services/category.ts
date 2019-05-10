@@ -38,8 +38,6 @@ export interface AllCategoryInfoItem {
 
 export type AllCategoryInfo = AllCategoryInfoItem[];
 
-export default {
-  getAllCategoryInfo() {
-    return request.get('/category/allCategoryInfo');
-  },
+export const getAllCategoryInfo = () => {
+  return request.get('/category/allCategoryInfo');
 };
