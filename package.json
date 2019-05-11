@@ -78,15 +78,13 @@
     "antd": "^3.17.0",
     "axios": "^0.18.0",
     "electron-referer": "^0.3.0",
-    "electron-store": "^3.2.0",
     "global": "^4.3.2",
     "hash.js": "^1.1.7",
     "http-proxy": "^1.17.0",
     "lodash": "^4.17.11",
     "normalize.css": "^8.0.1",
     "react-player": "^1.11.0",
-    "redux-persist": "^5.10.0",
-    "redux-persist-electron-storage": "^2.1.0"
+    "redux-persist": "^5.10.0"
   },
   "electronWebpack": {
     "main": {
