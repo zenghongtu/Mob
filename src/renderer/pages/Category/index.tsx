@@ -6,7 +6,7 @@ import {
   getAllCategoryInfo,
 } from '@/services/category';
 
-import styles from './index.css';
+import styles from './index.less';
 import Content from '@/common/Content';
 import { Link } from 'react-router-dom';
 

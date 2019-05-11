@@ -1,11 +1,8 @@
-@base-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-@base-transition: all 0.5s cubic-bezier(0.075, 0.82, 0.135, 1);
-
 .hover {
-  transition: @base-transition;
+  transition: @transition-base;
   cursor: pointer;
   &:hover {
-    color: #1890ff;
+    color: @primary-color;
   }
 }
 

@@ -37,12 +37,12 @@ export default function() {
 
   return (
     <div className={styles.wrap}>
-      <div style={{ textAlign: 'center' }}>正在开发中...</div>
       {broughtAlbumsRsp ? (
         <AlbumsInfos data={broughtAlbumsRsp} />
       ) : (
         'loading...'
       )}
+      <div style={{ textAlign: 'center', color: '#1890ff' }}>正在开发中...</div>
     </div>
   );
 }

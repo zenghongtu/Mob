@@ -1,6 +1,5 @@
-@teal: #0292b7;
-
-.hover(@color:@teal) {
+@primary: @primary-color;
+.hover(@color:@primary) {
   & {
     transition: all 0.3s ease-in;
   }
@@ -124,7 +123,7 @@
   width: 20px;
   font-size: 12px;
   font-weight: 400;
-  color: #666;
+  color: @text-color-secondary;
   word-break: keep-all;
   text-overflow: ellipsis;
   white-space: nowrap;
