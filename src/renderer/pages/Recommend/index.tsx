@@ -107,7 +107,7 @@ const HotAlbums = ({ data, children }) => {
     <div>
       {data.map((item) => {
         return (
-          <HotAlbumItem key={item.albumId} data={item} children={children} />
+          <HotAlbumItem key={item.categoryId} data={item} children={children} />
         );
       })}
     </div>
