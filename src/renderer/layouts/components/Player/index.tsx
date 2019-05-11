@@ -174,6 +174,11 @@ const Player = ({
   };
 
   const onPlay = () => {
+    const option = {
+      body: trackName,
+    };
+    // tslint:disable-next-line:no-unused-expression
+    new Notification(albumName, option);
     setPlayerState({ playState: PlayState.PLAYING });
   };
 
