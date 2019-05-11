@@ -124,15 +124,14 @@ const Player = ({
   }, [trackId]);
 
   const handleDownloadStatus = (e, msg) => {
-    let option;
+    const option = {
+      silent: true,
+      body: '',
+    };
     if (msg.type === 'error') {
-      option = {
-        body: '下载失败😭😭😭',
-      };
+      option.body = '下载失败😭😭😭';
     } else {
-      option = {
-        body: '下载成功✌🏻✌🏻✌🏻',
-      };
+      option.body = '下载成功✌🏻✌🏻✌🏻';
     }
     // tslint:disable-next-line:no-unused-expression
     new Notification(trackName, option);
@@ -195,6 +194,8 @@ const Player = ({
   const onPlay = () => {
     const option = {
       body: trackName,
+      silent: true,
+      icon: `http:${trackCoverPath}` || DEFAULT_COVER,
     };
     // tslint:disable-next-line:no-unused-expression
     new Notification(albumName, option);
