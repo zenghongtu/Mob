@@ -304,7 +304,7 @@ const Player = ({
       <div className={styles.trackInfo}>
         <img
           className={styles.cover}
-          src={trackCoverPath || DEFAULT_COVER}
+          src={`http:${trackCoverPath}` || DEFAULT_COVER}
           alt=''
         />
         <div className={styles.progressWrap}>
