@@ -1,28 +1,57 @@
 {
   "name": "mob",
   "version": "0.1.0",
-  "description": "An ximalaya desktop client (unofficial).",
-  "main": "./dist/main/main.js",
   "private": true,
+  "author": {
+    "name": "zenghongtu",
+    "email": "zenghongtu@gmail.com",
+    "url": "https://github.com/zenghongtu"
+  },
+  "description": "Mob(モブ) - 一个基于 Electron + Umi 开发的喜马拉雅 FM 桌面客户端。A Ximalaya FM desktop client base on Electron & Umi.",
+  "main": "./dist/main/main.js",
   "build": {
     "productName": "Mob",
     "appId": "com.zenghongtu.Mob",
-    "compression": "maximum",
-    "files": [
-      "dist/",
-      "node_modules/",
-      "package.json"
-    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "title": "Mob ${version}"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage"
+      ],
+      "icon": "icons",
+      "category": "Music",
+      "executableName": "Mob"
+    },
     "mac": {
-      "category": "utilities",
+      "category": "public.app-category.music",
       "icon": "icons/dock.icns"
     },
+    "files": [
+      "dist/",
+      "package.json"
+    ],
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "assets"
     }
   },
   "scripts": {
-    "start": "yarn run build:main:dev && electron ./dist/main/main.js",
+    "start": "yarn run start:renderer &&yarn run build:main:dev",
     "start:main": "electron-webpack dev",
     "start:renderer": "APP_ROOT=src/renderer PORT=6008 BROWSER=none umi dev",
     "build:main:prod": "NODE_ENV=production webpack --config ./build/webpack.main.prod.config.js",
@@ -46,10 +75,6 @@
     "typescript",
     "ximalaya"
   ],
-  "author": {
-    "name": "zenghongtu",
-    "email": "zenghongtu@gmail.com"
-  },
   "devDependencies": {
     "awesome-typescript-loader": "^5.2.1",
     "electron": "^4.0.5",
