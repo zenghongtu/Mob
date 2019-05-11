@@ -16,7 +16,7 @@
       "output": "release"
     },
     "asar": true,
-    "artifactName": "${productName}-${version}.${ext}",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
     "compression": "maximum",
     "files": [
       "dist/",
