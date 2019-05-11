@@ -12,60 +12,93 @@
   "build": {
     "productName": "Mob",
     "appId": "com.zenghongtu.Mob",
-    "dmg": {
-      "contents": [
-        {
-          "x": 110,
-          "y": 150
-        },
-        {
-          "x": 240,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ],
-      "title": "Mob ${version}"
+    "directories": {
+      "output": "release"
     },
-    "linux": {
-      "target": [
-        "deb",
-        "rpm",
-        "AppImage"
-      ],
-      "icon": "icons",
-      "category": "Music",
-      "executableName": "Mob"
-    },
-    "mac": {
-      "category": "public.app-category.music",
-      "icon": "icons/dock.icns"
-    },
+    "asar": true,
+    "artifactName": "${productName}-${version}.${ext}",
+    "compression": "maximum",
     "files": [
       "dist/",
       "package.json"
     ],
-    "directories": {
-      "output": "release",
-      "buildResources": "assets"
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.music",
+      "icon": "build/icon.icns"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": "nsis"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "menuCategory": true,
+      "allowElevation": false
+    },
+    "linux": {
+      "category": "Music",
+      "icon": "build/icons",
+      "target": [
+        "deb",
+        "AppImage"
+      ]
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "zenghongtu",
+        "repo": "Mob"
+      }
+    ],
+    "electronDownload": {
+      "mirror": "http://npm.taobao.org/mirrors/electron/"
     }
   },
   "scripts": {
-    "start": "yarn run start:renderer &&yarn run build:main:dev",
+    "start": "yarn run start:renderer && yarn run start:main",
     "start:main": "electron-webpack dev",
-    "start:renderer": "APP_ROOT=src/renderer PORT=6008 BROWSER=none umi dev",
-    "build:main:prod": "NODE_ENV=production webpack --config ./build/webpack.main.prod.config.js",
-    "build:main:dev": "NODE_ENV=development webpack --config ./build/webpack.main.config.js",
-    "build:renderer": "APP_ROOT=src/renderer umi build",
-    "test:renderer": "APP_ROOT=src/renderer PORT=6008 BROWSER=none umi test",
+    "start:renderer": "cross-env APP_ROOT=src/renderer PORT=6008 BROWSER=none umi dev",
+    "build:main:prod": "cross-env NODE_ENV=production webpack --config ./build/webpack.main.prod.config.js",
+    "build:main:dev": "cross-env NODE_ENV=development webpack --config ./build/webpack.main.config.js",
+    "build:renderer": "cross-env APP_ROOT=src/renderer umi build",
+    "build": "rm -rf dist && yarn run build:renderer && yarn run build:main:prod",
+    "test:renderer": "cross-env APP_ROOT=src/renderer PORT=6008 BROWSER=none umi test",
     "test:watch": "yarn run test:renderer -w",
     "test": "yarn run test:renderer",
     "watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "debug:main": "electron --inspect=5858 -w ./dist/main/main.js",
-    "pack": "yarn run build:renderer && yarn run build:main:prod && electron-builder --dir",
+    "pack": "yarn run build && electron-builder --dir",
     "dist": "electron-builder",
-    "prettier": "prettier --list-different \"./**/*.{ts,tsx,js,jsx,less}\""
+    "package:win": "yarn build && rm -rf release && electron-builder build --win --x64",
+    "package:linux": "yarn build && rm -rf release && electron-builder build --linux",
+    "package:mac": "yarn build && rm -rf release && electron-builder build --mac",
+    "prettier": "prettier --list-different \"./**/*.{ts,tsx,js,jsx,less}\"",
+    "release:win": "yarn build && electron-builder build --win -p always",
+    "release:mac": "yarn build && electron-builder build --mac -p always",
+    "release:linux": "yarn build && electron-builder build --linux -p always",
+    "release:linux:arm": "yarn build electron-builder build --linux --armv7l -p always",
+    "release:all": "yarn build && electron-builder -p always",
+    "release": "yarn run build && electron-builder build",
+    "patch": "yarn version patch && git push origin master && git push origin --tags",
+    "minor": "yarn version minor && git push origin master && git push origin --tags",
+    "major": "yarn version major && git push origin master && git push origin --tags"
   },
   "repository": "https://github.com/zenghongtu/Mob",
   "keywords": [
@@ -76,7 +109,9 @@
     "ximalaya"
   ],
   "devDependencies": {
+    "@types/jest": "^24.0.12",
     "awesome-typescript-loader": "^5.2.1",
+    "cross-env": "^5.2.0",
     "electron": "^4.0.5",
     "electron-builder": "^20.38.5",
     "electron-debug": "^2.0.0",
@@ -98,7 +133,6 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "@types/jest": "^24.0.12",
     "antd": "^3.17.0",
     "axios": "^0.18.0",
     "electron-referer": "^0.3.0",
