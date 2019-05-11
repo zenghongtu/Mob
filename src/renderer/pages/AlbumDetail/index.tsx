@@ -139,7 +139,10 @@ const AlbumContent = ({
             alt=''
           />
           <div className={styles.btns}>
-            <Button onClick={handleSubClick}>
+            <Button
+              onClick={handleSubClick}
+              type={isSubscribe ? 'primary' : 'default'}
+            >
               <CustomIcon type='icon-star-' />
               {isSubscribe ? '已订阅' : '订阅'}
             </Button>
