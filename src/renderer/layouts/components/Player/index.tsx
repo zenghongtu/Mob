@@ -83,6 +83,7 @@ const Player = ({
   } = currentTrack || ({} as TracksAudioPlay);
   // todo remove (the same as ximalaya  official site new )
   const [isLike, setLike] = useState(like);
+  const [isDownloading, setDownloading] = useState(false);
 
   const {
     volume,
@@ -96,8 +97,10 @@ const Player = ({
 
   useEffect(() => {
     ipcRenderer.on('HOTKEY', handleGlobalShortcut);
+    ipcRenderer.on('DOWNLOAD', handleDownloadStatus);
     return () => {
       ipcRenderer.removeListener('HOTKEY', handleGlobalShortcut);
+      ipcRenderer.removeListener('DOWNLOAD', handleDownloadStatus);
     };
   }, [volume]);
 
@@ -111,7 +114,7 @@ const Player = ({
           setAudioUrl(audio);
         })();
       } else {
-        message.error('未购买，无法播放！');
+        message.error('木有购买，无法播放😵');
         setAudioUrl('');
         setPlayerState({ playState: PlayState.STOP, played: 0 });
       }
@@ -119,6 +122,22 @@ const Player = ({
       setAudioUrl(src);
     }
   }, [trackId]);
+
+  const handleDownloadStatus = (e, msg) => {
+    let option;
+    if (msg.type === 'error') {
+      option = {
+        body: '下载失败😭😭😭',
+      };
+    } else {
+      option = {
+        body: '下载成功✌🏻✌🏻✌🏻',
+      };
+    }
+    // tslint:disable-next-line:no-unused-expression
+    new Notification(trackName, option);
+  };
+
   const handleGlobalShortcut = (e, hotkey) => {
     switch (hotkey) {
       case 'nextTrack':
@@ -169,7 +188,7 @@ const Player = ({
         ? setPlayerState({ playState: PlayState.PAUSE })
         : setPlayerState({ playState: PlayState.PLAYING });
     } else {
-      message.info('当前无播放的内容，请先选择 (^_^)');
+      message.info('当前无播放的内容，先去选一个专辑吧😋');
     }
   };
 
@@ -234,9 +253,12 @@ const Player = ({
   const handleDownload = async () => {
     const filename = `${albumName}-${trackName}`;
     try {
+      setDownloading(true);
       await download(url, filename);
     } catch (e) {
-      message.error(`${filename} 下载失败！`);
+      message.error(`${filename} 获取资源失败，请稍后尝试 😥`);
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -382,11 +404,16 @@ const Player = ({
           type={isLike ? 'icon-heart-full' : 'icon-heart-empty'}
           onClick={handleClickLike}
         />
-        <CustomIcon
-          className={styles.conBtn}
-          type='icon-arrow-down'
-          onClick={handleDownload}
-        />
+        {isDownloading ? (
+          <CustomIcon className={styles.conBtn} type={'icon-spinner'} spin />
+        ) : (
+          <CustomIcon
+            className={styles.conBtn}
+            type={'icon-arrow-down'}
+            onClick={handleDownload}
+          />
+        )}
+
         {/* <CustomIcon
           className={styles.conBtn}
           type='icon-speech-bubble-center'

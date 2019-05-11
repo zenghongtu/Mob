@@ -178,10 +178,10 @@ function createWindow() {
     }
   });
 
-  // todo fix notice
   mainWindow.webContents.session.on('will-download', (e, item, webContents) => {
     const totalBytes = item.getTotalBytes();
 
+    // todo fix (here can't get path if download by browser)
     const filePath = item.getSavePath();
 
     item.on('updated', () => {
@@ -194,14 +194,11 @@ function createWindow() {
       }
 
       if (state === 'interrupted') {
-        dialog.showErrorBox(
-          '下载失败',
-          `文件 ${item.getFilename()} 因为某些原因被中断下载!`,
-        );
+        mainWindow.webContents.send('DOWNLOAD', { type: 'error' });
       }
 
       if (state === 'completed') {
-        // todo add notification
+        mainWindow.webContents.send('DOWNLOAD', { type: 'success', filePath });
         app.dock.downloadFinished(filePath);
       }
     });

@@ -32,8 +32,10 @@ const errorHandler = (error) => {
   if (message === 'Network Error') {
     msg = `无法连接到网络！`;
   }
-  if (status === 401) {
-    msg = `请先登录（点此前往登录）`;
+  if (status === 403) {
+    msg = `没有权限访问😑！`;
+  } else if (status === 401) {
+    msg = `未登录（👉🏻点此前往登录👈🏻）`;
     createNotification(msg, () => {
       router.push({
         pathname: '/login',
@@ -45,7 +47,7 @@ const errorHandler = (error) => {
     });
   } else {
     if (status >= 500) {
-      msg = `服务器错误，请稍后重试`;
+      msg = `服务器错误，请稍后重试😤`;
     }
     createNotification(msg);
   }

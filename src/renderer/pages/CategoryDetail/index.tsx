@@ -52,9 +52,6 @@ interface AlbumsProps {
   catAlbumsData: CategoryPageAlbumsRspData;
 }
 
-// todo use offsetWidth to get
-const cardWidth = 130;
-
 const Albums = ({
   catAlbumsData: {
     page: currentPage,
