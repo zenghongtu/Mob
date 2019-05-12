@@ -42,7 +42,7 @@ export default function() {
       ) : (
         'loading...'
       )}
-      <div style={{ textAlign: 'center', color: '#1890ff' }}>正在开发中...</div>
+      <div style={{ textAlign: 'center' }}>正在开发中...</div>
     </div>
   );
 }

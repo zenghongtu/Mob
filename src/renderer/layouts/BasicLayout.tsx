@@ -28,7 +28,7 @@ export default function(props) {
         }
       >
         <Layout className={styles.container}>
-          <Sider width={SIDE_BAR_WIDTH} style={{ background: '#fff' }}>
+          <Sider className={styles.sider} width={SIDE_BAR_WIDTH}>
             <SideBar {...props} />
           </Sider>
           <Layout className={styles.mainWrap}>
