@@ -27,6 +27,7 @@ import { debounce } from 'lodash';
 import Duration from './Duration';
 import download from '@/utils/download';
 import { setLikeTrack, cancelLikeTrack } from '@/services/like';
+import router from 'umi/router';
 
 const PopoverIcon: React.FC<{
   content: React.ReactNode;
@@ -77,6 +78,7 @@ const Player = ({
     trackCoverPath,
     trackUrl,
     albumName,
+    albumUrl,
     trackName,
     trackId,
     canPlay,
@@ -84,7 +86,6 @@ const Player = ({
   // todo remove (the same as ximalaya  official site new )
   const [isLike, setLike] = useState(like);
   const [isDownloading, setDownloading] = useState(false);
-
   const {
     volume,
     muted,
@@ -277,6 +278,16 @@ const Player = ({
     handleFetchMoreTracks(target);
   };
 
+  const handleCoverClick = () => {
+    if (albumUrl) {
+      router.push(albumUrl);
+    }
+  };
+
+  const handleAlbumNameClick = () => {
+    handleCoverClick();
+  };
+
   const isLoading = playState === PlayState.LOADING;
   const isPlaying = playState === PlayState.PLAYING;
 
@@ -333,6 +344,7 @@ const Player = ({
         <img
           className={styles.cover}
           src={`http:${trackCoverPath}` || DEFAULT_COVER}
+          onClick={handleCoverClick}
           alt=''
         />
         <div className={styles.progressWrap}>
@@ -346,7 +358,9 @@ const Player = ({
 
           <div className={styles.progress}>
             <div className={styles.name}>
-              <span className={styles.albumName}>{albumName}</span>
+              <span className={styles.albumName} onClick={handleAlbumNameClick}>
+                {albumName}
+              </span>
               &nbsp;&nbsp;&nbsp;
               <span className={styles.trackName} title={trackName}>
                 {trackName}
