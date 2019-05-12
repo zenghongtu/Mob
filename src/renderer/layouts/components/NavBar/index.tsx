@@ -56,7 +56,9 @@ const NavBar = ({ history, isLogin }) => {
   };
 
   const handleSearchClick = (kw) => {
-    handleRedirectSearch(kw);
+    if (kw) {
+      handleRedirectSearch(kw);
+    }
   };
 
   const handleFocus = () => {
@@ -71,7 +73,9 @@ const NavBar = ({ history, isLogin }) => {
 
   const handlePressEnter = (e) => {
     const kw = e.target.value;
-    handleRedirectSearch(kw);
+    if (kw) {
+      handleRedirectSearch(kw);
+    }
   };
 
   const handleArrowClick = (n) => {
