@@ -137,7 +137,7 @@ function createWindow() {
     minHeight: 600,
     minWidth: 800,
     width: 1040,
-    height: 700,
+    height: 715,
     backgroundColor: 'white',
     titleBarStyle: 'hiddenInset',
     title: 'Mob',
