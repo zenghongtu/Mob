@@ -1,17 +1,13 @@
-import {
-  app,
-  BrowserWindow,
-  dialog,
-  ipcMain,
-  Menu,
-  globalShortcut,
-} from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, globalShortcut } from 'electron';
 import * as electronReferer from 'electron-referer';
 import * as path from 'path';
 import * as url from 'url';
 import { GLOBAL_SHORTCUT } from './config';
 
 electronReferer('https://www.ximalaya.com/');
+
+const USER_AGENT =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36';
 
 let mainWindow: Electron.BrowserWindow | null;
 let forceQuit = false;
@@ -149,6 +145,8 @@ function createWindow() {
       webSecurity: false,
     },
   });
+
+  mainWindow.webContents.setUserAgent(USER_AGENT);
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:6008/#/');
