@@ -6,6 +6,7 @@ import exploreApi, { DayListenData } from '@/services/explore';
 import { connect } from 'dva';
 import { getTracks, TracksData } from '@/services/play';
 import { TrackRspData } from '@/services/track';
+import { PlayState } from '@/models/player';
 const SubMenu = Menu.SubMenu;
 
 const SideBar = ({
@@ -136,6 +137,10 @@ export default connect(
     return {
       playTracks(payload) {
         dispatch({ type: 'track/updateTrack', payload });
+        dispatch({
+          type: 'player/updateState',
+          payload: { playState: PlayState.PLAYING, played: 0.0 },
+        });
       },
     };
   },
