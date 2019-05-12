@@ -47,7 +47,11 @@ const errorHandler = (error) => {
     });
   } else {
     if (status >= 500) {
-      msg = `服务器错误，请稍后重试😤`;
+      if (message) {
+        msg = message;
+      } else {
+        msg = `服务器错误，请稍后重试😤`;
+      }
     }
     createNotification(msg);
   }
