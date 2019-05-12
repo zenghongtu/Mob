@@ -96,9 +96,9 @@
     "release:linux:arm": "yarn build electron-builder build --linux --armv7l -p always",
     "release:all": "yarn build && electron-builder -p always",
     "release": "yarn run build && electron-builder build",
-    "patch": "yarn version patch && git push origin master && git push origin --tags",
-    "minor": "yarn version minor && git push origin master && git push origin --tags",
-    "major": "yarn version major && git push origin master && git push origin --tags"
+    "patch": "yarn version --patch && git push origin master && git push origin --tags",
+    "minor": "yarn version --minor && git push origin master && git push origin --tags",
+    "major": "yarn version --major && git push origin master && git push origin --tags"
   },
   "repository": "https://github.com/zenghongtu/Mob",
   "keywords": [
