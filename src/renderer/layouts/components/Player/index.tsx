@@ -102,7 +102,7 @@ const Player = ({
       ipcRenderer.removeListener('HOTKEY', handleGlobalShortcut);
       ipcRenderer.removeListener('DOWNLOAD', handleDownloadStatus);
     };
-  }, [volume]);
+  }, [volume, playState]);
 
   useEffect(() => {
     setLike(like);
