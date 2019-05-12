@@ -5,7 +5,7 @@ import { AlbumsInfoItem, ListenedRspData } from '@/services/my';
 
 import styles from './index.css';
 import Content from '@/common/Content';
-import { Timeline, Tag, List, Icon } from 'antd';
+import { Timeline, Tag, List, Icon, message } from 'antd';
 // import TrackItem from '@/common/TrackItem';
 import AlbumCard from '@/common/AlbumCard';
 import { Link } from 'react-router-dom';
@@ -63,6 +63,12 @@ const TrackListItem = ({ track }) => {
     trackUrl,
   } = track;
   const info = getInfo(track);
+  const handleTrackTitleClick = (e) => {
+    if (!albumUrl) {
+      message.error('数据好像出了点问题，这个地方我们暂时去不了 😭');
+      e.preventDefault();
+    }
+  };
   return (
     <>
       <List.Item.Meta
@@ -71,7 +77,11 @@ const TrackListItem = ({ track }) => {
             <AlbumCard info={info} isTrack />
           </div>
         }
-        title={<Link to={albumUrl}>{trackTitle}</Link>}
+        title={
+          <Link onClick={handleTrackTitleClick} to={albumUrl}>
+            {trackTitle}
+          </Link>
+        }
         description={
           <div>
             <div className={styles.albumName}>{albumName}</div>
