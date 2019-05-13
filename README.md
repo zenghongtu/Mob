@@ -18,10 +18,20 @@
 
 ## Screenshots
 
+### Mac
+
 ![](images/2019-05-12-23-50-45.png)
 ![](images/2019-05-12-23-50-58.png)
 ![](images/2019-05-13-00-26-40.png)
 ![](images/2019-05-13-00-27-08.png)
+
+### Linux
+
+![](images/2019-05-13-19-05-12.png)
+
+### Win
+
+![](images/2019-05-13-19-07-26.png)
 
 ## Feature
 
@@ -59,7 +69,7 @@
 brew cask install mob
 ```
 
-### Linux [PENDING TEST]
+### Linux
 
 [Download](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-linux-amd64.deb) the `.deb` file for 'Debian / Ubuntu':
 
@@ -74,7 +84,7 @@ $ chmod u+x Mob-0.1.2-linux-x86_64.AppImage
 $ ./Mob-0.1.2-linux-x86_64.AppImage
 ```
 
-### Windows [PENDING TEST]
+### Windows
 
 [Download](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-win.exe)
 
