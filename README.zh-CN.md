@@ -63,7 +63,7 @@
 
 ### Mac(10.9+)
 
-[下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-mac.dmg) `.dmg` ~~或者使用 `homebrew`~~(需要 50 个星星才行 😭):
+[下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-mac.dmg) `.dmg` 或者使用 `homebrew`:
 
 ```
 brew cask install mob

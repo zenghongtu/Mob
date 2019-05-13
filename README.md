@@ -63,7 +63,7 @@
 
 ### Mac(10.9+)
 
-[Download](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-mac.dmg) the `.dmg` file, ~~Or use `homebrew`~~ (need 50 stars 😭):
+[Download](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-mac.dmg) the `.dmg` file, Or use `homebrew`:
 
 ```
 brew cask install mob
