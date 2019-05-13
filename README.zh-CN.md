@@ -1,8 +1,8 @@
 # Mob
 
-【[English README](https://github.com/zenghongtu/Mob/blob/master/README.md)】
-
 > Mob(モブ), [异能超能] 100](https://www.bilibili.com/bangumi/media/md5058)的主角（强烈推荐此番 👍🏻👍）
+
+【[English README](https://github.com/zenghongtu/Mob/blob/master/README.md)】
 
 [![Current Release](https://img.shields.io/github/release/zenghongtu/Mob.svg?style=flat-square)](https://github.com/zenghongtu/Mob/releases)
 ![License](https://img.shields.io/github/license/zenghongtu/Mob.svg?style=flat-square)
@@ -49,13 +49,13 @@
 
 ### Mac(10.9+)
 
-[下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-mac.dmg) `.dmg` 或者使用 `homebrew`:
+[下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-mac.dmg) `.dmg` ~~或者使用 `homebrew`~~(需要 50 个星星才行 😭):
 
 ```
 brew cask install mob
 ```
 
-### Linux [未测试]
+### Linux [待测试]
 
 'Debian / Ubuntu' 使用 `.deb` [下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-linux-amd64.deb):
 
@@ -70,7 +70,7 @@ $ chmod u+x Mob-0.1.2-linux-x86_64.AppImage
 $ ./Mob-0.1.2-linux-x86_64.AppImage
 ```
 
-### Windows [未测试]
+### Windows [待测试]
 
 [下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-win.exe)
 

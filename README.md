@@ -1,8 +1,8 @@
 # Mob
 
-【[中文 README](https://github.com/zenghongtu/Mob/blob/master/README.zh-CN.md)】
-
 > Mob(モブ), the protagonist of the [モブサイコ 100](https://www.bilibili.com/bangumi/media/md5058)
+
+【[中文 README](https://github.com/zenghongtu/Mob/blob/master/README.zh-CN.md)】
 
 [![Current Release](https://img.shields.io/github/release/zenghongtu/Mob.svg?style=flat-square)](https://github.com/zenghongtu/Mob/releases)
 ![License](https://img.shields.io/github/license/zenghongtu/Mob.svg?style=flat-square)
@@ -49,13 +49,13 @@
 
 ### Mac(10.9+)
 
-[Download](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-mac.dmg) the `.dmg` file, Or use `homebrew`:
+[Download](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-mac.dmg) the `.dmg` file, ~~Or use `homebrew`~~ (need 50 stars 😭):
 
 ```
 brew cask install mob
 ```
 
-### Linux [NO TEST]
+### Linux [PENDING TEST]
 
 [Download](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-linux-amd64.deb) the `.deb` file for 'Debian / Ubuntu':
 
@@ -70,7 +70,7 @@ $ chmod u+x Mob-0.1.2-linux-x86_64.AppImage
 $ ./Mob-0.1.2-linux-x86_64.AppImage
 ```
 
-### Windows [NO TEST]
+### Windows [PENDING TEST]
 
 [Download](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-win.exe)
 
