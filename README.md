@@ -14,6 +14,10 @@
 
 ## Preview
 
+![](images/mob-preview.gif)
+
+## Screenshots
+
 ![](images/2019-05-12-23-50-45.png)
 ![](images/2019-05-12-23-50-58.png)
 ![](images/2019-05-13-00-26-40.png)
