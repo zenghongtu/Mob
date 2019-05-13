@@ -1,6 +1,6 @@
 # Mob
 
-> Mob(モブ), [异能超能] 100](https://www.bilibili.com/bangumi/media/md5058)的主角（强烈推荐此番 👍🏻👍）
+> Mob(モブ), [异能超能 100](https://www.bilibili.com/bangumi/media/md5058)的男一号（强烈推荐此番 👍）
 
 【[English README](https://github.com/zenghongtu/Mob/blob/master/README.md)】
 
