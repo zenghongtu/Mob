@@ -234,29 +234,37 @@ export default function() {
   };
 
   return (
-    <div className={styles.normal}>
-      <h1>设置</h1>
-      <div>
-        <Switch
-          checked={enableHotkey}
-          checkedChildren={<Icon type='check' />}
-          unCheckedChildren={<Icon type='close' />}
-          onChange={handleSwitchHotkey}
-        />
-        <Button onClick={handleModalVisible}>设置快捷键</Button>
-        <Switch
-          checked={enableBackgroundImage}
-          checkedChildren={<Icon type='check' />}
-          unCheckedChildren={<Icon type='close' />}
-          onChange={handleSwitchBackgroundImage}
-        />
-      </div>
-      {modalVisible && (
-        <SetShortcutModal
-          onChangeVisible={setModalVisible}
-          onModifyHotkey={handleModifyHotkey}
-        />
-      )}
+    <div className={styles.wrap}>
+      <h2>设置</h2>
+      <Form>
+        <Form.Item label='是否开启快捷键'>
+          <Switch
+            checked={enableHotkey}
+            checkedChildren={<Icon type='check' />}
+            unCheckedChildren={<Icon type='close' />}
+            onChange={handleSwitchHotkey}
+          />
+        </Form.Item>
+
+        <Form.Item>
+          <Button onClick={handleModalVisible}>设置快捷键</Button>
+        </Form.Item>
+        <Form.Item label='是否开启背景'>
+          <Switch
+            checked={enableBackgroundImage}
+            checkedChildren={<Icon type='check' />}
+            unCheckedChildren={<Icon type='close' />}
+            onChange={handleSwitchBackgroundImage}
+          />
+        </Form.Item>
+
+        {modalVisible && (
+          <SetShortcutModal
+            onChangeVisible={setModalVisible}
+            onModifyHotkey={handleModifyHotkey}
+          />
+        )}
+      </Form>
     </div>
   );
 }
