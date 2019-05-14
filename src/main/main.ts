@@ -248,6 +248,7 @@ const handleModifyHotkey = (event, args: IModifyHotkeyArgs) => {
     settings.set(GLOBAL_SHORTCUT, shortcuts);
   }
   registerHotkeys(shortcuts);
+  event.sender.send(MODIFY_HOTKEY, { type, status: 'success' });
 };
 
 ipcMain.on(MODIFY_HOTKEY, handleModifyHotkey);

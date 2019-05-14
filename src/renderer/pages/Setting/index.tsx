@@ -1,167 +1,211 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './index.less';
-import { Button, Switch, Input } from 'antd';
+import { Button, Switch, Input, Modal, Form, message } from 'antd';
 import { ipcRenderer } from 'electron';
-import hotkeys from 'hotkeys-js';
 import { IModifyHotkeyArgs } from '../../../typings/message';
-import { MODIFY_HOTKEY } from '@/../constants';
+import { invert } from 'lodash';
+import { settings } from '@/../main/db';
+import {
+  GLOBAL_SHORTCUT,
+  DEFAULT_GLOBAL_SHORTCUT,
+  MODIFY_HOTKEY,
+} from '@/../constants';
 
-const keyCodeToChar = {
-  8: 'Backspace',
-  9: 'Tab',
-  13: 'Enter',
-  16: 'Shift',
-  17: 'Ctrl',
-  18: 'Alt',
-  19: 'Pause/Break',
-  20: 'Caps Lock',
-  27: 'Esc',
-  32: 'Space',
-  33: 'Page Up',
-  34: 'Page Down',
-  35: 'End',
-  36: 'Home',
-  37: 'Left',
-  38: 'Up',
-  39: 'Right',
-  40: 'Down',
-  45: 'Insert',
-  46: 'Delete',
-  48: '0',
-  49: '1',
-  50: '2',
-  51: '3',
-  52: '4',
-  53: '5',
-  54: '6',
-  55: '7',
-  56: '8',
-  57: '9',
-  65: 'A',
-  66: 'B',
-  67: 'C',
-  68: 'D',
-  69: 'E',
-  70: 'F',
-  71: 'G',
-  72: 'H',
-  73: 'I',
-  74: 'J',
-  75: 'K',
-  76: 'L',
-  77: 'M',
-  78: 'N',
-  79: 'O',
-  80: 'P',
-  81: 'Q',
-  82: 'R',
-  83: 'S',
-  84: 'T',
-  85: 'U',
-  86: 'V',
-  87: 'W',
-  88: 'X',
-  89: 'Y',
-  90: 'Z',
-  91: 'Windows',
-  93: 'Right Click',
-  96: 'Numpad 0',
-  97: 'Numpad 1',
-  98: 'Numpad 2',
-  99: 'Numpad 3',
-  100: 'Numpad 4',
-  101: 'Numpad 5',
-  102: 'Numpad 6',
-  103: 'Numpad 7',
-  104: 'Numpad 8',
-  105: 'Numpad 9',
-  106: 'Numpad *',
-  107: 'Numpad +',
-  109: 'Numpad -',
-  110: 'Numpad .',
-  111: 'Numpad /',
-  112: 'F1',
-  113: 'F2',
-  114: 'F3',
-  115: 'F4',
-  116: 'F5',
-  117: 'F6',
-  118: 'F7',
-  119: 'F8',
-  120: 'F9',
-  121: 'F10',
-  122: 'F11',
-  123: 'F12',
-  144: 'Num Lock',
-  145: 'Scroll Lock',
-  182: 'My Computer',
-  183: 'My Calculator',
-  186: ';',
-  187: '=',
-  188: ',',
-  189: '-',
-  190: '.',
-  191: '/',
-  192: '`',
-  219: '[',
-  220: '\\',
-  221: ']',
-  222: '\'',
+const fnMap = {
+  nextTrack: '下一个',
+  prevTrack: '上一个',
+  volumeUp: '音量 +',
+  volumeDown: '音量 -',
+  changePlayState: '暂停 / 播放',
+};
+const fnArr = [
+  'nextTrack',
+  'prevTrack',
+  'volumeUp',
+  'volumeDown',
+  'changePlayState',
+];
+
+const SetShortcutModal = ({ onChangeVisible, onModifyHotkey }) => {
+  const prevShortcut = settings.get(GLOBAL_SHORTCUT, DEFAULT_GLOBAL_SHORTCUT);
+  const initPrevShortcut = invert(prevShortcut);
+  const [curShortcuts, setShortcuts] = useState(initPrevShortcut);
+  const [curInputName, setCurInputName] = useState('');
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeydown);
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+    };
+  }, [curInputName]);
+
+  const keyCodeMap = {
+    35: 'End',
+    36: 'Home',
+    37: 'Left',
+    38: 'Up',
+    39: 'Right',
+    40: 'Down',
+    45: 'Insert',
+    46: 'Delete',
+    48: '0',
+    49: '1',
+    50: '2',
+    51: '3',
+    52: '4',
+    53: '5',
+    54: '6',
+    55: '7',
+    56: '8',
+    57: '9',
+    65: 'A',
+    66: 'B',
+    67: 'C',
+    68: 'D',
+    69: 'E',
+    70: 'F',
+    71: 'G',
+    72: 'H',
+    73: 'I',
+    74: 'J',
+    75: 'K',
+    76: 'L',
+    77: 'M',
+    78: 'N',
+    79: 'O',
+    80: 'P',
+    81: 'Q',
+    82: 'R',
+    83: 'S',
+    84: 'T',
+    85: 'U',
+    86: 'V',
+    87: 'W',
+    88: 'X',
+    89: 'Y',
+    90: 'Z',
+    112: 'F1',
+    113: 'F2',
+    114: 'F3',
+    115: 'F4',
+    116: 'F5',
+    117: 'F6',
+    118: 'F7',
+    119: 'F8',
+    120: 'F9',
+    121: 'F10',
+    122: 'F11',
+    123: 'F12',
+    186: ';',
+    187: '=',
+    188: ',',
+    189: '-',
+    190: '.',
+    191: '/',
+    192: '`',
+    219: '[',
+    220: '\\',
+    221: ']',
+    222: '\'',
+  };
+  const handleKeydown = (e) => {
+    if (!curInputName) {
+      return;
+    }
+    let keyName: string;
+
+    const keyValue = [];
+    if (e.metaKey) {
+      keyValue.push('CommandOrControl');
+    }
+
+    if (e.ctrlKey) {
+      keyValue.push('Ctrl');
+    }
+    if (e.altKey) {
+      keyValue.push('Alt');
+    }
+    if (e.shiftKey) {
+      keyValue.push('Shift');
+    }
+
+    const keyCode = e.keyCode;
+    if (keyCodeMap[keyCode]) {
+      keyValue.push(keyCodeMap[keyCode]);
+    } else {
+      return;
+    }
+    keyName = keyValue.join('+');
+    const isUnique = !Object.values(curShortcuts).includes(keyName);
+
+    if (!isUnique) {
+      message.error('重复了哦!😕');
+      return;
+    }
+    const newShortcuts = { ...curShortcuts };
+    // todo check it is same or not
+    newShortcuts[curInputName] = keyName;
+    setShortcuts(newShortcuts);
+  };
+
+  const handleOk = () => {
+    const shortcuts = invert(curShortcuts);
+    onModifyHotkey({ type: 'modify', payload: shortcuts });
+    onChangeVisible(false);
+  };
+  const handleCancel = () => {
+    onChangeVisible(false);
+  };
+  const handleResetClick = () => {
+    setShortcuts(invert(DEFAULT_GLOBAL_SHORTCUT));
+  };
+  return (
+    <Modal
+      title='设置快捷键'
+      visible={true}
+      mask={true}
+      maskClosable={false}
+      okText='确认'
+      cancelText='取消'
+      onOk={handleOk}
+      onCancel={handleCancel}
+    >
+      <Form>
+        {fnArr.map((fnName) => {
+          return (
+            <Form.Item key={fnName} label={fnMap[fnName]}>
+              <Input
+                placeholder='输入快捷键'
+                value={curShortcuts[fnName]}
+                onFocus={() => {
+                  setCurInputName(fnName);
+                }}
+                readOnly
+              />
+            </Form.Item>
+          );
+        })}
+      </Form>
+      <Button onClick={handleResetClick}>重置</Button>
+    </Modal>
+  );
 };
 
 export default function() {
-  const [shortcutCode, setShortcutCode] = useState({ keyCode: [], keyStr: [] });
-  const [isFocus, setFocus] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const onKeyUpEvent = () => {
-    setShortcutCode({ keyCode: [], keyStr: [] });
-  };
   useEffect(() => {
-    document.removeEventListener('keyup', onKeyUpEvent);
-
-    if (isFocus) {
-      function pkeys(keys, key) {
-        if (keys.indexOf(key) === -1) {
-          keys.push(key);
-        }
-        return keys;
+    ipcRenderer.on(MODIFY_HOTKEY, (event, { type, status }) => {
+      if (status !== 'error') {
+        message.success('设置成功！😋');
+      } else {
+        message.error('好像遇到了一点问题！😱');
       }
-      function pkeysStr(keysStr, key) {
-        if (keysStr.indexOf(key) === -1) {
-          keysStr.push(key);
-        }
-        return keysStr;
-      }
-      hotkeys('*', (evn) => {
-        evn.preventDefault();
-        const keys = [];
-        const keyStr = [];
-        if (hotkeys.shift) {
-          pkeysStr(keyStr, 'Shift');
-        }
-        if (hotkeys.ctrl) {
-          pkeysStr(keyStr, 'Ctrl');
-        }
-        if (hotkeys.alt) {
-          pkeysStr(keyStr, 'Alt');
-        }
-        if (hotkeys.control) {
-          pkeysStr(keyStr, 'Control');
-        }
-        if (hotkeys.command) {
-          pkeysStr(keyStr, 'Command');
-        }
-        keyStr.push(evn.keyCode);
-        if (keys.indexOf(evn.keyCode) === -1) {
-          keys.push(evn.keyCode);
-        }
-      });
-    }
-
+    });
     return () => {
-      document.removeEventListener('keyup', onKeyUpEvent);
+      ipcRenderer.removeAllListeners(MODIFY_HOTKEY);
     };
-  }, [isFocus]);
+  }, []);
 
   const handleModifyHotkey = (args: IModifyHotkeyArgs) => {
     ipcRenderer.send(MODIFY_HOTKEY, args);
@@ -169,24 +213,24 @@ export default function() {
   const handleSwitchHotkey = (checked) => {
     handleModifyHotkey({ type: 'switch', payload: checked ? 1 : 0 });
   };
-  const handleInputFocus = (e) => {
-    setFocus(true);
+
+  const handleModalVisible = () => {
+    setModalVisible(!modalVisible);
   };
-  const handleInputBlur = () => {
-    setFocus(false);
-  };
+
   return (
     <div className={styles.normal}>
       <h1>设置</h1>
       <div>
         <Switch onChange={handleSwitchHotkey} />
+        <Button onClick={handleModalVisible}>设置快捷键</Button>
       </div>
-      <Input
-        placeholder='输入快捷键'
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        readOnly
-      />
+      {modalVisible && (
+        <SetShortcutModal
+          onChangeVisible={setModalVisible}
+          onModifyHotkey={handleModifyHotkey}
+        />
+      )}
     </div>
   );
 }
