@@ -7,7 +7,7 @@
     "email": "zenghongtu@gmail.com",
     "url": "https://github.com/zenghongtu"
   },
-  "description": "Mob(モブ) - 一个基于 Electron + Umi 开发的喜马拉雅 FM 桌面客户端。A Ximalaya FM desktop client base on Electron & Umi.",
+  "description": "Mob(モブ) - 基于 Electron 开发的喜马拉雅桌面客户端",
   "main": "./dist/main/main.js",
   "build": {
     "productName": "Mob",
@@ -73,6 +73,7 @@
   "scripts": {
     "start": "yarn run start:renderer && yarn run start:main",
     "start:main": "electron-webpack dev",
+    "start:main:dev_tools": "cross-env DEV_TOOLS=1 electron-webpack dev",
     "start:renderer": "cross-env APP_ROOT=src/renderer PORT=6008 BROWSER=none umi dev",
     "build:main:prod": "cross-env NODE_ENV=production webpack --config ./build/webpack.main.prod.config.js",
     "build:main:dev": "cross-env NODE_ENV=development webpack --config ./build/webpack.main.config.js",
@@ -136,6 +137,7 @@
     "antd": "^3.17.0",
     "axios": "^0.18.0",
     "electron-referer": "^0.3.0",
+    "electron-store": "^3.2.0",
     "global": "^4.3.2",
     "hash.js": "^1.1.7",
     "http-proxy": "^1.17.0",
