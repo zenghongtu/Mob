@@ -7,6 +7,7 @@ import { CustomIcon } from '@/components/CustomIcon';
 import { SuggestRspData, getSuggest } from '@/services/suggest';
 import styles from './index.less';
 import { connect } from 'dva';
+import checkUpdate from '@/utils/checkUpdate';
 
 const Search = Input.Search;
 
@@ -26,6 +27,10 @@ const NavBar = ({ history, isLogin }) => {
     }
     lastHistoryLen = length;
   });
+
+  useEffect(() => {
+    checkUpdate();
+  }, []);
 
   const fetchSuggests = debounce(async (kw) => {
     if (!kw) {
