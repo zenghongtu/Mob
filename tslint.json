@@ -13,7 +13,14 @@
     "no-conditional-assignment": true,
     "no-consecutive-blank-lines": false,
     "ordered-imports": false,
-    "quotemark": [true, "single"]
+    "quotemark": [true, "single"],
+    "variable-name": false,
+    "only-arrow-functions": false,
+    "max-classes-per-file": false,
+    "no-bitwise": false,
+    "no-namespace": false,
+    "ban-types": false,
+    "no-empty": false
   },
   "jsRules": {
     "max-line-length": {
