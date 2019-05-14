@@ -10,7 +10,7 @@ export default ({ enable }) => {
   }
   // todo update
   enable
-    ? (value = `url('/static/watercolour-4117017.1987c5c5.png')`)
+    ? (value = `url(./static/watercolour-4117017.1987c5c5.png)`)
     : (value = 'none');
   // todo optimizing
   document.body.style.background = value;
