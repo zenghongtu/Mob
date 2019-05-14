@@ -1,6 +1,7 @@
 import { persistStore, persistReducer } from 'redux-persist';
 // import createElectronStorage from 'redux-persist-electron-storage';
 import storage from 'redux-persist/lib/storage';
+import changeBackground from './utils/changeBackground';
 
 const persistConfig = {
   timeout: 100, // you can define your time. But is required.
@@ -29,3 +30,5 @@ export const dva = {
     extraEnhancers: [persistEnhancer()],
   },
 };
+
+changeBackground({});

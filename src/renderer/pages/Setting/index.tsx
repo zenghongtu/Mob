@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './index.less';
-import { Button, Switch, Input, Modal, Form, message } from 'antd';
+import { Button, Switch, Input, Modal, Form, message, Icon } from 'antd';
 import { ipcRenderer } from 'electron';
 import { IModifyHotkeyArgs } from '../../../typings/message';
 import { invert } from 'lodash';
@@ -9,7 +9,10 @@ import {
   GLOBAL_SHORTCUT,
   DEFAULT_GLOBAL_SHORTCUT,
   MODIFY_HOTKEY,
+  ENABLE_BACKGROUND_IMAGE,
 } from '@/../constants';
+import changeBackground from '@/utils/changeBackground';
+import { ENABLE_HOTKEY } from '../../../constants';
 
 const fnMap = {
   nextTrack: '下一个',
@@ -193,6 +196,12 @@ const SetShortcutModal = ({ onChangeVisible, onModifyHotkey }) => {
 
 export default function() {
   const [modalVisible, setModalVisible] = useState(false);
+  const initEnableHotkey = settings.get(ENABLE_HOTKEY);
+  const initEnableBackgroundImage = settings.get(ENABLE_BACKGROUND_IMAGE);
+  const [enableHotkey, setEnableHotkey] = useState(initEnableHotkey);
+  const [enableBackgroundImage, setEnableBackgroundImage] = useState(
+    initEnableBackgroundImage,
+  );
 
   useEffect(() => {
     ipcRenderer.on(MODIFY_HOTKEY, (event, { type, status }) => {
@@ -212,6 +221,12 @@ export default function() {
   };
   const handleSwitchHotkey = (checked) => {
     handleModifyHotkey({ type: 'switch', payload: checked ? 1 : 0 });
+    setEnableHotkey(checked);
+  };
+
+  const handleSwitchBackgroundImage = (checked) => {
+    changeBackground({ enable: checked });
+    setEnableBackgroundImage(checked);
   };
 
   const handleModalVisible = () => {
@@ -222,8 +237,19 @@ export default function() {
     <div className={styles.normal}>
       <h1>设置</h1>
       <div>
-        <Switch onChange={handleSwitchHotkey} />
+        <Switch
+          checked={enableHotkey}
+          checkedChildren={<Icon type='check' />}
+          unCheckedChildren={<Icon type='close' />}
+          onChange={handleSwitchHotkey}
+        />
         <Button onClick={handleModalVisible}>设置快捷键</Button>
+        <Switch
+          checked={enableBackgroundImage}
+          checkedChildren={<Icon type='check' />}
+          unCheckedChildren={<Icon type='close' />}
+          onChange={handleSwitchBackgroundImage}
+        />
       </div>
       {modalVisible && (
         <SetShortcutModal
