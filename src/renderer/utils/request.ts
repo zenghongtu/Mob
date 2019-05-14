@@ -28,6 +28,10 @@ const createNotification = (message, onClick = undefined) => {
 
 const errorHandler = (error) => {
   const { message, status } = error;
+  // fix for window 403 error
+  if (!status) {
+    return;
+  }
   let msg = `请求错误: ${message}`;
   if (message === 'Network Error') {
     msg = `无法连接到网络！`;
