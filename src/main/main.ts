@@ -10,6 +10,8 @@ import {
   GLOBAL_SHORTCUT,
   ENABLE_HOTKEY,
 } from '../constants';
+import { settings } from './db';
+import { IModifyHotkeyArgs } from '../typings/message';
 
 electronReferer('https://www.ximalaya.com/');
 
@@ -210,12 +212,45 @@ function createWindow() {
       }
     });
   });
-  Object.keys(GLOBAL_SHORTCUT).forEach((key) => {
+
+  /**
+   * hotkey
+   */
+  const enableHotkey = settings.get(ENABLE_HOTKEY);
+  if (enableHotkey) {
+    const shortcuts = settings.get(GLOBAL_SHORTCUT);
+    const curShortcuts =
+      (shortcuts as typeof DEFAULT_GLOBAL_SHORTCUT) || DEFAULT_GLOBAL_SHORTCUT;
+    registerHotkeys(curShortcuts);
+  }
+}
+
+const registerHotkeys = (shortcuts) => {
+  Object.keys(shortcuts).forEach((key) => {
     globalShortcut.register(key, () => {
       mainWindow.webContents.send(TRIGGER_HOTKEY, shortcuts[key]);
     });
   });
-}
+};
+
+const handleModifyHotkey = (event, args: IModifyHotkeyArgs) => {
+  const { type, payload } = args;
+  let shortcuts;
+  if (type === 'switch') {
+    if (!payload) {
+      globalShortcut.unregisterAll();
+      return;
+    }
+    settings.set(ENABLE_HOTKEY, payload);
+    shortcuts = settings.get(GLOBAL_SHORTCUT, DEFAULT_GLOBAL_SHORTCUT);
+  } else {
+    shortcuts = payload;
+    settings.set(GLOBAL_SHORTCUT, shortcuts);
+  }
+  registerHotkeys(shortcuts);
+};
+
+ipcMain.on(MODIFY_HOTKEY, handleModifyHotkey);
 
 app.on('ready', () => {
   createWindow();

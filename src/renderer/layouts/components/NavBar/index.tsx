@@ -179,11 +179,11 @@ const NavBar = ({ history, isLogin }) => {
         <Dropdown overlay={UserMenu} trigger={['hover']}>
           <Icon className={styles.icon} type='user' />
         </Dropdown>
-        {/* <Icon
+        <Icon
           className={styles.icon}
           onClick={handleWidgetIconClick('setting')}
           type='setting'
-        /> */}
+        />
       </div>
     </div>
   );
