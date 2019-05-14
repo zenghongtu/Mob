@@ -2,7 +2,14 @@ import { app, BrowserWindow, ipcMain, Menu, globalShortcut } from 'electron';
 import * as electronReferer from 'electron-referer';
 import * as path from 'path';
 import * as url from 'url';
-import { GLOBAL_SHORTCUT } from './config';
+import {
+  DOWNLOAD,
+  TRIGGER_HOTKEY,
+  MODIFY_HOTKEY,
+  DEFAULT_GLOBAL_SHORTCUT,
+  GLOBAL_SHORTCUT,
+  ENABLE_HOTKEY,
+} from '../constants';
 
 electronReferer('https://www.ximalaya.com/');
 
@@ -194,18 +201,18 @@ function createWindow() {
       }
 
       if (state === 'interrupted') {
-        mainWindow.webContents.send('DOWNLOAD', { type: 'error' });
+        mainWindow.webContents.send(DOWNLOAD, { type: 'error' });
       }
 
       if (state === 'completed') {
-        mainWindow.webContents.send('DOWNLOAD', { type: 'success', filePath });
+        mainWindow.webContents.send(DOWNLOAD, { type: 'success', filePath });
         app.dock.downloadFinished(filePath);
       }
     });
   });
   Object.keys(GLOBAL_SHORTCUT).forEach((key) => {
     globalShortcut.register(key, () => {
-      mainWindow.webContents.send('HOTKEY', GLOBAL_SHORTCUT[key]);
+      mainWindow.webContents.send(TRIGGER_HOTKEY, shortcuts[key]);
     });
   });
 }

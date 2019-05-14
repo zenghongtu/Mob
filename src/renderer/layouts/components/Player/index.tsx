@@ -28,6 +28,7 @@ import Duration from './Duration';
 import download from '@/utils/download';
 import { setLikeTrack, cancelLikeTrack } from '@/services/like';
 import router from 'umi/router';
+import { DOWNLOAD, TRIGGER_HOTKEY } from '@/../constants';
 
 const PopoverIcon: React.FC<{
   content: React.ReactNode;
@@ -97,11 +98,11 @@ const Player = ({
   } = player;
 
   useEffect(() => {
-    ipcRenderer.on('HOTKEY', handleGlobalShortcut);
-    ipcRenderer.on('DOWNLOAD', handleDownloadStatus);
+    ipcRenderer.on(TRIGGER_HOTKEY, handleGlobalShortcut);
+    ipcRenderer.on(DOWNLOAD, handleDownloadStatus);
     return () => {
-      ipcRenderer.removeListener('HOTKEY', handleGlobalShortcut);
-      ipcRenderer.removeListener('DOWNLOAD', handleDownloadStatus);
+      ipcRenderer.removeListener(TRIGGER_HOTKEY, handleGlobalShortcut);
+      ipcRenderer.removeListener(DOWNLOAD, handleDownloadStatus);
     };
   }, [volume, playState]);
 
