@@ -136,6 +136,8 @@
   },
   "dependencies": {
     "antd": "^3.17.0",
+    "antd-pro-merge-less": "^1.0.0",
+    "antd-theme-webpack-plugin": "^1.2.0",
     "axios": "^0.18.0",
     "electron-referer": "^0.3.0",
     "electron-store": "^3.2.0",

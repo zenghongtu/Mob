@@ -25,7 +25,7 @@ import {
 import changeBackground from '@/utils/changeBackground';
 import { ENABLE_HOTKEY } from '../../../constants';
 import { UploadChangeParam } from 'antd/lib/upload';
-import { UploadFile } from 'antd/lib/upload/interface';
+import updateTheme from '@/utils/updateTheme';
 
 const fnMap = {
   changePlayState: '暂停 / 播放',
@@ -258,7 +258,9 @@ export default function() {
     const payload = file.originFileObj.path;
     ipcRenderer.send(UPDATE_BACKGROUND_IMAGE, { type: 'update', payload });
   };
-
+  const handleUpdateTheme = () => {
+    updateTheme({ '@primary-color': 'blue' });
+  };
   return (
     <div className={styles.wrap}>
       <h2>设置</h2>
@@ -294,6 +296,9 @@ export default function() {
           >
             <Button>选择图片</Button>
           </Upload>
+        </Form.Item>
+        <Form.Item label='设置颜色'>
+          <Button onClick={handleUpdateTheme}>设置颜色</Button>
         </Form.Item>
 
         {modalVisible && (

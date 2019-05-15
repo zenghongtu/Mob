@@ -7,9 +7,9 @@ export default [
         dynamicImport: undefined,
         hmr: true,
       },
-      dynamicImport: {
-        webpackChunkName: true,
-      },
+      // dynamicImport: {
+      //   webpackChunkName: true,
+      // },
       title: "Mob",
       dll: true,
       hardSource: false,
