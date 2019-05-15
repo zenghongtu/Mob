@@ -24,11 +24,11 @@
 ![](images/2019-05-13-00-27-08.png)
 ![](images/2019-05-15-15-23-36.png)
 
-### Linux（目前只有 v0.1.2，新版本打包失败了，正在解决中）
+### Linux
 
 ![](images/2019-05-13-19-05-12.png)
 
-### Win（目前只有 v0.1.2，新版本打包失败了，正在解决中）
+### Win
 
 ![](images/2019-05-13-19-07-26.png)
 
@@ -70,22 +70,22 @@ brew cask install mob
 
 ### Linux
 
-'Debian / Ubuntu' 使用 `.deb` [下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-linux-amd64.deb):
+'Debian / Ubuntu' 使用 `.deb` [下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.4/Mob-0.1.4-linux-amd64.deb):
 
 ```
-$ sudo dpkg -i Mob-0.1.2-linux-amd64.deb
+$ sudo dpkg -i Mob-0.1.4-linux-amd64.deb
 ```
 
-其他发行版本用 `.Appimage` [下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-linux-x86_64.AppImage):
+其他发行版本用 `.Appimage` [下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.4/Mob-0.1.4-linux-x86_64.AppImage):
 
 ```
-$ chmod u+x Mob-0.1.2-linux-x86_64.AppImage
-$ ./Mob-0.1.2-linux-x86_64.AppImage
+$ chmod u+x Mob-0.1.4-linux-x86_64.AppImage
+$ ./Mob-0.1.4-linux-x86_64.AppImage
 ```
 
 ### Win
 
-[下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-win.exe)
+[下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.4/Mob-0.1.4-win.exe)
 
 ## 默认快捷键
 
