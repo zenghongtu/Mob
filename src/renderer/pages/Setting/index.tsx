@@ -28,11 +28,11 @@ import { UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
 
 const fnMap = {
-  nextTrack: '下一个',
+  changePlayState: '暂停 / 播放',
   prevTrack: '上一个',
+  nextTrack: '下一个',
   volumeUp: '音量 +',
   volumeDown: '音量 -',
-  changePlayState: '暂停 / 播放',
 };
 const fnArr = [
   'nextTrack',
@@ -190,14 +190,16 @@ const SetShortcutModal = ({ onChangeVisible, onModifyHotkey }) => {
         {fnArr.map((fnName) => {
           return (
             <Form.Item key={fnName} label={fnMap[fnName]}>
-              <Input
-                placeholder='输入快捷键'
-                value={curShortcuts[fnName]}
-                onFocus={() => {
-                  setCurInputName(fnName);
-                }}
-                readOnly
-              />
+              <Tooltip trigger='click' title='按下需要的设置快捷键吧'>
+                <Input
+                  placeholder='输入快捷键'
+                  value={curShortcuts[fnName]}
+                  onFocus={() => {
+                    setCurInputName(fnName);
+                  }}
+                  readOnly
+                />
+              </Tooltip>
             </Form.Item>
           );
         })}
