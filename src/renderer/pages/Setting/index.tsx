@@ -1,6 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './index.less';
-import { Button, Switch, Input, Modal, Form, message, Icon } from 'antd';
+import {
+  Button,
+  Switch,
+  Input,
+  Modal,
+  Form,
+  message,
+  Icon,
+  Upload,
+  Tooltip,
+} from 'antd';
 import { ipcRenderer } from 'electron';
 import { IModifyHotkeyArgs } from '../../../typings/message';
 import { invert } from 'lodash';
@@ -10,9 +20,12 @@ import {
   DEFAULT_GLOBAL_SHORTCUT,
   MODIFY_HOTKEY,
   ENABLE_BACKGROUND_IMAGE,
+  UPDATE_BACKGROUND_IMAGE,
 } from '@/../constants';
 import changeBackground from '@/utils/changeBackground';
 import { ENABLE_HOTKEY } from '../../../constants';
+import { UploadChangeParam } from 'antd/lib/upload';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 const fnMap = {
   nextTrack: '下一个',
@@ -203,16 +216,22 @@ export default function() {
     initEnableBackgroundImage,
   );
 
-  useEffect(() => {
-    ipcRenderer.on(MODIFY_HOTKEY, (event, { type, status }) => {
-      if (status !== 'error') {
-        message.success('设置成功！😋');
-      } else {
-        message.error('好像遇到了一点问题！😱');
+  const handleMainMessage = (event, { type, status, payload }) => {
+    if (status !== 'error') {
+      message.success('设置成功！😋');
+      if (payload) {
+        changeBackground(payload);
       }
-    });
+    } else {
+      message.error('好像遇到了一点问题！😱');
+    }
+  };
+  useEffect(() => {
+    ipcRenderer.on(MODIFY_HOTKEY, handleMainMessage);
+    ipcRenderer.on(UPDATE_BACKGROUND_IMAGE, handleMainMessage);
     return () => {
       ipcRenderer.removeAllListeners(MODIFY_HOTKEY);
+      ipcRenderer.removeAllListeners(UPDATE_BACKGROUND_IMAGE);
     };
   }, []);
 
@@ -231,6 +250,11 @@ export default function() {
 
   const handleModalVisible = () => {
     setModalVisible(!modalVisible);
+  };
+
+  const handleUploadImage = ({ file }: UploadChangeParam) => {
+    const payload = file.originFileObj.path;
+    ipcRenderer.send(UPDATE_BACKGROUND_IMAGE, { type: 'update', payload });
   };
 
   return (
@@ -258,6 +282,16 @@ export default function() {
             unCheckedChildren={<Icon type='close' />}
             onChange={handleSwitchBackgroundImage}
           />
+        </Form.Item>
+        <Form.Item label='更换背景图'>
+          <Upload
+            multiple={false}
+            showUploadList={false}
+            onChange={handleUploadImage}
+            disabled={!initEnableBackgroundImage}
+          >
+            <Button>选择图片</Button>
+          </Upload>
         </Form.Item>
 
         {modalVisible && (

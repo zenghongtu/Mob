@@ -31,4 +31,4 @@ export const dva = {
   },
 };
 
-changeBackground({});
+changeBackground({ isStart: true });

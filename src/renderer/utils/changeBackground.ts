@@ -1,18 +1,24 @@
-import { ENABLE_BACKGROUND_IMAGE } from '@/../constants';
 import { settings } from '@/../main/db';
+import { BACKGROUND_IMAGE_URL, ENABLE_BACKGROUND_IMAGE } from '../../constants';
 
-export default ({ enable }) => {
-  let value: string;
-  if (typeof enable === 'undefined') {
+export interface IChangeBackground {
+  enable?: boolean;
+  url?: string;
+  isStart?: boolean;
+}
+const DEFAULT_BACKGROUND_IMAGE = './static/watercolour-4117017.1987c5c5.png';
+
+export default ({ isStart, enable, url }: IChangeBackground) => {
+  if (isStart) {
     enable = settings.get(ENABLE_BACKGROUND_IMAGE, true);
-  } else {
-    settings.set(ENABLE_BACKGROUND_IMAGE, enable);
   }
-  // todo update
-  enable
-    ? (value = `url(./static/watercolour-4117017.1987c5c5.png)`)
-    : (value = 'none');
-  // todo optimizing
-  document.body.style.background = value;
-  document.body.style.backgroundSize = '100vw 100vh';
+  if (enable && !url) {
+    url = settings.get(BACKGROUND_IMAGE_URL, DEFAULT_BACKGROUND_IMAGE);
+  }
+
+  let background: string;
+
+  enable ? (background = `url(${url})`) : (background = 'none');
+
+  document.body.style.cssText = `background:${background};background-size:100vw 100vh;`;
 };

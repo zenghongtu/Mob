@@ -9,9 +9,14 @@ import {
   DEFAULT_GLOBAL_SHORTCUT,
   GLOBAL_SHORTCUT,
   ENABLE_HOTKEY,
+  UPDATE_BACKGROUND_IMAGE,
+  ENABLE_BACKGROUND_IMAGE,
+  BACKGROUND_IMAGE_URL,
 } from '../constants';
 import { settings } from './db';
-import { IModifyHotkeyArgs } from '../typings/message';
+import { IModifyHotkeyArgs, IUploadBackgroundImage } from '../typings/message';
+import { copyFile, genUniqueKey } from './utils';
+import * as fs from 'fs';
 
 electronReferer('https://www.ximalaya.com/');
 
@@ -252,6 +257,53 @@ const handleModifyHotkey = (event, args: IModifyHotkeyArgs) => {
 };
 
 ipcMain.on(MODIFY_HOTKEY, handleModifyHotkey);
+
+/**
+ * background-image
+ */
+
+const handleUploadBackgroundImage = (event, args: IUploadBackgroundImage) => {
+  const { type, payload } = args;
+  try {
+    if (type === 'switch') {
+      const enable = payload;
+      settings.set(ENABLE_BACKGROUND_IMAGE, enable);
+      event.sender.send(UPDATE_BACKGROUND_IMAGE, {
+        type,
+        payload: { enable, url: '' },
+        status: 'success',
+      });
+    } else {
+      const src = payload as string;
+      const extName = path.extname(src);
+      const bgImageName = genUniqueKey();
+      const target = path.join(app.getPath('userData'), bgImageName + extName);
+      copyFile(src, target);
+      const url = encodeURI(`file://${target}`);
+      const prevImageUrl = settings.get(BACKGROUND_IMAGE_URL);
+      if (prevImageUrl) {
+        fs.unlink(prevImageUrl, (err) => {
+          if (err) {
+            // tslint:disable-next-line:no-console
+            console.error(err);
+            return;
+          }
+        });
+      }
+      settings.set(BACKGROUND_IMAGE_URL, url);
+      event.sender.send(UPDATE_BACKGROUND_IMAGE, {
+        type,
+        payload: { enable: true, url },
+        status: 'success',
+      });
+    }
+  } catch (e) {
+    event.sender.send(UPDATE_BACKGROUND_IMAGE, { type, status: 'error' });
+    // tslint:disable-next-line:no-console
+    console.error('update background image error!');
+  }
+};
+ipcMain.on(UPDATE_BACKGROUND_IMAGE, handleUploadBackgroundImage);
 
 app.on('ready', () => {
   createWindow();
