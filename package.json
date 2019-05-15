@@ -49,7 +49,8 @@
       "allowToChangeInstallationDirectory": true,
       "oneClick": false,
       "menuCategory": true,
-      "allowElevation": false
+      "allowElevation": false,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "linux": {
       "category": "Music",
@@ -91,7 +92,7 @@
     "package:linux": "yarn run build && rm -rf release && electron-builder build --linux",
     "package:mac": "yarn run build && rm -rf release && electron-builder build --mac",
     "prettier": "prettier --list-different \"./**/*.{ts,tsx,js,jsx,less}\"",
-    "release:win": "yarn run build && electron-builder build --win -p always",
+    "release:win": "yarn run build && electron-builder build --ia32 --x64 --win -p always",
     "release:mac": "yarn run build && electron-builder build --mac -p always",
     "release:linux": "yarn run build && electron-builder build --linux -p always",
     "release:linux:arm": "yarn run build electron-builder build --linux --armv7l -p always",
