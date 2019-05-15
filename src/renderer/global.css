@@ -7,7 +7,7 @@ body {
   height: 100vh;
   min-width: 1040px;
   min-height: 715px;
-  background: url('./assets/watercolour-4117017.png');
+  background: none;
   background-attachment: fixed;
   background-color: #fff;
   background-repeat: no-repeat;
