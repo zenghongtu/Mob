@@ -1,4 +1,4 @@
-<img src="https://github.com/zenghongtu/Mob/blob/master/build/icons/256x256.png" />
+<img src="https://github.com/zenghongtu/Mob/blob/master/build/icons/128x128.png" />
 
 > Mob(モブ), [异能超能 100](https://www.bilibili.com/bangumi/media/md5058)的男一号（强烈推荐此番 👍）
 
@@ -22,12 +22,13 @@
 ![](images/2019-05-12-23-50-58.png)
 ![](images/2019-05-13-00-26-40.png)
 ![](images/2019-05-13-00-27-08.png)
+![](images/2019-05-15-15-23-36.png)
 
-### Linux
+### Linux（目前只有 v0.1.2，新版本打包失败了，正在解决中）
 
 ![](images/2019-05-13-19-05-12.png)
 
-### Win
+### Win（目前只有 v0.1.2，新版本打包失败了，正在解决中）
 
 ![](images/2019-05-13-19-07-26.png)
 
@@ -49,7 +50,6 @@
 - [ ] 加入 [Himalaya podcast](https://www.himalaya.com/) 接口
 - [ ] 多语言
 - [ ] 自定义样式
-- [ ] 快捷键设置
 - [ ] 下载历史
 - [ ] 本地音乐
 - [ ] 播放记录
@@ -62,7 +62,7 @@
 
 ### Mac(10.9+)
 
-[下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.3/Mob-0.1.3-mac.dmg) `.dmg` 或者使用 `homebrew`:
+[下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.4/Mob-0.1.4-mac.dmg) `.dmg` 或者使用 `homebrew`:
 
 ```
 brew cask install mob
@@ -83,7 +83,7 @@ $ chmod u+x Mob-0.1.2-linux-x86_64.AppImage
 $ ./Mob-0.1.2-linux-x86_64.AppImage
 ```
 
-### Windows
+### Win
 
 [下载](https://github.com/zenghongtu/Mob/releases/download/v0.1.2/Mob-0.1.2-win.exe)
 

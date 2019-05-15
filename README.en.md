@@ -1,4 +1,4 @@
-<img src="https://github.com/zenghongtu/Mob/blob/master/build/icons/256x256.png" />
+<img src="https://github.com/zenghongtu/Mob/blob/master/build/icons/128x128.png" />
 
 > Mob(モブ), the protagonist of the [モブサイコ 100](https://www.bilibili.com/bangumi/media/md5058)
 
