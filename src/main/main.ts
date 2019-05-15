@@ -281,10 +281,13 @@ const handleUploadBackgroundImage = (event, args: IUploadBackgroundImage) => {
       const bgImageName = genUniqueKey();
       const target = path.join(app.getPath('userData'), bgImageName + extName);
       copyFile(src, target);
+      // get correct url
       const url = encodeURI(`file://${target}`);
       const prevImageUrl = settings.get(BACKGROUND_IMAGE_URL);
       if (prevImageUrl) {
-        fs.unlink(prevImageUrl, (err) => {
+        // get correct path
+        const prevImagePath = decodeURI(prevImageUrl).slice(7);
+        fs.unlink(prevImagePath, (err) => {
           if (err) {
             // tslint:disable-next-line:no-console
             console.error(err);
