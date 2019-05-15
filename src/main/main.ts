@@ -142,17 +142,19 @@ if (process.platform === 'darwin') {
   });
 }
 
+const isMac = 'darwin' === process.platform;
 function createWindow() {
+  const titleBarStyle = isMac ? 'hiddenInset' : 'default';
   mainWindow = new BrowserWindow({
     minHeight: 600,
     minWidth: 800,
     width: 1040,
     height: 715,
     backgroundColor: 'white',
-    titleBarStyle: 'hiddenInset',
+    titleBarStyle,
     title: 'Mob',
-    frame: 'darwin' === process.platform,
-    // icon: '',
+    frame: isMac,
+    icon: path.join(__dirname, '../../build/icon.png'),
     show: true,
     acceptFirstMouse: true,
     webPreferences: {
