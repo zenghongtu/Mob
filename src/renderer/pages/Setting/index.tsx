@@ -195,9 +195,9 @@ const SetShortcutModal = ({ onChangeVisible, onModifyHotkey }) => {
 };
 
 export default function() {
+  const initEnableHotkey = settings.get(ENABLE_HOTKEY, true);
+  const initEnableBackgroundImage = settings.get(ENABLE_BACKGROUND_IMAGE, true);
   const [modalVisible, setModalVisible] = useState(false);
-  const initEnableHotkey = settings.get(ENABLE_HOTKEY);
-  const initEnableBackgroundImage = settings.get(ENABLE_BACKGROUND_IMAGE);
   const [enableHotkey, setEnableHotkey] = useState(initEnableHotkey);
   const [enableBackgroundImage, setEnableBackgroundImage] = useState(
     initEnableBackgroundImage,
@@ -247,7 +247,9 @@ export default function() {
         </Form.Item>
 
         <Form.Item>
-          <Button onClick={handleModalVisible}>设置快捷键</Button>
+          <Button disabled={!enableHotkey} onClick={handleModalVisible}>
+            设置快捷键
+          </Button>
         </Form.Item>
         <Form.Item label='是否开启背景'>
           <Switch
