@@ -1,4 +1,4 @@
-osx_image: xcode10.2
+osx_image: xcode9.4
 
 dist: trusty # needs Ubuntu Trusty
 # Note: if you switch to sudo: false, you'll need to launch chrome with --no-sandbox.
@@ -6,7 +6,7 @@ dist: trusty # needs Ubuntu Trusty
 sudo: required
 
 language: node_js
-node_js: '10'
+node_js: '12'
 
 os:
   - linux

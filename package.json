@@ -7,7 +7,7 @@
     "email": "zenghongtu@gmail.com",
     "url": "https://github.com/zenghongtu"
   },
-  "description": "Mob(モブ) - 基于 Electron 开发的喜马拉雅桌面客户端",
+  "description": "一个高颜值并且实用的喜马拉雅桌面客户端。",
   "main": "./dist/main/main.js",
   "build": {
     "productName": "Mob",
@@ -56,7 +56,6 @@
       "icon": "build/icons",
       "target": [
         "deb",
-        "rpm",
         "AppImage"
       ]
     },
