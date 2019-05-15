@@ -220,7 +220,7 @@ export default function() {
     ipcRenderer.send(MODIFY_HOTKEY, args);
   };
   const handleSwitchHotkey = (checked) => {
-    handleModifyHotkey({ type: 'switch', payload: checked ? 1 : 0 });
+    handleModifyHotkey({ type: 'switch', payload: checked ? true : false });
     setEnableHotkey(checked);
   };
 
