@@ -1,6 +1,11 @@
+# Only build on code commits, not when tags are added(eg upon publishing a draft release)
+if: tag IS blank
+
+# Two build jobs, one on macOS, another on Linux with Docker to build Linux + Windows binaries
 matrix:
   include:
-    - os: osx
+    - name: 'macOS'
+      os: osx
       osx_image: xcode9.4
       language: node_js
       node_js: '10'
@@ -8,34 +13,52 @@ matrix:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
-    - os: linux
+    - name: 'Windows + Linux'
+      os: linux
       services: docker
       language: generic
 
+# Clear out any cached files here
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
+
+# Keep files in these directories
 cache:
   directories:
     - node_modules
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
 
+# Actual build command/script for the two jobs in the matrix above to use (could probably move these into each one?)
 script:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-        docker run --rm \
-         --env-file <(env | grep -vE '\r|\n' | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS_TAG|TRAVIS|TRAVIS_REPO_|TRAVIS_BUILD_|TRAVIS_BRANCH|TRAVIS_PULL_REQUEST_|APPVEYOR_|CSC_|GH_|GITHUB_|BT_|AWS_|STRIP|BUILD_') \
-          --env ELECTRON_CACHE="/root/.cache/electron" \
-          --env ELECTRON_BUILDER_CACHE="/root/.cache/electron-builder" \
-          -v ${PWD}:/project \
-          -v ~/.cache/electron:/root/.cache/electron \
-          -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-          electronuserland/builder:wine \
-          /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
+      docker run --rm \
+        -v ${PWD}:/project \
+        -v ~/.cache/electron:/root/.cache/electron \
+        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+        electronuserland/builder:wine \
+        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn dist --linux --win"
     else
-      yarn release
+      yarn dist
     fi
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
 
-branches:
-  except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
+# Workaround for bug in Travis deploy logic, `tag_name` isn't used for draft releases,
+# Specify the tag to target in draft release instead for now via $TRAVIS_TAG
+before_deploy:
+  - export TRAVIS_TAG="preview"
+
+# Deploy to Github Releases as draft release or update the existing one with the above `tag_name` value(any existing files will be overwritten)
+deploy:
+  provider: releases
+  api_key: $GH_TOKEN
+  skip_cleanup: true
+  draft: true
+  overwrite: true
+  file_glob: true
+  file:
+    - dist/*.exe
+    - dist*.zip
+    - dist/*.dmg
+    - dist/*.snap
+    - dist/*.AppImage
