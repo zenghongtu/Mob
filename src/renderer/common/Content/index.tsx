@@ -1,4 +1,4 @@
-import styles from './index.css';
+import styles from './index.less';
 import React, { useState, useEffect } from 'react';
 import Loading from '@/components/Loading';
 import { Empty } from 'antd';

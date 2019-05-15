@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { debounce } from 'lodash';
 
-import styles from './index.css';
+import styles from './index.less';
 import { SIDE_BAR_WIDTH } from '@/layouts/BasicLayout';
 
 const DEFAULT_WIDTH = 130;

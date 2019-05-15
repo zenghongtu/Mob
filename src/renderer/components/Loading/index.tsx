@@ -1,4 +1,4 @@
-import styles from './index.css';
+import styles from './index.less';
 import { Spin, Icon } from 'antd';
 
 // todo select a beautiful icon

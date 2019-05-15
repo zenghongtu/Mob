@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import myApi, { BroughtRspData, BroughtItem } from '@/services/my';
 
-import styles from './index.css';
+import styles from './index.less';
 import { Empty } from 'antd';
 
 export interface AlbumsInfoItemProps {

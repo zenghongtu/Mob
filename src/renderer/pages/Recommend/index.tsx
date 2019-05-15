@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 
 import { debounce } from 'lodash';
-import styles from './index.css';
+import styles from './index.less';
 import exploreApi, {
   SlideshowInfoList,
   Cards,

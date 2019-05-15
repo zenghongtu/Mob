@@ -4,7 +4,7 @@ import { Tabs } from 'antd';
 import myApi from '@/services/my';
 import { AlbumsInfoItem, AlbumsInfoRspData } from '@/services/my';
 
-import styles from './index.css';
+import styles from './index.less';
 import Content from '@/common/Content';
 import FillDiv from '@/components/FillDiv';
 import AlbumCard from '@/common/AlbumCard';

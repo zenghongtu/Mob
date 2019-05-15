@@ -5,7 +5,7 @@ import { Layout, Spin, message } from 'antd';
 import SideBar from './components/SideBar';
 import NavBar from './components/NavBar';
 import Player from './components/Player';
-import styles from './BasicLayout.css';
+import styles from './BasicLayout.less';
 
 const { Header, Footer, Sider, Content } = Layout;
 

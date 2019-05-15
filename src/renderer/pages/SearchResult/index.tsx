@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 
 import { debounce } from 'lodash';
-import styles from './index.css';
+import styles from './index.less';
 import Content from '@/common/Content';
 import {
   getSearchResult,

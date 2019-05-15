@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import myApi, { ListenedItem } from '@/services/my';
 import { AlbumsInfoItem, ListenedRspData } from '@/services/my';
 
-import styles from './index.css';
+import styles from './index.less';
 import Content from '@/common/Content';
 import { Timeline, Tag, List, Icon, message } from 'antd';
 // import TrackItem from '@/common/TrackItem';
