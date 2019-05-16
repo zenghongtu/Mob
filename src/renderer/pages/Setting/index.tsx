@@ -380,9 +380,9 @@ export default function() {
             multiple={false}
             showUploadList={false}
             onChange={handleUploadImage}
-            disabled={!initEnableBackgroundImage}
+            disabled={!enableBackgroundImage}
           >
-            <Button>选择图片</Button>
+            <Button disabled={!enableBackgroundImage}>选择图片</Button>
           </Upload>
         </Form.Item>
         <Form.Item
