@@ -29,6 +29,7 @@ import { ENABLE_HOTKEY } from '../../../constants';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { SketchPicker, BlockPicker } from 'react-color';
 import { getLinkCSS, updateTheme } from '@/utils/theme';
+const confirm = Modal.confirm;
 
 const fnMap = {
   changePlayState: '暂停 / 播放',
@@ -329,6 +330,17 @@ export default function() {
     setTheme({ ...theme, [colorName]: color });
   };
 
+  const handleResetAllSetting = () => {
+    confirm({
+      title: '确定清除所有设置？',
+      onOk() {
+        localStorage.clear();
+        settings.clear();
+        message.success('清除完毕，请重启程序！👻');
+      },
+    });
+  };
+
   return (
     <div className={styles.wrap}>
       <h2>设置</h2>
@@ -392,6 +404,11 @@ export default function() {
           </div>
         </Form.Item>
 
+        <Form.Item label='重置'>
+          <Button type='danger' onClick={handleResetAllSetting}>
+            重置所有设置
+          </Button>
+        </Form.Item>
         {modalVisible && (
           <SetShortcutModal
             onChangeVisible={setModalVisible}
