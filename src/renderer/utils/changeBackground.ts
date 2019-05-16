@@ -6,7 +6,11 @@ export interface IChangeBackground {
   url?: string;
   isStart?: boolean;
 }
-const DEFAULT_BACKGROUND_IMAGE = './static/watercolour-4117017.1987c5c5.png';
+let DEFAULT_BACKGROUND_IMAGE = './static/watercolour-4117017.1987c5c5.png';
+if (process.env.NODE_ENV === 'development') {
+  DEFAULT_BACKGROUND_IMAGE =
+    'http://localhost:6008/static/watercolour-4117017.1987c5c5.png';
+}
 
 export default ({ isStart, enable, url }: IChangeBackground) => {
   if (isStart) {
