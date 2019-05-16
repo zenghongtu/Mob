@@ -377,7 +377,21 @@ export default function() {
             <Button>选择图片</Button>
           </Upload>
         </Form.Item>
-        <Form.Item label='自定义颜色'>
+        <Form.Item
+          label={
+            <span>
+              <span>自定义颜色</span>
+              &nbsp;
+              <Tooltip
+                title={
+                  '因为一些原因，目前换肤非真正意义上的换肤，只是简单的把颜色换一下。如果两个相同颜色会再也分不开的，只能清除设置了😬'
+                }
+              >
+                <Icon style={{ color: 'red' }} type='exclamation-circle' />
+              </Tooltip>
+            </span>
+          }
+        >
           {themeColors.map((colorName, i) => {
             return (
               <Popover
@@ -398,9 +412,7 @@ export default function() {
             );
           })}
           <div>
-            <Button type='primary' onClick={handleUpdateTheme}>
-              确定
-            </Button>
+            <Button onClick={handleUpdateTheme}>确定</Button>
           </div>
         </Form.Item>
 
