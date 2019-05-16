@@ -377,7 +377,9 @@ export default function() {
                   />
                 }
               >
-                <Button style={{ backgroundColor: theme[colorName] }}>
+                <Button
+                  style={{ backgroundColor: theme[colorName], color: '#fff' }}
+                >
                   {themeColorsName[i]}
                 </Button>
               </Popover>
