@@ -253,11 +253,11 @@ const handleModifyHotkey = (event, args: IModifyHotkeyArgs) => {
   const { type, payload } = args;
   let shortcuts;
   if (type === 'switch') {
+    settings.set(ENABLE_HOTKEY, payload);
     if (!payload) {
       globalShortcut.unregisterAll();
       return;
     }
-    settings.set(ENABLE_HOTKEY, payload);
     shortcuts = settings.get(GLOBAL_SHORTCUT, DEFAULT_GLOBAL_SHORTCUT);
   } else {
     shortcuts = payload;

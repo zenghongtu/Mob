@@ -295,11 +295,19 @@ export default function() {
     ipcRenderer.send(MODIFY_HOTKEY, args);
   };
   const handleSwitchHotkey = (checked) => {
-    handleModifyHotkey({ type: 'switch', payload: checked ? true : false });
+    ipcRenderer.send(UPDATE_BACKGROUND_IMAGE, {
+      type: 'switch',
+      payload: checked,
+    });
+    handleModifyHotkey({ type: 'switch', payload: checked });
     setEnableHotkey(checked);
   };
 
   const handleSwitchBackgroundImage = (checked) => {
+    ipcRenderer.send(MODIFY_HOTKEY, {
+      type: 'switch',
+      payload: checked,
+    });
     changeBackground({ enable: checked });
     setEnableBackgroundImage(checked);
   };
