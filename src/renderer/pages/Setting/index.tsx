@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useReducer } from 'react';
 import styles from './index.less';
 import {
   Button,
@@ -10,9 +10,10 @@ import {
   Icon,
   Upload,
   Tooltip,
+  Popover,
 } from 'antd';
 import { ipcRenderer } from 'electron';
-import { IModifyHotkeyArgs } from '../../../typings/message';
+import { IModifyHotkeyArgs, IUpdateTheme } from '../../../typings/message';
 import { invert } from 'lodash';
 import { settings } from '@/../main/db';
 import {
@@ -21,11 +22,13 @@ import {
   MODIFY_HOTKEY,
   ENABLE_BACKGROUND_IMAGE,
   UPDATE_BACKGROUND_IMAGE,
+  UPDATE_THEME,
 } from '@/../constants';
 import changeBackground from '@/utils/changeBackground';
 import { ENABLE_HOTKEY } from '../../../constants';
 import { UploadChangeParam } from 'antd/lib/upload';
-import { UploadFile } from 'antd/lib/upload/interface';
+import { SketchPicker, BlockPicker } from 'react-color';
+import { getLinkCSS, updateTheme } from '@/utils/theme';
 
 const fnMap = {
   changePlayState: '暂停 / 播放',
@@ -209,6 +212,37 @@ const SetShortcutModal = ({ onChangeVisible, onModifyHotkey }) => {
   );
 };
 
+const PickColor = ({ color, onConfirm }) => {
+  const handleColorChange = ({ hex }) => {
+    onConfirm(hex);
+  };
+
+  return <SketchPicker color={color} onChangeComplete={handleColorChange} />;
+};
+
+const DEFAULT_THEME_VALUE = {
+  'primary-color': '#75c4bb',
+  'text-color-secondary': '#666;',
+  'player-bg-color': '#bbd0d5',
+  'loaded-bar-bg-color': '#aadad5',
+  'text-color': 'rgba(0, 0, 0, 0.65)',
+};
+const themeColors = [
+  'primary-color',
+  'player-bg-color',
+  'loaded-bar-bg-color',
+  'text-color',
+  'text-color-secondary',
+];
+const themeColorsName = [
+  '主颜色',
+  '播放器背景颜色',
+  '播放器加载条背景颜色',
+  '主文本颜色',
+  '次文本颜色',
+];
+const THEME_KEY = 'theme-colors';
+
 export default function() {
   const initEnableHotkey = settings.get(ENABLE_HOTKEY, true);
   const initEnableBackgroundImage = settings.get(ENABLE_BACKGROUND_IMAGE, true);
@@ -217,6 +251,10 @@ export default function() {
   const [enableBackgroundImage, setEnableBackgroundImage] = useState(
     initEnableBackgroundImage,
   );
+  const t = localStorage.getItem(THEME_KEY);
+  const curTheme = t ? JSON.parse(t) : DEFAULT_THEME_VALUE;
+  const [theme, setTheme] = useState(curTheme);
+  const prevTheme = useRef(curTheme);
 
   const handleMainMessage = (event, { type, status, payload }) => {
     if (status !== 'error') {
@@ -228,12 +266,27 @@ export default function() {
       message.error('好像遇到了一点问题！😱');
     }
   };
+  const handleUpdateThemeMessage = (
+    event,
+    { type, status, payload: { output, theme } },
+  ) => {
+    if (status !== 'error') {
+      message.success('设置成功！😋');
+      updateTheme({ output });
+      prevTheme.current = theme;
+      localStorage.setItem(THEME_KEY, JSON.stringify(theme));
+    } else {
+      message.error('好像遇到了一点问题！😱');
+    }
+  };
   useEffect(() => {
     ipcRenderer.on(MODIFY_HOTKEY, handleMainMessage);
     ipcRenderer.on(UPDATE_BACKGROUND_IMAGE, handleMainMessage);
+    ipcRenderer.on(UPDATE_THEME, handleUpdateThemeMessage);
     return () => {
       ipcRenderer.removeAllListeners(MODIFY_HOTKEY);
       ipcRenderer.removeAllListeners(UPDATE_BACKGROUND_IMAGE);
+      ipcRenderer.removeAllListeners(UPDATE_THEME);
     };
   }, []);
 
@@ -257,6 +310,23 @@ export default function() {
   const handleUploadImage = ({ file }: UploadChangeParam) => {
     const payload = file.originFileObj.path;
     ipcRenderer.send(UPDATE_BACKGROUND_IMAGE, { type: 'update', payload });
+  };
+
+  const handleUpdateTheme = async () => {
+    const cssText = await getLinkCSS();
+    const curTheme = prevTheme.current;
+    const args: IUpdateTheme = {
+      type: 'update',
+      payload: {
+        content: cssText,
+        params: { curTheme, nextTheme: theme },
+      },
+    };
+    ipcRenderer.send(UPDATE_THEME, args);
+  };
+
+  const handleConfirmColor = (colorName) => (color) => {
+    setTheme({ ...theme, [colorName]: color });
   };
 
   return (
@@ -294,6 +364,30 @@ export default function() {
           >
             <Button>选择图片</Button>
           </Upload>
+        </Form.Item>
+        <Form.Item label='自定义颜色'>
+          {themeColors.map((colorName, i) => {
+            return (
+              <Popover
+                key={colorName}
+                content={
+                  <PickColor
+                    onConfirm={handleConfirmColor(colorName)}
+                    color={theme[colorName]}
+                  />
+                }
+              >
+                <Button style={{ backgroundColor: theme[colorName] }}>
+                  {themeColorsName[i]}
+                </Button>
+              </Popover>
+            );
+          })}
+          <div>
+            <Button type='primary' onClick={handleUpdateTheme}>
+              确定
+            </Button>
+          </div>
         </Form.Item>
 
         {modalVisible && (

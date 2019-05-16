@@ -1,4 +1,5 @@
 @primary: @primary-color;
+
 .hover(@color:@primary) {
   & {
     transition: all 0.3s ease-in;
@@ -12,7 +13,7 @@
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  background-color: #bbd0d5;
+  background-color: @player-bg-color;
 }
 
 .player {
@@ -78,7 +79,7 @@
   left: 0;
   top: 0;
   z-index: 0;
-  background-color: #aadad5;
+  background-color: @loaded-bar-bg-color;
   background-size: 2.89em 2.89em;
   background-image: linear-gradient(
     -45deg,

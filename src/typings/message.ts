@@ -8,3 +8,14 @@ export interface IUploadBackgroundImage {
   type: 'switch' | 'update';
   payload: boolean | string;
 }
+
+export interface IUpdateTheme {
+  type: 'update';
+  payload: {
+    content: string;
+    params: {
+      curTheme: { [key: string]: string };
+      nextTheme: { [key: string]: string };
+    };
+  };
+}
