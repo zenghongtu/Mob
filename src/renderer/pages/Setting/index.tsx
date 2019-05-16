@@ -223,7 +223,7 @@ const PickColor = ({ color, onConfirm }) => {
 
 const DEFAULT_THEME_VALUE = {
   'primary-color': '#75c4bb',
-  'text-color-secondary': '#666;',
+  'text-color-secondary': '#666',
   'player-bg-color': '#bbd0d5',
   'loaded-bar-bg-color': '#aadad5',
   'text-color': 'rgba(0, 0, 0, 0.65)',
@@ -295,7 +295,7 @@ export default function() {
     ipcRenderer.send(MODIFY_HOTKEY, args);
   };
   const handleSwitchHotkey = (checked) => {
-    ipcRenderer.send(UPDATE_BACKGROUND_IMAGE, {
+    ipcRenderer.send(MODIFY_HOTKEY, {
       type: 'switch',
       payload: checked,
     });
@@ -304,7 +304,7 @@ export default function() {
   };
 
   const handleSwitchBackgroundImage = (checked) => {
-    ipcRenderer.send(MODIFY_HOTKEY, {
+    ipcRenderer.send(UPDATE_BACKGROUND_IMAGE, {
       type: 'switch',
       payload: checked,
     });
