@@ -10,8 +10,11 @@ export const BACKGROUND_IMAGE_URL = 'settings/background_image_url';
 
 export const DEFAULT_GLOBAL_SHORTCUT = {
   'CommandOrControl+Alt+Right': 'nextTrack',
+  'MediaNextTrack': 'nextTrack',
   'CommandOrControl+Alt+Left': 'prevTrack',
+  'MediaPreviousTrack': 'prevTrack',
   'CommandOrControl+Alt+Up': 'volumeUp',
   'CommandOrControl+Alt+Down': 'volumeDown',
   'CommandOrControl+Alt+S': 'changePlayState',
+  'MediaPlayPause': 'changePlayState',
 };
