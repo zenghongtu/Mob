@@ -14,6 +14,7 @@ import {
   BACKGROUND_IMAGE_URL,
   UPDATE_THEME,
   THEME_URL,
+  DEFAULT_MEDIA_SHORTCUT,
 } from '../constants';
 import { settings } from './db';
 import {
@@ -239,9 +240,11 @@ function createWindow() {
 }
 
 const registerHotkeys = (shortcuts) => {
-  Object.keys(shortcuts).forEach((key) => {
+  const newShortcuts = { ...DEFAULT_MEDIA_SHORTCUT, ...shortcuts };
+  globalShortcut.unregisterAll();
+  Object.keys(newShortcuts).forEach((key) => {
     globalShortcut.register(key, () => {
-      mainWindow.webContents.send(TRIGGER_HOTKEY, shortcuts[key]);
+      mainWindow.webContents.send(TRIGGER_HOTKEY, newShortcuts[key]);
     });
   });
 };

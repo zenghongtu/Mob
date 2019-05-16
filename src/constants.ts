@@ -12,11 +12,14 @@ export const THEME_URL = 'settings/theme_url';
 
 export const DEFAULT_GLOBAL_SHORTCUT = {
   'CommandOrControl+Alt+Right': 'nextTrack',
-  'MediaNextTrack': 'nextTrack',
   'CommandOrControl+Alt+Left': 'prevTrack',
-  'MediaPreviousTrack': 'prevTrack',
   'CommandOrControl+Alt+Up': 'volumeUp',
   'CommandOrControl+Alt+Down': 'volumeDown',
   'CommandOrControl+Alt+S': 'changePlayState',
-  'MediaPlayPause': 'changePlayState',
+};
+
+export const DEFAULT_MEDIA_SHORTCUT = {
+  MediaPreviousTrack: 'prevTrack',
+  MediaNextTrack: 'nextTrack',
+  MediaPlayPause: 'changePlayState',
 };
