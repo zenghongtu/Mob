@@ -1,6 +1,6 @@
 {
   "name": "mob",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "private": true,
   "author": {
     "name": "zenghongtu",
@@ -144,6 +144,7 @@
     "http-proxy": "^1.17.0",
     "lodash": "^4.17.11",
     "normalize.css": "^8.0.1",
+    "react-color": "^2.17.3",
     "react-player": "^1.11.0",
     "redux-persist": "^5.10.0"
   },

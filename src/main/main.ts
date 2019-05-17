@@ -19,9 +19,16 @@ import {
   UPDATE_BACKGROUND_IMAGE,
   ENABLE_BACKGROUND_IMAGE,
   BACKGROUND_IMAGE_URL,
+  UPDATE_THEME,
+  THEME_URL,
+  DEFAULT_MEDIA_SHORTCUT,
 } from '../constants';
 import { settings } from './db';
-import { IModifyHotkeyArgs, IUploadBackgroundImage } from '../typings/message';
+import {
+  IModifyHotkeyArgs,
+  IUploadBackgroundImage,
+  IUpdateTheme,
+} from '../typings/message';
 import { copyFile, genUniqueKey } from './utils';
 import * as fs from 'fs';
 
@@ -251,9 +258,11 @@ const registerHotkeys = (shortcuts) => {
     }
   }
 
-  Object.keys(shortcuts).forEach((key) => {
+  const newShortcuts = { ...DEFAULT_MEDIA_SHORTCUT, ...shortcuts };
+  globalShortcut.unregisterAll();
+  Object.keys(newShortcuts).forEach((key) => {
     globalShortcut.register(key, () => {
-      mainWindow.webContents.send(TRIGGER_HOTKEY, shortcuts[key]);
+      mainWindow.webContents.send(TRIGGER_HOTKEY, newShortcuts[key]);
     });
   });
 };
@@ -262,11 +271,11 @@ const handleModifyHotkey = (event, args: IModifyHotkeyArgs) => {
   const { type, payload } = args;
   let shortcuts;
   if (type === 'switch') {
+    settings.set(ENABLE_HOTKEY, payload);
     if (!payload) {
       globalShortcut.unregisterAll();
       return;
     }
-    settings.set(ENABLE_HOTKEY, payload);
     shortcuts = settings.get(GLOBAL_SHORTCUT, DEFAULT_GLOBAL_SHORTCUT);
   } else {
     shortcuts = payload;
@@ -327,6 +336,58 @@ const handleUploadBackgroundImage = (event, args: IUploadBackgroundImage) => {
   }
 };
 ipcMain.on(UPDATE_BACKGROUND_IMAGE, handleUploadBackgroundImage);
+
+/**
+ * update theme
+ */
+const handleUpdateTheme = (event, args: IUpdateTheme) => {
+  const {
+    type,
+    payload: {
+      content,
+      params: { curTheme, nextTheme },
+    },
+  } = args;
+  const cssFilename = genUniqueKey() + '.css';
+  const output = path.join(app.getPath('userData'), cssFilename);
+  const cc = {};
+  Object.keys(curTheme).forEach((colorName) => {
+    cc[curTheme[colorName]] = nextTheme[colorName];
+  });
+  const reg = new RegExp(Object.keys(cc).join('|'), 'g');
+
+  const newContent = content.replace(reg, (matched) => {
+    return cc[matched];
+  });
+  fs.writeFile(output, newContent, 'utf8', (error) => {
+    if (error) {
+      event.sender.send(UPDATE_THEME, {
+        type,
+        status: 'error',
+        payload: { output },
+      });
+      return;
+    }
+    event.sender.send(UPDATE_THEME, {
+      type,
+      status: 'success',
+      payload: { output, theme: nextTheme },
+    });
+
+    const prevThemeUrl = settings.get(THEME_URL);
+    if (prevThemeUrl) {
+      const prevThemePath = decodeURI(prevThemeUrl);
+      fs.unlink(prevThemePath, (err) => {
+        if (err) {
+          // tslint:disable-next-line:no-console
+          console.error(err);
+          return;
+        }
+      });
+    }
+  });
+};
+ipcMain.on(UPDATE_THEME, handleUpdateTheme);
 
 app.on('ready', () => {
   createWindow();
