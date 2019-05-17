@@ -110,21 +110,22 @@ $ yarn run start:main
 $ yarn run start:renderer
 ```
 
-## 交流
+## 欢迎参与贡献
 
-![](images/2019-05-15-13-00-56.png)
-
-## 参与贡献
-
+发现了错误? 向我发起一个 [PR](https://github.com/zenghongtu/Mob/pulls) 吧!
 参考 [Commit message 和 Change log 编写指南 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html) 提交 commit 即可。
 
-## 提问
+## 致谢
 
-- [Issues](https://github.com/zenghongtu/Mob/issues)
+- [@yinxin630](https://github.com/yinxin630)添加了媒体快捷键的支持。
+- [@wangtianlun](https://github.com/wangtianlun)提供的模板([umi-electron-typescript](https://github.com/wangtianlun/umi-electron-typescript))，我是在这个模板上进行修改的。
+- [Electron](https://github.com/electron/electron), [Umi](https://github.com/umijs/umi), [Dva](https://github.com/dvajs/dva), [Antd](https://github.com/ant-design/ant-design)等框架的开发者们，开发了这么多非常棒的工具。
 
-## 相关项目
+最后要感谢 [有声小说,听小说,有声书,在线听书电台-喜马拉雅 FM](https://www.ximalaya.com/) 提供丰富的资源，听音乐、听力还有段子全都靠它啦~
 
-- [zenghongtu/ximalaya-audio](https://github.com/zenghongtu/ximalaya-audio)
+## 技术交流
+
+![](images/2019-05-15-13-00-56.png)
 
 ## 协议
 
