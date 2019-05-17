@@ -1,6 +1,6 @@
 export default [
   [
-    'umi-plugin-react',
+    "umi-plugin-react",
     {
       antd: true,
       dva: {
@@ -10,14 +10,14 @@ export default [
       // dynamicImport: {
       //   webpackChunkName: true,
       // },
-      title: 'Mob',
+      title: "Mob",
       dll: true,
       hardSource: false,
       routes: {
         exclude: [/components\//],
       },
       locale: {
-        default: 'zh-CN',
+        default: "zh-CN",
         baseNavigator: false,
         antd: true,
       },

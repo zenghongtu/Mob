@@ -1,4 +1,11 @@
-import { app, BrowserWindow, ipcMain, Menu, globalShortcut } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Menu,
+  globalShortcut,
+  systemPreferences,
+} from 'electron';
 import * as electronReferer from 'electron-referer';
 import * as path from 'path';
 import * as url from 'url';
@@ -28,7 +35,7 @@ import * as fs from 'fs';
 electronReferer('https://www.ximalaya.com/');
 
 const USER_AGENT =
-  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36';
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'; // tslint:disable-line
 
 let mainWindow: Electron.BrowserWindow | null;
 let forceQuit = false;
@@ -185,6 +192,9 @@ function createWindow() {
       }),
     );
   }
+
+  setTimeout(() => systemPreferences.isTrustedAccessibilityClient(true), 1000);
+
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   });
@@ -239,7 +249,19 @@ function createWindow() {
   }
 }
 
-const registerHotkeys = (shortcuts) => {
+const registerHotkeys = (shortcuts, isRetry = false) => {
+  // macOS. Loop check is trusted
+  if (isMac) {
+    const isTrusted = systemPreferences.isTrustedAccessibilityClient(false);
+    if (!isTrusted) {
+      setTimeout(() => registerHotkeys(shortcuts, true), 1000);
+      // Don't repeat register shortcuts after retry failed
+      if (isRetry) {
+        return;
+      }
+    }
+  }
+
   const newShortcuts = { ...DEFAULT_MEDIA_SHORTCUT, ...shortcuts };
   globalShortcut.unregisterAll();
   Object.keys(newShortcuts).forEach((key) => {
