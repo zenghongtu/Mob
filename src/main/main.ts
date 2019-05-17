@@ -249,12 +249,16 @@ function createWindow() {
   }
 }
 
-const registerHotkeys = (shortcuts) => {
+const registerHotkeys = (shortcuts, isRetry = false) => {
   // macOS. Loop check is trusted
   if (isMac) {
     const isTrusted = systemPreferences.isTrustedAccessibilityClient(false);
     if (!isTrusted) {
-      setTimeout(() => registerHotkeys(shortcuts), 1000);
+      setTimeout(() => registerHotkeys(shortcuts, true), 1000);
+      // Don't repeat register shortcuts after retry failed
+      if (isRetry) {
+        return;
+      }
     }
   }
 
