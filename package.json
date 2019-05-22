@@ -39,11 +39,18 @@
     },
     "mac": {
       "category": "public.app-category.music",
-      "icon": "build/icon.icns"
+      "icon": "build/icon.icns",
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "win": {
       "icon": "build/icon.ico",
-      "target": "nsis"
+      "target": [
+        "nsis",
+        "zip"
+      ]
     },
     "nsis": {
       "allowToChangeInstallationDirectory": true,
