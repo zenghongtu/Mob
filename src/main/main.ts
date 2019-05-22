@@ -167,7 +167,7 @@ function createWindow() {
     backgroundColor: 'white',
     titleBarStyle,
     title: 'Mob',
-    frame: isMac,
+    frame: !isMac,
     icon: path.join(__dirname, '../../build/icon.png'),
     show: true,
     acceptFirstMouse: true,
