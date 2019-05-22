@@ -1,0 +1,1390 @@
+{
+  "ret": 200,
+  "msg": "rank",
+  "data": {
+    "clusterType": [
+      {
+        "rankClusterTypeId": 0,
+        "rankClusterTypeTitle": "人气精选",
+        "rankClusterTypeCode": null,
+        "position": 1,
+        "rankType": 0
+      },
+      {
+        "rankClusterTypeId": 4,
+        "rankClusterTypeTitle": "免费榜",
+        "rankClusterTypeCode": "free",
+        "position": 2,
+        "rankType": 2,
+        "rankClusterCategories": [
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 65,
+            "rankClusterTitle": "热门",
+            "categoryId": 0,
+            "categoryCode": "all",
+            "position": 1,
+            "rankId": 163,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 68,
+            "rankClusterTitle": "有声书",
+            "categoryId": 3,
+            "categoryCode": "youshengshu",
+            "position": 2,
+            "rankId": 69,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 77,
+            "rankClusterTitle": "相声评书",
+            "categoryId": 12,
+            "categoryCode": "xiangsheng",
+            "position": 3,
+            "rankId": 77,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 71,
+            "rankClusterTitle": "儿童",
+            "categoryId": 6,
+            "categoryCode": "ertong",
+            "position": 4,
+            "rankId": 243,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 94,
+            "rankClusterTitle": "人文",
+            "categoryId": 39,
+            "categoryCode": "renwen",
+            "position": 5,
+            "rankId": 294,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 74,
+            "rankClusterTitle": "历史",
+            "categoryId": 9,
+            "categoryCode": "lishi",
+            "position": 6,
+            "rankId": 248,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 67,
+            "rankClusterTitle": "音乐",
+            "categoryId": 2,
+            "categoryCode": "yinyue",
+            "position": 7,
+            "rankId": 68,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 78,
+            "rankClusterTitle": "教育培训",
+            "categoryId": 13,
+            "categoryCode": "jiaoyu",
+            "position": 8,
+            "rankId": 78,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 70,
+            "rankClusterTitle": "外语",
+            "categoryId": 5,
+            "categoryCode": "waiyu",
+            "position": 9,
+            "rankId": 240,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 69,
+            "rankClusterTitle": "娱乐",
+            "categoryId": 4,
+            "categoryCode": "yule",
+            "position": 10,
+            "rankId": 237,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 75,
+            "rankClusterTitle": "情感生活",
+            "categoryId": 10,
+            "categoryCode": "qinggan",
+            "position": 11,
+            "rankId": 76,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 73,
+            "rankClusterTitle": "商业财经",
+            "categoryId": 8,
+            "categoryCode": "shangye",
+            "position": 12,
+            "rankId": 74,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 66,
+            "rankClusterTitle": "头条",
+            "categoryId": 1,
+            "categoryCode": "toutiao",
+            "position": 13,
+            "rankId": 67,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 72,
+            "rankClusterTitle": "健康养生",
+            "categoryId": 7,
+            "categoryCode": "jiankang",
+            "position": 14,
+            "rankId": 73,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 80,
+            "rankClusterTitle": "广播剧",
+            "categoryId": 15,
+            "categoryCode": "guangbojv",
+            "position": 15,
+            "rankId": 80,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 81,
+            "rankClusterTitle": "戏曲",
+            "categoryId": 16,
+            "categoryCode": "xiqu",
+            "position": 16,
+            "rankId": 81,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 83,
+            "rankClusterTitle": "IT科技",
+            "categoryId": 18,
+            "categoryCode": "keji",
+            "position": 17,
+            "rankId": 83,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 87,
+            "rankClusterTitle": "旅游",
+            "categoryId": 22,
+            "categoryCode": "lvyou",
+            "position": 18,
+            "rankId": 86,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 88,
+            "rankClusterTitle": "影视",
+            "categoryId": 23,
+            "categoryCode": "yingshi",
+            "position": 19,
+            "rankId": 87,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 93,
+            "rankClusterTitle": "时尚生活",
+            "categoryId": 31,
+            "categoryCode": "shishang",
+            "position": 20,
+            "rankId": 291,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 86,
+            "rankClusterTitle": "汽车",
+            "categoryId": 21,
+            "categoryCode": "qiche",
+            "position": 21,
+            "rankId": 85,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 89,
+            "rankClusterTitle": "二次元",
+            "categoryId": 24,
+            "categoryCode": "erciyuan",
+            "position": 22,
+            "rankId": 279,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 4,
+            "rankClusterId": 82,
+            "rankClusterTitle": "电台",
+            "categoryId": 17,
+            "categoryCode": "diantai",
+            "position": 23,
+            "rankId": 82,
+            "rankType": 2
+          }
+        ]
+      },
+      {
+        "rankClusterTypeId": 5,
+        "rankClusterTypeTitle": "飙升榜",
+        "rankClusterTypeCode": "rich",
+        "position": 3,
+        "rankType": 2,
+        "rankClusterCategories": [
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 155,
+            "rankClusterTitle": "总榜",
+            "categoryId": 0,
+            "categoryCode": "all0",
+            "position": 1,
+            "rankId": 295,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 157,
+            "rankClusterTitle": "新品",
+            "categoryId": 0,
+            "categoryCode": "all1",
+            "position": 2,
+            "rankId": 297,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 158,
+            "rankClusterTitle": "有声书",
+            "categoryId": 3,
+            "categoryCode": "youshengshu",
+            "position": 3,
+            "rankId": 298,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 161,
+            "rankClusterTitle": "相声评书",
+            "categoryId": 12,
+            "categoryCode": "xiangsheng",
+            "position": 4,
+            "rankId": 300,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 159,
+            "rankClusterTitle": "儿童",
+            "categoryId": 6,
+            "categoryCode": "ertong",
+            "position": 5,
+            "rankId": 299,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 180,
+            "rankClusterTitle": "人文",
+            "categoryId": 39,
+            "categoryCode": "renwen",
+            "position": 6,
+            "rankId": 319,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 168,
+            "rankClusterTitle": "历史",
+            "categoryId": 9,
+            "categoryCode": "lishi",
+            "position": 7,
+            "rankId": 307,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 163,
+            "rankClusterTitle": "音乐",
+            "categoryId": 2,
+            "categoryCode": "yinyue",
+            "position": 8,
+            "rankId": 302,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 170,
+            "rankClusterTitle": "教育培训",
+            "categoryId": 13,
+            "categoryCode": "jiaoyu",
+            "position": 9,
+            "rankId": 309,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 165,
+            "rankClusterTitle": "外语",
+            "categoryId": 5,
+            "categoryCode": "waiyu",
+            "position": 10,
+            "rankId": 304,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 164,
+            "rankClusterTitle": "娱乐",
+            "categoryId": 4,
+            "categoryCode": "yule",
+            "position": 11,
+            "rankId": 303,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 169,
+            "rankClusterTitle": "情感生活",
+            "categoryId": 10,
+            "categoryCode": "qinggan",
+            "position": 12,
+            "rankId": 308,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 167,
+            "rankClusterTitle": "商业财经",
+            "categoryId": 8,
+            "categoryCode": "shangye",
+            "position": 13,
+            "rankId": 306,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 162,
+            "rankClusterTitle": "头条",
+            "categoryId": 1,
+            "categoryCode": "toutiao",
+            "position": 14,
+            "rankId": 301,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 166,
+            "rankClusterTitle": "健康养生",
+            "categoryId": 7,
+            "categoryCode": "jiankang",
+            "position": 15,
+            "rankId": 305,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 171,
+            "rankClusterTitle": "广播剧",
+            "categoryId": 15,
+            "categoryCode": "guangbojv",
+            "position": 16,
+            "rankId": 310,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 172,
+            "rankClusterTitle": "戏曲",
+            "categoryId": 16,
+            "categoryCode": "xiqu",
+            "position": 17,
+            "rankId": 311,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 174,
+            "rankClusterTitle": "IT科技",
+            "categoryId": 18,
+            "categoryCode": "keji",
+            "position": 18,
+            "rankId": 313,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 178,
+            "rankClusterTitle": "旅游",
+            "categoryId": 22,
+            "categoryCode": "lvyou",
+            "position": 19,
+            "rankId": 315,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 177,
+            "rankClusterTitle": "影视",
+            "categoryId": 23,
+            "categoryCode": "yingshi",
+            "position": 20,
+            "rankId": 316,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 179,
+            "rankClusterTitle": "时尚生活",
+            "categoryId": 31,
+            "categoryCode": "shishang",
+            "position": 21,
+            "rankId": 318,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 175,
+            "rankClusterTitle": "汽车",
+            "categoryId": 21,
+            "categoryCode": "qiche",
+            "position": 22,
+            "rankId": 314,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 5,
+            "rankClusterId": 176,
+            "rankClusterTitle": "二次元",
+            "categoryId": 24,
+            "categoryCode": "erciyuan",
+            "position": 23,
+            "rankId": 317,
+            "rankType": 2
+          }
+        ]
+      },
+      {
+        "rankClusterTypeId": 6,
+        "rankClusterTypeTitle": "付费榜",
+        "rankClusterTypeCode": "paid",
+        "position": 4,
+        "rankType": 2,
+        "rankClusterCategories": [
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 95,
+            "rankClusterTitle": "热门",
+            "categoryId": 0,
+            "categoryCode": "all0",
+            "position": 1,
+            "rankId": 62,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 160,
+            "rankClusterTitle": "新品",
+            "categoryId": 0,
+            "categoryCode": "all1",
+            "position": 2,
+            "rankId": 123,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 98,
+            "rankClusterTitle": "有声书",
+            "categoryId": 3,
+            "categoryCode": "youshengshu",
+            "position": 3,
+            "rankId": 226,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 108,
+            "rankClusterTitle": "教育培训",
+            "categoryId": 13,
+            "categoryCode": "jiaoyu",
+            "position": 4,
+            "rankId": 144,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 124,
+            "rankClusterTitle": "人文",
+            "categoryId": 39,
+            "categoryCode": "renwen",
+            "position": 5,
+            "rankId": 227,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 103,
+            "rankClusterTitle": "商业财经",
+            "categoryId": 8,
+            "categoryCode": "shangye",
+            "position": 6,
+            "rankId": 140,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 184,
+            "rankClusterTitle": "英语",
+            "categoryId": 38,
+            "categoryCode": "yingyu",
+            "position": 7,
+            "rankId": 129,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 185,
+            "rankClusterTitle": "小语种",
+            "categoryId": 32,
+            "categoryCode": "xiaoyuzhong",
+            "position": 8,
+            "rankId": 203,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 101,
+            "rankClusterTitle": "儿童",
+            "categoryId": 6,
+            "categoryCode": "ertong",
+            "position": 9,
+            "rankId": 139,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 97,
+            "rankClusterTitle": "音乐",
+            "categoryId": 2,
+            "categoryCode": "yinyue",
+            "position": 10,
+            "rankId": 136,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 104,
+            "rankClusterTitle": "历史",
+            "categoryId": 9,
+            "categoryCode": "lishi",
+            "position": 11,
+            "rankId": 249,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 105,
+            "rankClusterTitle": "情感生活",
+            "categoryId": 10,
+            "categoryCode": "qinggan",
+            "position": 12,
+            "rankId": 250,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 107,
+            "rankClusterTitle": "相声评书",
+            "categoryId": 12,
+            "categoryCode": "xiangsheng",
+            "position": 13,
+            "rankId": 254,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 110,
+            "rankClusterTitle": "广播剧",
+            "categoryId": 15,
+            "categoryCode": "guangbojv",
+            "position": 14,
+            "rankId": 259,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 6,
+            "rankClusterId": 119,
+            "rankClusterTitle": "二次元",
+            "categoryId": 24,
+            "categoryCode": "erciyuan",
+            "position": 15,
+            "rankId": 280,
+            "rankType": 2
+          }
+        ]
+      },
+      {
+        "rankClusterTypeId": 9,
+        "rankClusterTypeTitle": "主播榜",
+        "rankClusterTypeCode": "anchor",
+        "position": 5,
+        "rankType": 3,
+        "rankClusterCategories": [
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 189,
+            "rankClusterTitle": "有声书",
+            "categoryId": 3,
+            "categoryCode": "youshengshu",
+            "position": 1,
+            "rankId": 331,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 202,
+            "rankClusterTitle": "相声评书",
+            "categoryId": 17,
+            "categoryCode": "diantai",
+            "position": 2,
+            "rankId": 344,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 192,
+            "rankClusterTitle": "儿童",
+            "categoryId": 6,
+            "categoryCode": "ertong",
+            "position": 3,
+            "rankId": 334,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 195,
+            "rankClusterTitle": "历史人文",
+            "categoryId": 9,
+            "categoryCode": "lishi",
+            "position": 4,
+            "rankId": 337,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 203,
+            "rankClusterTitle": "培训讲座",
+            "categoryId": 18,
+            "categoryCode": "keji",
+            "position": 5,
+            "rankId": 345,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 210,
+            "rankClusterTitle": "教育机构",
+            "categoryId": 54,
+            "categoryCode": "gerenfufei",
+            "position": 6,
+            "rankId": 352,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 200,
+            "rankClusterTitle": "社团机构",
+            "categoryId": 15,
+            "categoryCode": "guangbojv",
+            "position": 7,
+            "rankId": 342,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 191,
+            "rankClusterTitle": "外语",
+            "categoryId": 5,
+            "categoryCode": "waiyu",
+            "position": 8,
+            "rankId": 333,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 190,
+            "rankClusterTitle": "综艺娱乐",
+            "categoryId": 4,
+            "categoryCode": "yule",
+            "position": 9,
+            "rankId": 332,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 196,
+            "rankClusterTitle": "情感生活",
+            "categoryId": 10,
+            "categoryCode": "qinggan",
+            "position": 10,
+            "rankId": 338,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 194,
+            "rankClusterTitle": "商业财经",
+            "categoryId": 8,
+            "categoryCode": "shangye",
+            "position": 11,
+            "rankId": 336,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 193,
+            "rankClusterTitle": "健康养生",
+            "categoryId": 7,
+            "categoryCode": "jiankang",
+            "position": 12,
+            "rankId": 335,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 213,
+            "rankClusterTitle": "戏曲",
+            "categoryId": 58,
+            "categoryCode": "huiyuanfufei",
+            "position": 13,
+            "rankId": 355,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 205,
+            "rankClusterTitle": "IT科技",
+            "categoryId": 20,
+            "categoryCode": "xiaoyuan",
+            "position": 14,
+            "rankId": 347,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 212,
+            "rankClusterTitle": "旅游",
+            "categoryId": 57,
+            "categoryCode": "nvshengxiaoshuo",
+            "position": 15,
+            "rankId": 354,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 214,
+            "rankClusterTitle": "时尚生活",
+            "categoryId": 59,
+            "categoryCode": "gongqingtuan",
+            "position": 16,
+            "rankId": 356,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 211,
+            "rankClusterTitle": "汽车",
+            "categoryId": 56,
+            "categoryCode": "nanshengxiaoshuo",
+            "position": 17,
+            "rankId": 353,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 215,
+            "rankClusterTitle": "二次元",
+            "categoryId": 60,
+            "categoryCode": "yishu",
+            "position": 18,
+            "rankId": 357,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 204,
+            "rankClusterTitle": "电台",
+            "categoryId": 19,
+            "categoryCode": "zhexue",
+            "position": 19,
+            "rankId": 346,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 198,
+            "rankClusterTitle": "美女主播",
+            "categoryId": 13,
+            "categoryCode": "jiaoyu",
+            "position": 20,
+            "rankId": 340,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 187,
+            "rankClusterTitle": "资讯",
+            "categoryId": 1,
+            "categoryCode": "toutiao",
+            "position": 21,
+            "rankId": 329,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 207,
+            "rankClusterTitle": "说书人",
+            "categoryId": 24,
+            "categoryCode": "erciyuan",
+            "position": 22,
+            "rankId": 349,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 216,
+            "rankClusterTitle": "体育",
+            "categoryId": 61,
+            "categoryCode": "zuixinfufei",
+            "position": 23,
+            "rankId": 358,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 208,
+            "rankClusterTitle": "声优/配音",
+            "categoryId": 25,
+            "categoryCode": "tuokouxiu",
+            "position": 24,
+            "rankId": 350,
+            "rankType": 3
+          },
+          {
+            "rankClusterTypeId": 9,
+            "rankClusterId": 197,
+            "rankClusterTitle": "其他",
+            "categoryId": 11,
+            "categoryCode": "qita",
+            "position": 25,
+            "rankId": 339,
+            "rankType": 3
+          }
+        ]
+      },
+      {
+        "rankClusterTypeId": 10,
+        "rankClusterTypeTitle": "订阅榜",
+        "rankClusterTypeCode": "subscription",
+        "position": 6,
+        "rankType": 2,
+        "rankClusterCategories": [
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 217,
+            "rankClusterTitle": "热门",
+            "categoryId": 0,
+            "categoryCode": "all",
+            "position": 1,
+            "rankId": 165,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 218,
+            "rankClusterTitle": "头条",
+            "categoryId": 1,
+            "categoryCode": "toutiao",
+            "position": 2,
+            "rankId": 364,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 219,
+            "rankClusterTitle": "音乐",
+            "categoryId": 2,
+            "categoryCode": "yinyue",
+            "position": 3,
+            "rankId": 365,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 220,
+            "rankClusterTitle": "有声书",
+            "categoryId": 3,
+            "categoryCode": "youshengshu",
+            "position": 4,
+            "rankId": 366,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 221,
+            "rankClusterTitle": "娱乐",
+            "categoryId": 4,
+            "categoryCode": "yule",
+            "position": 5,
+            "rankId": 367,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 222,
+            "rankClusterTitle": "外语",
+            "categoryId": 5,
+            "categoryCode": "waiyu",
+            "position": 6,
+            "rankId": 368,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 223,
+            "rankClusterTitle": "儿童",
+            "categoryId": 6,
+            "categoryCode": "ertong",
+            "position": 7,
+            "rankId": 369,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 224,
+            "rankClusterTitle": "健康养生",
+            "categoryId": 7,
+            "categoryCode": "jiankang",
+            "position": 8,
+            "rankId": 370,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 225,
+            "rankClusterTitle": "商业财经",
+            "categoryId": 8,
+            "categoryCode": "shangye",
+            "position": 9,
+            "rankId": 371,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 226,
+            "rankClusterTitle": "历史",
+            "categoryId": 9,
+            "categoryCode": "lishi",
+            "position": 10,
+            "rankId": 372,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 227,
+            "rankClusterTitle": "情感生活",
+            "categoryId": 10,
+            "categoryCode": "qinggan",
+            "position": 11,
+            "rankId": 373,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 229,
+            "rankClusterTitle": "相声评书",
+            "categoryId": 12,
+            "categoryCode": "xiangsheng",
+            "position": 13,
+            "rankId": 375,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 230,
+            "rankClusterTitle": "教育培训",
+            "categoryId": 13,
+            "categoryCode": "jiaoyu",
+            "position": 14,
+            "rankId": 49,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 232,
+            "rankClusterTitle": "广播剧",
+            "categoryId": 15,
+            "categoryCode": "guangbojv",
+            "position": 16,
+            "rankId": 377,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 233,
+            "rankClusterTitle": "戏曲",
+            "categoryId": 16,
+            "categoryCode": "xiqu",
+            "position": 17,
+            "rankId": 378,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 234,
+            "rankClusterTitle": "电台",
+            "categoryId": 17,
+            "categoryCode": "diantai",
+            "position": 18,
+            "rankId": 379,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 235,
+            "rankClusterTitle": "IT科技",
+            "categoryId": 18,
+            "categoryCode": "keji",
+            "position": 19,
+            "rankId": 380,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 238,
+            "rankClusterTitle": "汽车",
+            "categoryId": 21,
+            "categoryCode": "qiche",
+            "position": 22,
+            "rankId": 383,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 239,
+            "rankClusterTitle": "旅游",
+            "categoryId": 22,
+            "categoryCode": "lvyou",
+            "position": 23,
+            "rankId": 384,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 240,
+            "rankClusterTitle": "影视",
+            "categoryId": 23,
+            "categoryCode": "yingshi",
+            "position": 24,
+            "rankId": 385,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 241,
+            "rankClusterTitle": "二次元",
+            "categoryId": 24,
+            "categoryCode": "erciyuan",
+            "position": 25,
+            "rankId": 386,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 245,
+            "rankClusterTitle": "时尚生活",
+            "categoryId": 31,
+            "categoryCode": "shishang",
+            "position": 29,
+            "rankId": 390,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 10,
+            "rankClusterId": 246,
+            "rankClusterTitle": "人文",
+            "categoryId": 39,
+            "categoryCode": "renwen",
+            "position": 30,
+            "rankId": 391,
+            "rankType": 2
+          }
+        ]
+      },
+      {
+        "rankClusterTypeId": 11,
+        "rankClusterTypeTitle": "好评榜",
+        "rankClusterTypeCode": "reputation",
+        "position": 7,
+        "rankType": 2,
+        "rankClusterCategories": [
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 248,
+            "rankClusterTitle": "热门",
+            "categoryId": 0,
+            "categoryCode": "all",
+            "position": 1,
+            "rankId": 400,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 249,
+            "rankClusterTitle": "头条",
+            "categoryId": 1,
+            "categoryCode": "toutiao",
+            "position": 2,
+            "rankId": 401,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 250,
+            "rankClusterTitle": "音乐",
+            "categoryId": 2,
+            "categoryCode": "yinyue",
+            "position": 3,
+            "rankId": 402,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 251,
+            "rankClusterTitle": "有声书",
+            "categoryId": 3,
+            "categoryCode": "youshengshu",
+            "position": 4,
+            "rankId": 403,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 252,
+            "rankClusterTitle": "娱乐",
+            "categoryId": 4,
+            "categoryCode": "yule",
+            "position": 5,
+            "rankId": 404,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 253,
+            "rankClusterTitle": "外语",
+            "categoryId": 5,
+            "categoryCode": "waiyu",
+            "position": 6,
+            "rankId": 405,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 254,
+            "rankClusterTitle": "儿童",
+            "categoryId": 6,
+            "categoryCode": "ertong",
+            "position": 7,
+            "rankId": 406,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 255,
+            "rankClusterTitle": "健康养生",
+            "categoryId": 7,
+            "categoryCode": "jiankang",
+            "position": 8,
+            "rankId": 407,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 256,
+            "rankClusterTitle": "商业财经",
+            "categoryId": 8,
+            "categoryCode": "shangye",
+            "position": 9,
+            "rankId": 408,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 257,
+            "rankClusterTitle": "历史",
+            "categoryId": 9,
+            "categoryCode": "lishi",
+            "position": 10,
+            "rankId": 409,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 258,
+            "rankClusterTitle": "情感生活",
+            "categoryId": 10,
+            "categoryCode": "qinggan",
+            "position": 11,
+            "rankId": 410,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 260,
+            "rankClusterTitle": "相声评书",
+            "categoryId": 12,
+            "categoryCode": "xiangsheng",
+            "position": 12,
+            "rankId": 412,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 261,
+            "rankClusterTitle": "教育培训",
+            "categoryId": 13,
+            "categoryCode": "jiaoyu",
+            "position": 13,
+            "rankId": 413,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 263,
+            "rankClusterTitle": "广播剧",
+            "categoryId": 15,
+            "categoryCode": "guangbojv",
+            "position": 14,
+            "rankId": 415,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 264,
+            "rankClusterTitle": "戏曲",
+            "categoryId": 16,
+            "categoryCode": "xiqu",
+            "position": 15,
+            "rankId": 416,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 265,
+            "rankClusterTitle": "电台",
+            "categoryId": 17,
+            "categoryCode": "diantai",
+            "position": 16,
+            "rankId": 417,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 266,
+            "rankClusterTitle": "IT科技",
+            "categoryId": 18,
+            "categoryCode": "keji",
+            "position": 17,
+            "rankId": 418,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 269,
+            "rankClusterTitle": "汽车",
+            "categoryId": 21,
+            "categoryCode": "qiche",
+            "position": 18,
+            "rankId": 421,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 270,
+            "rankClusterTitle": "旅游",
+            "categoryId": 22,
+            "categoryCode": "lvyou",
+            "position": 19,
+            "rankId": 422,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 271,
+            "rankClusterTitle": "影视",
+            "categoryId": 23,
+            "categoryCode": "yingshi",
+            "position": 20,
+            "rankId": 423,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 272,
+            "rankClusterTitle": "二次元",
+            "categoryId": 24,
+            "categoryCode": "erciyuan",
+            "position": 21,
+            "rankId": 424,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 276,
+            "rankClusterTitle": "时尚生活",
+            "categoryId": 31,
+            "categoryCode": "shishang",
+            "position": 22,
+            "rankId": 428,
+            "rankType": 2
+          },
+          {
+            "rankClusterTypeId": 11,
+            "rankClusterId": 277,
+            "rankClusterTitle": "人文",
+            "categoryId": 39,
+            "categoryCode": "renwen",
+            "position": 23,
+            "rankId": 429,
+            "rankType": 2
+          }
+        ]
+      }
+    ],
+    "deviceType": 0
+  }
+}

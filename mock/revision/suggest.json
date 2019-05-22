@@ -1,0 +1,146 @@
+{
+  "ret": 200,
+  "msg": "专辑检索结果",
+  "data": {
+    "result": {
+      "albumResultNum": 1,
+      "queryResultNum": 20,
+      "albumResultList": [
+        {
+          "id": 10955298,
+          "keyword": "隐婚萌妻: 你好,总统大人",
+          "category": "有声书",
+          "url": "/youshengshu/10955298/",
+          "imgPath": "http://fdfs.xmcdn.com/group38/M09/69/48/wKgJo1p6fZDz1NYeAADV35_DP60225_mobile_small.jpg",
+          "tracks": 554,
+          "highlightKeyword": "隐婚萌妻: <em>你好</em>,总统大人",
+          "play": 33044798,
+          "isNoCopyright": false,
+          "is_paid": false
+        }
+      ],
+      "queryResultList": [
+        {
+          "id": 31420111,
+          "keyword": "你好旧时光",
+          "recallCount": 52,
+          "highlightKeyword": "<em>你好</em>旧时光"
+        },
+        {
+          "id": 31422126,
+          "keyword": "你好!法语 a1",
+          "recallCount": 42,
+          "highlightKeyword": "<em>你好</em>!法语 a1"
+        },
+        {
+          "id": 31445628,
+          "keyword": "你好法语",
+          "recallCount": 169,
+          "highlightKeyword": "<em>你好</em>法语"
+        },
+        {
+          "id": 31423967,
+          "keyword": "你好妖怪",
+          "recallCount": 3,
+          "highlightKeyword": "<em>你好</em>妖怪"
+        },
+        {
+          "id": 31435757,
+          "keyword": "你好少将大人",
+          "recallCount": 3,
+          "highlightKeyword": "<em>你好</em>少将大人"
+        },
+        {
+          "id": 31447801,
+          "keyword": "只想和你好好生活",
+          "recallCount": 2,
+          "highlightKeyword": "只想和<em>你好</em>好生活"
+        },
+        {
+          "id": 31452606,
+          "keyword": "你好安东医生",
+          "recallCount": 11,
+          "highlightKeyword": "<em>你好</em>安东医生"
+        },
+        {
+          "id": 31455301,
+          "keyword": "公爵你好",
+          "recallCount": 2,
+          "highlightKeyword": "公爵<em>你好</em>"
+        },
+        {
+          "id": 31419759,
+          "keyword": "娇妻你好甜:总裁要试婚",
+          "recallCount": 1,
+          "highlightKeyword": "娇妻<em>你好</em>甜:总裁要试婚"
+        },
+        {
+          "id": 31451622,
+          "keyword": "你好科学",
+          "recallCount": 42,
+          "highlightKeyword": "<em>你好</em>科学"
+        },
+        {
+          "id": 31456266,
+          "keyword": "你好",
+          "recallCount": 9453,
+          "highlightKeyword": "<em>你好</em>"
+        },
+        {
+          "id": 31434400,
+          "keyword": "你好呀!故宫",
+          "recallCount": 1,
+          "highlightKeyword": "<em>你好</em>呀!故宫"
+        },
+        {
+          "id": 31449464,
+          "keyword": "明天你好",
+          "recallCount": 210,
+          "highlightKeyword": "明天<em>你好</em>"
+        },
+        {
+          "id": 31435534,
+          "keyword": "你好法语1",
+          "recallCount": 80,
+          "highlightKeyword": "<em>你好</em>法语1"
+        },
+        {
+          "id": 31425789,
+          "keyword": "你好法语a2",
+          "recallCount": 23,
+          "highlightKeyword": "<em>你好</em>法语a2"
+        },
+        {
+          "id": 31424070,
+          "keyword": "牛奶咖啡明天你好",
+          "recallCount": 2,
+          "highlightKeyword": "牛奶咖啡明天<em>你好</em>"
+        },
+        {
+          "id": 31415562,
+          "keyword": "你好竹子",
+          "recallCount": 5,
+          "highlightKeyword": "<em>你好</em>竹子"
+        },
+        {
+          "id": 31457514,
+          "keyword": "你好法语单词",
+          "recallCount": 2,
+          "highlightKeyword": "<em>你好</em>法语单词"
+        },
+        {
+          "id": 31453276,
+          "keyword": "只想和你好好的",
+          "recallCount": 31,
+          "highlightKeyword": "只想和<em>你好</em>好的"
+        },
+        {
+          "id": 31430944,
+          "keyword": "你好啊 故宫",
+          "recallCount": 9,
+          "highlightKeyword": "<em>你好</em>啊 故宫"
+        }
+      ]
+    }
+  }
+}

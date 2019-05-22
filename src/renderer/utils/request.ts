@@ -5,8 +5,12 @@ import router from 'umi/router';
 
 import genXmSign from './xmSign';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const DEFAULT_EXPIRY = 3600; // sec
-const BASE_URL = 'https://www.ximalaya.com/revision/';
+const BASE_URL = isDev
+  ? 'https://easy-mock.com/mock/5ce5292eb93e0c505f4637e9/ximalaya/revision/'
+  : 'https://www.ximalaya.com/revision/';
 
 const instance: AxiosInstance = Axios.create({
   baseURL: BASE_URL,
@@ -114,7 +118,7 @@ const request = ({ whitelist = [], expiry = DEFAULT_EXPIRY }) => ({
 
     const rsp = await instance.get(url, config);
 
-    if (isNeedCache) {
+    if (isNeedCache && !isDev) {
       cacheRsp(rsp, hashKey);
     }
     return rsp;

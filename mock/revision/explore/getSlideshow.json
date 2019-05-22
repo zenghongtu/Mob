@@ -1,0 +1,133 @@
+{
+  "ret": 200,
+  "msg": "成功",
+  "data": {
+    "slideshowInfoList": [
+      {
+        "url": "/renwen/18729357/131573573",
+        "contentType": 3,
+        "longTitle": "潮人指南",
+        "coverPath": "//imagev2.xmcdn.com/group59/M09/03/98/wKgLeFysXxnShqkvAAIXR3-sGDI402.jpg",
+        "index": 0,
+        "focusId": 20256,
+        "channel": 1,
+        "position": 1,
+        "trackId": 131573573,
+        "trackUploadId": "u_126842985",
+        "trackWaveform": "group49/M07/93/DB/wKgKl1vOgzaD-_rYAAAKsZe6uO41015.js"
+      },
+      {
+        "url": "/yule/16999479/169008183",
+        "contentType": 3,
+        "longTitle": "于谦",
+        "coverPath": "//imagev2.xmcdn.com/group56/M08/70/24/wKgLgFyTBbnTuBaZAAIlw2Q811M585.jpg",
+        "index": 1,
+        "focusId": 20250,
+        "channel": 1,
+        "position": 2,
+        "trackId": 169008183,
+        "trackUploadId": "u_185357242",
+        "trackWaveform": "group57/M0B/1C/E5/wKgLgVyPU0HRtI1HAAAKWGL1CCI3129.js"
+      },
+      {
+        "url": "/toutiao/21905607/169401801",
+        "contentType": 3,
+        "longTitle": "大明星",
+        "coverPath": "//imagev2.xmcdn.com/group58/M05/55/56/wKgLglywKLnzf2hcAAq_7POb1CQ160.png",
+        "index": 2,
+        "focusId": 20213,
+        "channel": 1,
+        "position": 3,
+        "trackId": 169401801,
+        "trackUploadId": "u_199797877",
+        "trackWaveform": "group59/M08/0B/E6/wKgLelzT6UjhlEQWAAAKzVz4iXI5655.js"
+      },
+      {
+        "url": "http://mp.weixin.qq.com/s?__biz=MzIyNDUxNTE3Mw==&mid=100019725&idx=1&sn=2f5a130bf41c31118406c5b3fc3863ad&chksm=680f4b075f78c21132857926ab2e0bad9bc3ce1fa9620c8d02c54460eb676696dc96d0ebdb05#rd",
+        "contentType": 4,
+        "longTitle": "免费听",
+        "coverPath": "//imagev2.xmcdn.com/group58/M05/D8/26/wKgLc1zRVMWxZbGfAAhdRJ0G5qQ215.png",
+        "index": 3,
+        "focusId": 20264,
+        "channel": 1,
+        "position": 4
+      },
+      {
+        "url": "/lvyou/18774885/144108160",
+        "contentType": 3,
+        "longTitle": "许鞍华",
+        "coverPath": "//imagev2.xmcdn.com/group59/M03/B9/55/wKgLeFzdI1rDHUbVAAI7WS1jILM004.jpg",
+        "index": 4,
+        "focusId": 20215,
+        "channel": 1,
+        "position": 5,
+        "trackId": 144108160,
+        "trackUploadId": "u_152355841",
+        "trackWaveform": "group54/M06/87/9A/wKgLclwQ6p-TxqgnAAAKyvDgh0I9030.js"
+      },
+      {
+        "url": "/qinggan/22835531/",
+        "contentType": 2,
+        "longTitle": "许开浩",
+        "coverPath": "//imagev2.xmcdn.com/group60/M03/9A/D4/wKgLeVzOWEHhkgQQAAINbxN7c-U612.jpg",
+        "index": 5,
+        "focusId": 20254,
+        "channel": 1,
+        "position": 6
+      },
+      {
+        "url": "/waiyu/19011285/",
+        "contentType": 2,
+        "longTitle": "英语",
+        "coverPath": "//imagev2.xmcdn.com/group53/M01/98/92/wKgLcVwImsHBD5vQAAe-xf_dCis681.png",
+        "index": 6,
+        "focusId": 20202,
+        "channel": 1,
+        "position": 7
+      },
+      {
+        "url": "/yule/22196454/",
+        "contentType": 2,
+        "longTitle": "杨湃",
+        "coverPath": "//imagev2.xmcdn.com/group58/M03/2E/07/wKgLglzjZBOxmKU5AAHfXkZD6rg882.jpg",
+        "index": 7,
+        "focusId": 20265,
+        "channel": 1,
+        "position": 8
+      },
+      {
+        "url": "http://adweb.ximalaya.com/microtask/broadcaster/taskSquare",
+        "contentType": 4,
+        "longTitle": "拯救不懂抢答赛",
+        "coverPath": "//imagev2.xmcdn.com/group59/M07/99/95/wKgLeFzbgF2zaUudAAH5jo0IbJY772.jpg",
+        "index": 8,
+        "focusId": 20263,
+        "channel": 1,
+        "position": 9
+      },
+      {
+        "url": "http://m.ximalaya.com/marketing/activity/1539/ts-1556105386336?app=iting&_sonic=1&impl=com.gemd.iting&version=6.5.30",
+        "contentType": 4,
+        "longTitle": "我们的70年",
+        "coverPath": "//imagev2.xmcdn.com/group60/M0B/B0/D4/wKgLeVzBUuvjuAUaAACvtZVhMmQ766.png",
+        "index": 9,
+        "focusId": 20261,
+        "channel": 1,
+        "position": 10
+      },
+      {
+        "url": "/toutiao/22434020/179261126",
+        "contentType": 3,
+        "longTitle": "大娱乐家",
+        "coverPath": "//imagev2.xmcdn.com/group58/M05/20/9F/wKgLglzVC4Cgz-x2AAJKH_GDbQk852.jpg",
+        "index": 10,
+        "focusId": 20258,
+        "channel": 1,
+        "position": 11,
+        "trackId": 179261126,
+        "trackUploadId": "u_196458623",
+        "trackWaveform": "group59/M06/CF/56/wKgLelzCxY_Sl_4_AAAKvW3hig83077.js"
+      }
+    ]
+  }
+}

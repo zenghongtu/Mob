@@ -661,10 +661,13 @@ var He = (function(t) {
     }, 3333);
   };
 
-Ve();
+if (process.env.NODE_ENV !== 'development') {
+  Ve();
+}
 
 const genXmSign = (t = Date.now(), d = window.XM_SERVER_CLOCK) => {
-  const r = He('ximalaya-' + d) + '(' + Fe(100) + ')' + d + '(' + Fe(100) + ')' + t;
+  const r =
+    He('ximalaya-' + d) + '(' + Fe(100) + ')' + d + '(' + Fe(100) + ')' + t;
   return r;
 };
 

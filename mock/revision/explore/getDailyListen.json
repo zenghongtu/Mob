@@ -1,0 +1,167 @@
+{
+  "ret": 200,
+  "msg": "成功",
+  "data": {
+    "dailyListenCategoryList": [
+      {
+        "categoryName": "音乐伴我工作学习",
+        "trackList": [
+          {
+            "trackId": 184965027,
+            "uid": 1372222,
+            "title": "给逆境中的你",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group59/M06/0D/5F/wKgLelzhWbLTIbVTAADz7MaKQy8595.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 3595841,
+            "albumTitle": "总有这样的歌只想一个人听",
+            "categoryId": 2,
+            "trackUrl": "/yinyue/3595841/184965027"
+          },
+          {
+            "trackId": 184363025,
+            "uid": 16550049,
+            "title": "《夜色钢琴曲》蝶恋 - 赵海洋",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group16/M02/5D/54/wKgDbFcpubOAcFbpAAFgmIO_2l8844.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 291718,
+            "albumTitle": "《夜色钢琴曲》",
+            "categoryId": 2,
+            "trackUrl": "/yinyue/291718/184363025"
+          },
+          {
+            "trackId": 185104037,
+            "uid": 79719893,
+            "title": "就是爱你-文武贝钢琴版",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group32/M0B/D3/09/wKgJUFn7z-fxZaADAAIgNaN205Y522.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 11387895,
+            "albumTitle": "指尖下的流行钢琴曲",
+            "categoryId": 2,
+            "trackUrl": "/yinyue/11387895/185104037"
+          },
+          {
+            "trackId": 184700767,
+            "uid": 146763866,
+            "title": "【钢琴】Five hundred miles-昼夜",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group54/M08/E8/4F/wKgLfVwsMTvDXDkxAAEDcQXSIvA506.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 20380455,
+            "albumTitle": "哄你入睡的流行钢琴曲",
+            "categoryId": 2,
+            "trackUrl": "/yinyue/20380455/184700767"
+          }
+        ]
+      },
+      {
+        "categoryName": "暖心情话",
+        "trackList": [
+          {
+            "trackId": 185296183,
+            "uid": 7279099,
+            "title": "20190520再婚后与现任老公因钱而分居",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group27/M06/76/5A/wKgJW1jsNPGT5sk2AAFIkBXDrGM697.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 7587958,
+            "albumTitle": "叶文有话要说",
+            "categoryId": 10,
+            "trackUrl": "/qinggan/7587958/185296183"
+          },
+          {
+            "trackId": 185403835,
+            "uid": 1740592,
+            "title": "恃美而骄的女人、四年无性的婚姻",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group59/M04/2E/63/wKgLelzHsHCxHrfhAAFp0fF4Rfo574.gif!op_type=3&columns=100&rows=100",
+            "albumId": 23165386,
+            "albumTitle": "许川：爱情急诊室",
+            "categoryId": 10,
+            "trackUrl": "/qinggan/23165386/185403835"
+          },
+          {
+            "trackId": 185046271,
+            "uid": 1363000,
+            "title": "被网红脸毁掉的中国审美",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group59/M0B/16/34/wKgLelziEoCgLPLdAAGAhgukaDo25.jpeg!op_type=3&columns=100&rows=100",
+            "albumId": 321787,
+            "albumTitle": "蕊希电台",
+            "categoryId": 10,
+            "trackUrl": "/qinggan/321787/185046271"
+          },
+          {
+            "trackId": 185196079,
+            "uid": 18463643,
+            "title": "【夜听】有些人，适合住在心里",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group13/M05/84/7E/wKgDXlYdulGw4T4rAACtQo3lZK8383.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 3062741,
+            "albumTitle": "夜听",
+            "categoryId": 10,
+            "trackUrl": "/qinggan/3062741/185196079"
+          }
+        ]
+      },
+      {
+        "categoryName": "每天听本好书",
+        "trackList": [
+          {
+            "trackId": 182282755,
+            "uid": 91044493,
+            "title": "最后一期：谢谢各位",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group58/M01/A3/BA/wKgLglzOvZWCyEYcAAdy5o3UGe8133.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 15273276,
+            "albumTitle": "晓说2018",
+            "categoryId": 39,
+            "trackUrl": "/renwen/15273276/182282755"
+          },
+          {
+            "trackId": 185117793,
+            "uid": 44190264,
+            "title": "中年人认命，从放弃身材开始",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group22/M09/6B/A8/wKgJLliagvPyLrETAACjg6xWPdo046.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 5088879,
+            "albumTitle": "读者",
+            "categoryId": 39,
+            "trackUrl": "/renwen/5088879/185117793"
+          },
+          {
+            "trackId": 185042605,
+            "uid": 68473861,
+            "title": "永远不要向别人解释你自己",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group28/M0A/8B/0C/wKgJSFlbMfPy1EReAACCF_27DgE668.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 6234075,
+            "albumTitle": "一星期一本书",
+            "categoryId": 39,
+            "trackUrl": "/renwen/6234075/185042605"
+          },
+          {
+            "trackId": 185441258,
+            "uid": 34241277,
+            "title": "老舍：思想是比习惯容易变动的",
+            "isPaid": false,
+            "isFree": false,
+            "coverSmall": "http://imagev2.xmcdn.com/group57/M01/02/C8/wKgLd1x2SIfh1pyvAACwNrj1CWc847.jpg!op_type=3&columns=100&rows=100",
+            "albumId": 3037236,
+            "albumTitle": "枕边经典",
+            "categoryId": 39,
+            "trackUrl": "/renwen/3037236/185441258"
+          }
+        ]
+      }
+    ]
+  }
+}
