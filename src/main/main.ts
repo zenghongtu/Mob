@@ -193,7 +193,12 @@ function createWindow() {
     );
   }
 
-  setTimeout(() => systemPreferences.isTrustedAccessibilityClient(true), 1000);
+  if (isMac) {
+    setTimeout(
+      () => systemPreferences.isTrustedAccessibilityClient(true),
+      1000,
+    );
+  }
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
