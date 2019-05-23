@@ -8,12 +8,12 @@ const Login = ({ isLogin, login, logout, location }) => {
   const {
     query: { redirect, type = 'login' },
   } = location;
-  const handleLoadedTarget = (session, url) => {
-    if (type === 'logout') {
+  const handleLoadedTarget = (session, url, isOauth = false) => {
+    if (type === 'logout' && !isOauth) {
       session.clearStorageData({ storages: 'cookies' }, (data) => {
         logout();
       });
-    } else if (type === 'login') {
+    } else {
       session.cookies.get({ url }, (error, cookies) => {
         if (redirect) {
           router.replace(`${redirect}`);
