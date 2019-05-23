@@ -208,7 +208,7 @@ function createWindow() {
   });
 
   mainWindow.on('close', (e) => {
-    if (forceQuit) {
+    if (forceQuit || !isMac) {
       app.quit();
     } else {
       e.preventDefault();
