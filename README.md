@@ -129,7 +129,7 @@ $ yarn run start:renderer
 
 ## 技术交流
 
-![](images/2019-05-15-13-00-56.png)
+![](images/2019-05-29-19-06-34.png)
 
 ## 协议
 
