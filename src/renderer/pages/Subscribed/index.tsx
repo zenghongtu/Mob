@@ -38,7 +38,7 @@ const getInfo = (source) => {
     trackCount,
   } = source;
   const info = {
-    albumCoverPath: coverPath,
+    albumCoverPath: `//imagev2.xmcdn.com/${coverPath}`,
     albumId: id,
     albumPlayCount: playCount,
     albumTitle: title,
