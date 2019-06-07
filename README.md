@@ -67,7 +67,7 @@ v0.2.0 以上：
 
 ### Mac(10.9+)
 
-[下载](https://github.com/zenghongtu/Mob/releases/download/v0.2.1/Mob-0.2.1-mac.dmg) `.dmg` 或者使用 `homebrew`:
+[下载](https://github.com/zenghongtu/Mob/releases/download/v0.2.2/Mob-0.2.2-mac.dmg) `.dmg` 或者使用 `homebrew`:
 
 ```
 brew cask install mob
@@ -75,22 +75,22 @@ brew cask install mob
 
 ### Linux
 
-'Debian / Ubuntu' 使用 `.deb` [下载](https://github.com/zenghongtu/Mob/releases/download/v0.2.1/Mob-0.2.1-linux-amd64.deb):
+'Debian / Ubuntu' 使用 `.deb` [下载](https://github.com/zenghongtu/Mob/releases/download/v0.2.2/Mob-0.2.2-linux-amd64.deb):
 
 ```
-$ sudo dpkg -i Mob-0.2.1-linux-amd64.deb
+$ sudo dpkg -i Mob-0.2.2-linux-amd64.deb
 ```
 
-其他发行版本用 `.Appimage` [下载](https://github.com/zenghongtu/Mob/releases/download/v0.2.1/Mob-0.2.1-linux-x86_64.AppImage):
+其他发行版本用 `.Appimage` [下载](https://github.com/zenghongtu/Mob/releases/download/v0.2.2/Mob-0.2.2-linux-x86_64.AppImage):
 
 ```
-$ chmod u+x Mob-0.2.1-linux-x86_64.AppImage
-$ ./Mob-0.2.1-linux-x86_64.AppImage
+$ chmod u+x Mob-0.2.2-linux-x86_64.AppImage
+$ ./Mob-0.2.2-linux-x86_64.AppImage
 ```
 
 ### Win
 
-[下载](https://github.com/zenghongtu/Mob/releases/download/v0.2.1/Mob-Setup-0.2.1.exe)
+[下载](https://github.com/zenghongtu/Mob/releases/download/v0.2.2/Mob-Setup-0.2.2.exe)
 
 ## 默认快捷键
 
