@@ -1,3 +1,7 @@
+**⚠️⚠️项目不再维护⚠️⚠️**
+
+喜马拉雅官方PC端已出，[点此前往下载](https://www.ximalaya.com/download/)
+
 <img src="https://github.com/zenghongtu/Mob/blob/master/build/icons/128x128.png" />
 
 > Mob(モブ), [异能超能 100](https://www.bilibili.com/bangumi/media/md5058)的男一号（强烈推荐此番 👍）
